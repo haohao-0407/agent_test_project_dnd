@@ -1,0 +1,11 @@
+langgraph
+langchain
+langchain-community
+langchain-chroma
+chromadb
+sentence-transformers
+langchain-openai
+langchain-anthropic
+python-dotenv
+pyyaml
+pytest

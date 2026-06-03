@@ -1,0 +1,8 @@
+{
+  "script_id": "midnight-gallery",
+  "title": "午夜画廊",
+  "min_players": 2,
+  "max_players": 2,
+  "phases": ["opening", "investigation", "discussion", "reveal"],
+  "synopsis": "暴雨夜，画廊老板死在闭馆后的展厅中，两名熟人各有隐情。"
+}

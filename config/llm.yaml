@@ -1,0 +1,6 @@
+models:
+  default: ""
+  dm: ""
+  player: ""
+  summarizer: ""
+  moderator: ""
