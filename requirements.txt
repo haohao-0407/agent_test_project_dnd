@@ -9,4 +9,6 @@ langchain-anthropic
 python-dotenv
 pyyaml
 pypdf
+fastapi
+uvicorn
 pytest
