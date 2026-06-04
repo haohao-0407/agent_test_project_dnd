@@ -1,7 +1,7 @@
 [project]
 name = "playscript-agent"
 version = "0.1.0"
-description = "A learning-oriented murder mystery agent system."
+description = "test."
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]
