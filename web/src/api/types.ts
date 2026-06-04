@@ -79,3 +79,39 @@ export type GameState = {
 };
 
 export type DiceMode = "normal" | "advantage" | "disadvantage";
+
+export type ToolCall =
+  | {
+      name: "move_token";
+      arguments: {
+        token_id: string;
+        x: number;
+        y: number;
+      };
+    }
+  | {
+      name: "roll_dice";
+      arguments: {
+        expression: string;
+        reason: string;
+        roller_id?: string | null;
+        advantage: DiceMode;
+      };
+    };
+
+export type ToolResult =
+  | {
+      name: "move_token";
+      result: { token: Token };
+    }
+  | {
+      name: "roll_dice";
+      result: DiceResult;
+    };
+
+export type ChatResponse = {
+  state: GameState;
+  toolCalls: ToolCall[];
+  toolResults: ToolResult[];
+  dmSource?: "llm" | "fallback";
+};

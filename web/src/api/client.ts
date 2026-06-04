@@ -1,4 +1,4 @@
-import type { DiceMode, DiceResult, GameState } from "./types";
+import type { ChatResponse, DiceMode, DiceResult, GameState } from "./types";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {
@@ -38,8 +38,8 @@ export function rollDice(input: {
 export function sendChat(input: {
   speaker: string;
   message: string;
-}): Promise<{ state: GameState; toolResults: unknown[] }> {
-  return request<{ state: GameState; toolResults: unknown[] }>("/api/chat", {
+}): Promise<ChatResponse> {
+  return request<ChatResponse>("/api/chat", {
     method: "POST",
     body: JSON.stringify(input)
   });

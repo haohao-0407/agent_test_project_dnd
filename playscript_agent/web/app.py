@@ -10,13 +10,20 @@ from datetime import datetime, timezone
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, TypedDict
 
 
 STATIC_ROOT = Path(__file__).resolve().parent / "static"
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
 DICE_PATTERN = re.compile(r"^\s*(?:(\d*)d(\d+))\s*([+-]\s*\d+)?\s*$", re.IGNORECASE)
+
+ToolName = Literal["roll_dice"]
+
+
+class ToolCall(TypedDict):
+    name: ToolName
+    arguments: dict[str, Any]
 
 
 GAME_STATE: dict[str, Any] = {
@@ -211,30 +218,73 @@ def handle_chat(payload: dict[str, Any]) -> dict[str, Any]:
     speaker = str(payload.get("speaker", "玩家"))
     append_event({"type": "player", "speaker": speaker, "text": message})
 
+    tool_calls = plan_tool_calls(message, speaker=speaker)
+    tool_results = [execute_tool_call(tool_call) for tool_call in tool_calls]
+    append_event({"type": "dm", "speaker": "DM", "text": build_result_message(tool_results)})
+    return {"toolCalls": tool_calls, "toolResults": tool_results, "state": snapshot_state()}
+
+
+def plan_tool_calls(message: str, *, speaker: str) -> list[ToolCall]:
     lower_message = message.lower()
-    dice_result = None
     if any(keyword in lower_message for keyword in ["attack", "攻击", "射击"]):
-        dice_result = roll_dice("1d20+5", reason="attack roll", roller_id=speaker)
-    elif any(keyword in lower_message for keyword in ["check", "调查", "侦查", "观察", "检定"]):
-        dice_result = roll_dice("1d20+3", reason="ability check", roller_id=speaker)
-
-    if dice_result:
-        append_event(
+        return [
             {
-                "type": "dice",
-                "speaker": "Dice",
-                "text": f"{dice_result['expression']} = {dice_result['total']} ({dice_result['reason']})",
-                "result": dice_result,
+                "name": "roll_dice",
+                "arguments": {
+                    "expression": "1d20+5",
+                    "reason": "attack roll",
+                    "roller_id": speaker,
+                    "advantage": "normal",
+                },
             }
-        )
-        dm_text = (
-            f"检定结果是 {dice_result['total']}。我会把这个结果作为后续叙事和状态更新的事实来源。"
-        )
-    else:
-        dm_text = "我记录了这个行动。需要检定、移动或攻击时，我会通过工具更新骰子和地图状态。"
+        ]
+    if any(keyword in lower_message for keyword in ["check", "调查", "侦查", "观察", "检定"]):
+        return [
+            {
+                "name": "roll_dice",
+                "arguments": {
+                    "expression": "1d20+3",
+                    "reason": "ability check",
+                    "roller_id": speaker,
+                    "advantage": "normal",
+                },
+            }
+        ]
+    return []
 
-    append_event({"type": "dm", "speaker": "DM", "text": dm_text})
-    return {"state": snapshot_state()}
+
+def execute_tool_call(tool_call: ToolCall) -> dict[str, Any]:
+    if tool_call["name"] != "roll_dice":
+        raise ValueError(f"unsupported tool call: {tool_call['name']}")
+
+    arguments = tool_call["arguments"]
+    dice_result = roll_dice(
+        str(arguments["expression"]),
+        reason=str(arguments["reason"]),
+        roller_id=arguments.get("roller_id"),
+        advantage=str(arguments.get("advantage", "normal")),
+    )
+    append_event(
+        {
+            "type": "dice",
+            "speaker": "Dice",
+            "text": f"{dice_result['expression']} = {dice_result['total']} ({dice_result['reason']})",
+            "result": dice_result,
+        }
+    )
+    return {"name": "roll_dice", "result": dice_result}
+
+
+def build_result_message(tool_results: list[dict[str, Any]]) -> str:
+    if not tool_results:
+        return "行动已记录。"
+
+    parts = []
+    for tool_result in tool_results:
+        if tool_result["name"] == "roll_dice":
+            result = tool_result["result"]
+            parts.append(f"{result['expression']} 结果为 {result['total']}")
+    return "；".join(parts) + "。"
 
 
 def roll_dice(
