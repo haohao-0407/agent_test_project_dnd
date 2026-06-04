@@ -6,6 +6,8 @@ model_cache*/
 .env
 .venv/
 venv/
-PLAN.md
-ENVIRONMENT.md
-document/
+web/node_modules/
+web/dist/
+./PLAN.md
+./ENVIRONMENT.md
+./document/
