@@ -8,3 +8,5 @@ model_cache*/
 venv/
 .claude/
 .vscode/
+ENVIRONMENT.md
+PLAN.md
