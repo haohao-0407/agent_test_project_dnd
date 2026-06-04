@@ -1,218 +1,452 @@
-# 剧本杀 Agent 系统 — 项目计划
+# DND Agent 系统 - 项目计划
 
-> 一个用于学习现代 Agent 工程的剧本杀系统：Agent 作为 DM 读取并演绎剧本，
-> 支持多名真人玩家（群聊式交互），AI 玩家可选。
-> 技术主线：**LangGraph 编排 + LangChain RAG + 跨厂商多 LLM + 本地嵌入向量库**。
-
----
-
-## 1. 核心目标与定位
-
-- **DM Agent**：读取结构化剧本，以上帝视角演绎剧情、分发线索、控制节奏、裁决检定。
-- **玩家**：以"群聊"方式交互；MVP 阶段真人玩家通过 CLI 接入，支持多人；AI 玩家可插拔。
-- **信息隔离**：每个参与者只能看到自己有权看到的内容（这是系统的安全边界）。
-- **学习导向**：完整覆盖 LangGraph 状态机 / RAG / 多 LLM 路由 / human-in-the-loop。
+> 目标：把当前“剧本杀 Agent 系统”的方向调整为一个可运行、可扩展的 DND Agent 系统。
+> 优先实现 DND 核心玩法与 Web 体验：地图展示、角色卡、行动回合、骰子检定、战斗/探索流程。
+> LLM 作为 DM，通过 function call 调用确定性工具完成骰子投掷、地图编辑、角色控制、规则查询和状态更新。
 
 ---
 
-## 2. 技术选型（已定稿）
+## 1. 核心定位
 
-| 维度 | 选型 | 说明 |
-|------|------|------|
-| 编排 | **LangGraph** | `StateGraph` 跑流程状态机；`checkpointer` 存档恢复；`interrupt()` 等真人输入 |
-| 组件 | **LangChain** | `init_chat_model` 统一封装跨厂商模型、RAG 链、retriever、工具绑定 |
-| RAG 框架 | **LangChain RAG 栈** | loaders + splitters + Chroma + retriever（含 SelfQueryRetriever），与 LangGraph 同生态 |
-| 向量库 | **Chroma**（本地） | 零额外 API 费用，离线可跑，支持 `where` 元数据过滤 |
-| 嵌入 | **本地 sentence-transformers** | 例：`bge-small-zh` / `bge-m3`（中文剧本友好） |
-| LLM | **跨厂商混用** | Claude + OpenAI；按环节分档（见 §5） |
-| 真人接入(MVP) | **CLI** | 对接 LangGraph `interrupt()`；后续可换 Web 不动核心 |
+- **LLM DM**：负责叙事、场景描述、规则解释、NPC 行为、遭遇推进、玩家行动裁决。
+- **工具驱动**：所有会改变游戏状态的操作必须通过 function call 完成，避免 LLM 直接“脑补”状态。
+- **Web 优先**：MVP 从 CLI 转向 Web，首屏就是跑团桌面，包含地图、角色卡、聊天/行动记录、骰子结果。
+- **DND 功能优先**：先实现通用 DND 跑团能力，再考虑剧情模组、长期战役、多人同步和高级 AI 玩家。
+- **规则可控**：核心规则由结构化规则、工具和测试约束实现；LLM 负责解释和裁决建议，但最终状态由代码写入。
 
-> 备选：若剧本 ingestion 变复杂，可引入 **LlamaIndex** 仅作索引层，检索结果喂给 LangGraph。
-> 当前不引入，避免双框架增加学习负担。
+---
+
+## 2. 产品形态
+
+### 2.1 Web 跑团桌面
+
+首版 Web 页面包含四个主要区域：
+
+- **地图区**：网格地图、地形、障碍物、角色/NPC token、可见范围、坐标。
+- **角色卡区**：玩家角色属性、生命值、护甲等级、技能、豁免、法术位、物品、状态效果。
+- **DM/聊天区**：玩家输入行动，DM 回复叙事和裁决；显示公开事件、私密提示、系统事件。
+- **工具/日志区**：骰子结果、行动历史、回合顺序、状态变更、地图变更记录。
+
+### 2.2 基础玩法范围
+
+MVP 先覆盖：
+
+- 角色创建/导入：属性、熟练项、生命值、护甲、技能、武器、法术。
+- 探索模式：移动、观察、调查、交互、检定。
+- 战斗模式：先攻、回合顺序、移动、攻击、伤害、豁免、状态效果、死亡豁免。
+- 地图操作：创建房间、放置 token、移动 token、添加地形/障碍、标记可见信息。
+- 骰子系统：d20 检定、优势/劣势、伤害骰、多骰表达式、公开/私密投掷。
 
 ---
 
 ## 3. 系统架构
 
-```
-        真人玩家(CLI) ──┐
-                        │  (LangGraph interrupt 挂起/恢复)
-        ┌───────────────▼────────────────────────────┐
-        │            LangGraph StateGraph              │
-        │   GameState · 节点 · 条件边 · checkpointer    │
-        └───┬───────────────┬───────────────┬─────────┘
-            │               │               │
-       ┌────▼────┐    ┌──────▼──────┐  ┌─────▼─────┐
-       │ DM 节点  │    │ 玩家节点(AI)  │  │ 工具:dice  │
-       │ 上帝视角 │    │ 受限视角      │  └───────────┘
-       └────┬────┘    └──────┬──────┘
-            │ scoped RAG     │ scoped RAG
-        ┌───▼────────────────▼───┐
-        │   Chroma 向量库(本地)    │
-        │  分块 + visibility 元数据 │
-        └─────────────────────────┘
+```text
+Web Client
+  - 地图画布 / 角色卡 / 聊天面板 / 回合面板
+        |
+        v
+API / Session Controller
+  - 会话管理
+  - WebSocket/SSE 事件推送
+  - 用户输入归一化
+        |
+        v
+LangGraph DND StateGraph
+  - DM 节点
+  - 玩家行动节点
+  - 工具执行节点
+  - 规则裁决节点
+  - 回合/场景切换条件边
+        |
+        v
+Deterministic Tools
+  - roll_dice
+  - update_character
+  - move_token
+  - edit_map
+  - resolve_attack
+  - apply_condition
+  - query_rules
+        |
+        v
+State Stores
+  - GameState
+  - CharacterState
+  - MapState
+  - EventLog
+  - Rule/Module RAG
 ```
 
-核心抽象：真人与 AI 玩家在引擎眼里都是"参与者"，区别只在消息来源
-（真人来自 CLI 输入，AI 来自 LLM 调用）。统一后增删玩家、未来换 Web 不动核心逻辑。
+关键原则：
+
+- LLM 只能提出叙事、意图和工具调用；角色 HP、坐标、状态、背包、地图等事实由工具更新。
+- Web 客户端只展示后端事件流，不自行推断核心规则结果。
+- 每次状态变更写入事件日志，支持回放、撤销和调试。
 
 ---
 
-## 4. RAG 子系统 ＝ 信息隔离
+## 4. 核心状态模型
 
-**关键洞察：RAG 的元数据过滤恰好就是剧本杀信息隔离的实现机制，两个需求合二为一。**
+### 4.1 GameState
 
-### 4.1 数据切分与元数据
-剧本所有内容切分入 Chroma，每个分块携带元数据：
-- `visibility`：`public` / `character:<id>` / `dm_only`
-- `type`：`background` / `clue` / `character_profile` / `truth`
-- `phase`：该内容在哪个阶段后才可见
-- `clue_id`：线索唯一标识（用于动态揭示判断）
+- `session_id`：战役/单次跑团唯一标识。
+- `mode`：`exploration` / `combat` / `downtime` / `scene_setup`。
+- `scene_id`：当前场景。
+- `current_turn`：当前行动角色。
+- `initiative_order`：战斗先攻顺序。
+- `round_number`：战斗轮数。
+- `public_events`：公开事件。
+- `private_events`：DM 私密记录和个人提示。
+- `pending_actions`：等待玩家确认或工具执行的动作。
+- `summaries`：场景摘要、长期记忆摘要。
 
-### 4.2 按参与者构建 scoped retriever
-| 参与者 | 检索过滤器 |
-|--------|-----------|
-| DM | 默认无过滤（上帝视角，检索全部）；必要时按 `phase` / `type` 收窄上下文 |
-| 玩家 X | `visibility ∈ {public, character:X}` 且 `phase <= current_phase` 且 `(clue_id is null OR clue_id ∈ revealed_clues)` |
+### 4.2 CharacterState
 
-**向量库静态、过滤器动态**：线索"已揭示集合"从 LangGraph 的 `GameState` 实时取，
-查询时拼进 Chroma 的 `where` 过滤条件，从源头杜绝"偷看别人剧本"。
-权限过滤必须由代码确定性生成，不能交给 LLM 自行决定；LLM 最多参与查询改写。
+- `id` / `name` / `type`：玩家角色、NPC、怪物。
+- `level` / `class` / `race` / `background`。
+- `attributes`：STR / DEX / CON / INT / WIS / CHA。
+- `proficiency_bonus`。
+- `skills` / `saving_throws`。
+- `hp_current` / `hp_max` / `temporary_hp`。
+- `armor_class` / `speed`。
+- `inventory` / `equipment`。
+- `spells` / `spell_slots`。
+- `conditions`：倒地、昏迷、中毒、束缚等。
+- `position`：地图坐标、朝向、所在图层。
 
-> **学习点**：本地 embedding、Chroma、metadata filtering，且带真实业务约束（隔离）。
-> 可探索 `SelfQueryRetriever`，但只作为非权限字段的检索增强实验，不进入安全边界。
+### 4.3 MapState
 
----
-
-## 5. 多 LLM 注册表（跨厂商）
-
-`get_llm(role)` 工厂 + `config.yaml`，按环节挑厂商/档位。换模型只改配置字符串
-（`init_chat_model("anthropic:...")` / `("openai:...")`）。
-
-| 环节 | role | 建议档位 | 厂商示例 | 理由 |
-|------|------|---------|---------|------|
-| DM 叙事/裁决 | `dm` | 最强 | Claude Opus | 演绎质量、防泄密、逻辑一致性最吃能力 |
-| AI 玩家 | `player` | 中档 | GPT / Claude Sonnet | 多实例并发，控成本 |
-| 上下文摘要 | `summarizer` | 轻量 | Claude Haiku / GPT-mini | 压缩历史，便宜快 |
-| 发言调度 | `moderator` | 轻量 | Claude Haiku / GPT-mini | 判断"该谁说话"，高频小任务 |
-| 嵌入 | `embedder` | 本地 | sentence-transformers | 与对话模型分开 |
-
-> **学习点**：provider 路由 + 成本/能力权衡，工程化 Agent 的核心能力。
-
----
-
-## 6. LangGraph 骨架
-
-### 6.1 GameState（TypedDict）
-- `thread_id` / `session_id`：一次剧本局的唯一标识，用于 checkpointer 恢复
-- `phase`：当前阶段
-- `public_events`：公开事件流（群聊消息、公开线索、系统广播、掷骰结果）
-- `private_events`：私密事件流（DM→玩家私信、角色私有信息、未公开线索）
-- `revealed_clues`：已揭示线索集合（驱动 RAG 动态过滤）
-- `votes`：投票记录
-- `participants`：玩家清单（真人/AI 标记）
-- `current_speaker`：当前应发言参与者
-- `pending_interrupts`：等待真人输入的挂起点
-- `turn_count` / `phase_deadline`：节奏控制与超时判定
-- `summaries`：阶段性摘要，避免上下文膨胀
-
-### 6.2 节点与流程
-```
-setup(分发角色) → dm_narrate(开场) → introductions(自我介绍)
-   → investigation(搜证) → discussion(讨论·自由群聊)
-   → voting(投票) → reveal(公布真相/复盘)
-```
-- **条件边**控阶段切换（讨论是否充分 / 到时 / 玩家请求推进）。
-- **`interrupt()`** 在"需真人发言"处挂起，等 CLI/controller 恢复。
-  超时不放在 LangGraph 节点内部，而由 CLI/controller 计时后 resume 一个 `timeout` 事件，防止挂机卡死。
-- **`checkpointer`** 自动存档，长局可中断恢复。
-- **AI 发言时机**：MVP 用 **DM 点名**（状态机+DM 主导 cue 玩家）；后续升级"意愿打分"做更自然群聊。
+- `map_id` / `scene_id`。
+- `grid_size`：方格尺寸。
+- `width` / `height`。
+- `terrain`：地形层。
+- `walls` / `doors` / `obstacles`。
+- `tokens`：角色、NPC、怪物、物件。
+- `fog_of_war`：战争迷雾。
+- `annotations`：DM 标记、公开标记、临时效果范围。
 
 ---
 
-## 7. 工具：骰子（Function Call）
+## 5. Function Call 工具设计
+
+所有工具应返回结构化结果，并写入事件日志。
+
+### 5.1 骰子工具
 
 ```python
-dice(sides: int, count: int = 1, reason: str = "") -> {
-    "rolls": [int], "total": int, "reason": str
-}
+roll_dice(
+    expression: str,
+    reason: str,
+    roller_id: str | None = None,
+    visibility: Literal["public", "dm_only", "private"] = "public",
+    advantage: Literal["normal", "advantage", "disadvantage"] = "normal"
+) -> DiceResult
 ```
-- 主要供 DM 在搜证/技能检定时调用，结果回灌 DM 决定叙事走向。
-- 真人也可在群聊请求 DM 代掷，DM 调用后把结果播报到群聊。
-- 后续可平滑扩展更多工具（发线索、记录投票等）。
+
+支持示例：
+
+- `1d20+5`
+- `2d6+3`
+- `1d20kh1+4` 或通过 `advantage` 参数处理优势/劣势。
+
+### 5.2 角色工具
+
+- `create_character`
+- `update_character`
+- `apply_damage`
+- `apply_healing`
+- `apply_condition`
+- `remove_condition`
+- `spend_resource`
+- `restore_resource`
+
+要求：
+
+- HP、法术位、状态效果等必须由工具修改。
+- 每次修改输出前后差异，供 Web 日志展示。
+
+### 5.3 地图工具
+
+- `create_map`
+- `edit_map_tile`
+- `place_token`
+- `move_token`
+- `remove_token`
+- `set_visibility`
+- `add_annotation`
+- `measure_distance`
+
+要求：
+
+- token 移动要校验速度、障碍、地形代价。
+- 地图编辑区分 DM 私有层和玩家可见层。
+
+### 5.4 规则/裁决工具
+
+- `query_rules`
+- `resolve_skill_check`
+- `resolve_saving_throw`
+- `resolve_attack`
+- `resolve_area_effect`
+- `start_combat`
+- `advance_turn`
+- `end_combat`
+
+要求：
+
+- DM 可以解释规则，但关键计算使用工具完成。
+- 规则引用要可追踪，避免 LLM 混用版本或自造规则。
 
 ---
 
-## 8. 项目结构
+## 6. LLM 与 Agent 编排
 
+### 6.1 LangGraph 节点
+
+- `receive_player_input`：接收玩家行动意图。
+- `dm_interpret`：DM 理解行动、判断是否需要工具。
+- `tool_execute`：执行骰子、地图、角色、规则工具。
+- `dm_narrate`：根据工具结果生成叙事反馈。
+- `state_summarize`：压缩长期上下文。
+- `human_confirm`：高风险操作前请求玩家或 DM 确认。
+
+### 6.2 DM 行为边界
+
+DM 可以：
+
+- 描述场景和 NPC。
+- 提出检定。
+- 调用骰子、规则、地图、角色工具。
+- 根据工具结果裁决叙事后果。
+- 生成战斗和探索建议。
+
+DM 不可以：
+
+- 直接修改角色数值。
+- 直接移动 token。
+- 直接宣称骰子结果。
+- 忽略工具返回的事实状态。
+- 泄露 DM 私有地图层、怪物数据或未发现线索。
+
+---
+
+## 7. RAG 与规则资料
+
+RAG 不再围绕剧本杀线索隔离，而是服务于 DND 规则、模组和战役记忆。
+
+### 7.1 资料类型
+
+- `rules_core`：核心规则摘要。
+- `rules_spells`：法术规则。
+- `rules_items`：物品和装备。
+- `monster_blocks`：怪物数据。
+- `module_public`：玩家已知模组内容。
+- `module_dm_only`：DM 私有模组内容。
+- `campaign_memory`：长期战役事件和人物关系。
+
+### 7.2 权限边界
+
+- 玩家角色只能检索公开规则、自己角色卡、已公开战役信息。
+- DM 可以检索规则、怪物、模组私有内容和完整事件日志。
+- 地图私有层、未触发遭遇、隐藏陷阱和怪物数据必须保持 DM only。
+
+---
+
+## 8. Web UI 计划
+
+### 8.1 首屏布局
+
+```text
++---------------------------------------------------------------+
+| Top Bar: Session / Mode / Round / Current Turn / Actions       |
++-----------------------------+---------------------------------+
+| Map                         | Character Sheet                 |
+| - grid                      | - stats / HP / AC               |
+| - tokens                    | - skills / saves                |
+| - terrain                   | - inventory / spells            |
+| - fog                       | - conditions                    |
++-----------------------------+---------------------------------+
+| Chat / DM Narration         | Dice / Event Log / Initiative   |
++---------------------------------------------------------------+
 ```
+
+### 8.2 必备交互
+
+- 点击 token 查看角色/NPC 简要信息。
+- 拖拽 token 发起移动请求。
+- 点击地图格子添加标记或选择目标。
+- 角色卡可折叠显示技能、攻击、法术、物品。
+- 聊天输入支持自然语言行动。
+- 骰子日志可展开查看公式、每颗骰子、修正值和原因。
+- DM 模式可编辑地图和隐藏层。
+
+### 8.3 前后端工程化方案
+
+当前 Web MVP 已经验证了地图、角色卡、聊天、骰子和 token 移动的基本交互，但标准库 HTTP server + 静态三件套会在后续变得难维护。正式路线改为：
+
+- **后端：FastAPI + Uvicorn**
+  - 继续留在 Python 生态，方便接 LangGraph、RAG、LLM registry 和 function call tools。
+  - 用 `APIRouter` 拆分 `sessions` / `maps` / `characters` / `dice` / `chat` / `rules`。
+  - 用 Pydantic schema 约束 `GameState`、`MapState`、`CharacterState`、`DiceResult`、`EventLog`。
+  - 用 WebSocket 推送地图、骰子、聊天、角色状态、DM 流式输出和系统事件。
+
+- **前端：Vite + React + TypeScript**
+  - 把当前 DOM/JS 单页拆成组件：`MapView`、`TokenLayer`、`CharacterSheet`、`EventLog`、`DicePanel`、`ChatPanel`。
+  - 用 TypeScript 类型对齐后端 Pydantic schema。
+  - 用统一 API client 管理 REST 和 WebSocket。
+  - 初期地图继续用 DOM/CSS Grid；地图复杂后再切 PixiJS 或 Konva。
+
+- **迁移策略**
+  - 第一步只替换后端：把当前 `/api/state`、`/api/dice`、`/api/chat`、`/api/token/move` 搬到 FastAPI，前端暂时不变。
+  - 第二步拆前端：引入 React/Vite 后复刻现有 UI，确保行为一致。
+  - 第三步接实时事件：把轮询/刷新式状态替换为 WebSocket event stream。
+  - 第四步接 LangGraph DM：`chat` endpoint 不再直接生成占位回复，而是进入 DM graph，由 LLM 通过工具更新状态。
+
+---
+
+## 9. 项目结构目标
+
+当前代码还保留 `playscript_agent` 命名；后续代码阶段优先在该包内新增成熟 Web 后端，再按需要迁移或新增 `dnd_agent` 包。目标结构如下：
+
+```text
 playscript_agent/
+  api/
+    app.py                  # FastAPI app factory / ASGI entry
+    routers/
+      sessions.py           # 会话创建、快照、恢复
+      maps.py               # 地图读取、编辑、token 移动
+      characters.py         # 角色卡、HP、资源、状态
+      dice.py               # 骰子表达式、优势/劣势、公开/私密投掷
+      chat.py               # 玩家输入、DM 回复、流式事件入口
+      rules.py              # DND 规则 RAG 查询
+    schemas/
+      session.py
+      map.py
+      character.py
+      event.py
+      dice.py
+    services/
+      game_state.py         # 单一事实源，后续可替换为持久化存储
+      websocket_hub.py      # 多客户端事件广播
+      dice_service.py
+      map_service.py
+      character_service.py
+      dm_service.py         # LangGraph/LLM DM 入口
   graph/
-    state.py          # GameState(TypedDict)
-    builder.py        # StateGraph：节点 + 条件边 + checkpointer
-    nodes/            # setup / dm_narrate / player_turn / voting / reveal
-  rag/
-    ingest.py         # 剧本 → 切分 → 本地嵌入 → Chroma（写 visibility 元数据）
-    retrievers.py     # 按参与者构建 scoped retriever
-    filters.py        # 确定性生成 Chroma where 过滤条件（权限边界）
-  llm/
-    registry.py       # get_llm(role) 工厂
-    config.yaml       # 各环节 → 厂商/模型映射
-  agents/
-    dm.py             # DM 链（上帝视角 + 防泄密 + 全量 RAG）
-    player.py         # AI 玩家链（受限视角 + scoped RAG）
-  guard/
-    output.py         # DM/AI 输出防泄密校验
-    policy.py         # visibility / phase / clue_id 权限策略
+    state.py
+    builder.py
+    nodes/
+      dm.py
+      player_input.py
+      tools.py
+      combat.py
+      summarize.py
   tools/
     dice.py
-  scripts/
-    demo/             # 手写极简样本剧本（带 visibility 标注）
-      meta.json · background.md · characters/ · clues.json · truth.json · dm_manual.json
-  cli/
-    client.py         # 真人接入，对接 LangGraph interrupt
-  config/             # .env（API keys）· 模型与嵌入配置
+    character.py
+    map.py
+    rules.py
+    combat.py
+  rules/
+    schema.py
+    loader.py
+    retriever.py
+  models/
+    character.py
+    map.py
+    event.py
+    session.py
+  data/
+    demo_campaign/
+      characters/
+      maps/
+      encounters/
+      rules/
   tests/
-    test_rag_filters.py      # 越权检索测试
-    test_output_guard.py     # 越权输出测试
+    test_dice.py
+    test_character_state.py
+    test_map_tools.py
+    test_combat_flow.py
+    test_dm_tool_boundaries.py
+
+web/
+  package.json
+  vite.config.ts
+  src/
+    main.tsx
+    api/
+      client.ts             # REST + WebSocket client
+      types.ts              # 与后端 schema 对齐的 TS 类型
+    state/
+      sessionStore.ts       # 当前会话、地图、角色、事件状态
+    components/
+      tabletop/
+        MapView.tsx
+        TokenLayer.tsx
+        CharacterSheet.tsx
+        EventLog.tsx
+        DicePanel.tsx
+        ChatPanel.tsx
+    styles/
+      app.css
 ```
 
 ---
 
-## 9. 实施路线（融入学习节奏）
+## 10. 实施路线
 
-| 阶段 | 目标 | 学习重点 |
-|------|------|---------|
-| 0 | 剧本 schema + 极简 demo 剧本 + 权限测试骨架 | 数据契约 / visibility / phase / clue_id |
-| 1 | LangGraph 骨架 + 单 LLM，跑通"开场→自我介绍→公布真相"，CLI 接 1 真人 | StateGraph / interrupt / 节点与边 |
-| 2 | 确定性 scoped RAG：剧本本地嵌入入 Chroma，DM/玩家按权限检索 | embedding / Chroma / metadata filtering |
-| 3 | 公开/私密事件流：private 通道、揭示线索、验证检索不串台 | event log / 信息隔离 / 测试 |
-| 4 | 多 LLM：接 `get_llm(role)`，DM/玩家/摘要分别用 Claude/OpenAI 不同档 | provider 路由 / 成本权衡 |
-| 5 | AI 玩家 + 骰子：player 节点 + DM 点名调度 + `dice` 工具 | 多 actor 协调 / tool calling |
-| 6 | 完整流程 + 打磨：搜证/讨论/投票/复盘、摘要、防泄密校验、checkpointer 恢复 | 上下文管理 / 持久化 |
+| 阶段 | 目标 | 验收标准 |
+|------|------|----------|
+| 0 | 重定向项目计划和数据模型 | PLAN.md 明确 DND 方向、状态模型、工具边界、Web MVP |
+| 1 | DND 核心 schema | CharacterState、MapState、GameState、EventLog schema 和基础测试 |
+| 2 | 骰子与规则工具 | roll_dice、技能检定、豁免、攻击、伤害工具可独立测试 |
+| 3 | 地图与 token 工具 | 创建地图、放置/移动 token、障碍校验、可见层管理 |
+| 4 | 角色卡与资源系统 | HP、AC、技能、物品、法术位、状态效果的增删改查 |
+| 5 | LangGraph DM MVP | 玩家输入 -> DM 判断 -> 工具调用 -> 叙事反馈闭环 |
+| 6 | FastAPI 后端迁移 | 当前 Web API 从标准库 server 迁到 FastAPI routers，前端行为保持一致 |
+| 7 | React/Vite 前端迁移 | 复刻现有 Web MVP，拆出地图、角色卡、聊天、骰子组件 |
+| 8 | WebSocket 事件流 | 地图移动、骰子、聊天、角色状态通过事件广播同步 |
+| 9 | 战斗流程 | 先攻、回合推进、攻击、伤害、状态、死亡豁免 |
+| 10 | RAG 规则/模组资料 | DM 可查规则和模组，玩家权限受限 |
+| 11 | 多人和长期战役 | 多玩家会话、存档恢复、战役摘要、权限和私密消息 |
 
 ---
 
-## 10. 关键技术难点
+## 11. 测试重点
 
-| 难点 | 应对 |
+- 骰子表达式解析和优势/劣势结果正确。
+- LLM 不能绕过工具直接改状态。
+- 地图移动遵守速度、障碍和地形代价。
+- 战斗回合顺序稳定，不能跳过或重复行动。
+- 角色 HP、临时 HP、死亡豁免和状态效果边界正确。
+- DM only 信息不会出现在玩家可见事件和 RAG 结果中。
+- Web 事件日志能完整回放关键状态变化。
+
+---
+
+## 12. 关键风险
+
+| 风险 | 应对 |
 |------|------|
-| 信息隔离 | 确定性 RAG scoped retriever + private 通道，从检索源头隔离 |
-| DM 防泄密 | prompt 约束 + 输出 guard 校验（不泄 `dm_only` / 未揭示 `clue_id`） |
-| 上下文膨胀 | 阶段性摘要（summarizer 角色）+ checkpointer |
-| AI 发言时机 | MVP DM 点名 → 后续意愿打分 |
-| 真人挂机 | CLI/controller 计时，超时 resume `timeout` 事件，跳过或 DM 催 |
-| 剧本结构化 | 先定 schema，手写极简样本验证 |
+| LLM 自造规则或结果 | 状态变更全部工具化，规则查询可追踪 |
+| DND 规则范围过大 | MVP 只实现常用 d20、攻击、伤害、状态、移动和先攻 |
+| 地图编辑复杂度高 | 先做方格地图和 token 层，再扩展光照、视野、复杂地形 |
+| Web 与 Agent 状态不同步 | 后端事件流作为唯一事实源，前端只渲染事件和快照 |
+| 多人实时协作复杂 | 单会话单玩家/DM MVP 先跑通，再加 WebSocket 多人同步 |
+| 版权/规则资料边界 | 优先使用自定义摘要、SRD/开放资料或用户提供资料 |
 
 ---
 
-## 11. 待确认 / 下一步
+## 13. 下一步
 
-- [x] Python 环境约定：后续使用 `D:\anaconda\envs\playscript-agent` 专用环境
-- [ ] 选定本地嵌入模型（中文剧本建议 `bge-m3` 或 `bge-small-zh`）
-- [ ] 确定玩家用哪家厂商（GPT vs Claude Sonnet）
-- [x] 先完成 **阶段 0**：剧本 schema、极简 demo、权限过滤测试
-- [x] 完成 **阶段 1**：LangGraph 骨架 + interrupt/resume CLI demo，跑通"开场→自我介绍→公布真相"
+- [x] 将计划从剧本杀 Agent 系统调整为 DND Agent 系统。
+- [ ] 确定 DND MVP 规则范围：5e 风格、简化 5e、自定义轻规则。
+- [ ] 设计 CharacterState / MapState / GameState schema。
+- [ ] 设计 function call 工具接口和事件日志格式。
+- [x] 决定 Web 技术栈：FastAPI + Uvicorn 后端，Vite + React + TypeScript 前端。
+- [ ] 迁移当前标准库 Web API 到 FastAPI，保留现有前端行为。
+- [ ] 迁移当前静态前端到 React/Vite 组件化结构。
+- [ ] 开始实现阶段 1：DND 核心 schema 与测试。
 
-> 参考：LangChain vs LlamaIndex RAG 框架对比（2025/2026）。本项目选 LangChain RAG 栈
-> 以与 LangGraph 同生态；LlamaIndex 留作 ingestion 复杂化时的索引层备选。
+> 当前要求：只修改 PLAN.md，不写代码。代码迁移、目录重命名和 Web 实现留到后续阶段。

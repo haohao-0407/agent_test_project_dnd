@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DND Agent Tabletop</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">DND Agent</p>
+          <h1 id="session-title">跑团桌面</h1>
+        </div>
+        <div class="session-strip" aria-label="session status">
+          <span id="session-mode">exploration</span>
+          <span id="session-round">Round 1</span>
+          <span id="session-turn">Turn</span>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <section class="map-panel" aria-labelledby="map-title">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Map</p>
+              <h2 id="map-title">地图</h2>
+            </div>
+            <button id="clear-selection" class="icon-button" type="button" title="取消选择" aria-label="取消选择">X</button>
+          </div>
+          <div id="map-grid" class="map-grid" aria-label="battle map"></div>
+        </section>
+
+        <aside class="sheet-panel" aria-labelledby="sheet-title">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Characters</p>
+              <h2 id="sheet-title">角色卡</h2>
+            </div>
+          </div>
+          <div id="character-list" class="character-list"></div>
+        </aside>
+
+        <section class="chat-panel" aria-labelledby="chat-title">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">DM</p>
+              <h2 id="chat-title">行动与叙事</h2>
+            </div>
+          </div>
+          <div id="event-log" class="event-log" aria-live="polite"></div>
+          <form id="chat-form" class="chat-form">
+            <input id="chat-input" name="message" autocomplete="off" placeholder="描述你的行动" />
+            <button type="submit">发送</button>
+          </form>
+        </section>
+
+        <aside class="tool-panel" aria-labelledby="tool-title">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Tools</p>
+              <h2 id="tool-title">骰子</h2>
+            </div>
+          </div>
+          <form id="dice-form" class="dice-form">
+            <label>
+              <span>公式</span>
+              <input id="dice-expression" value="1d20+3" />
+            </label>
+            <label>
+              <span>原因</span>
+              <input id="dice-reason" value="ability check" />
+            </label>
+            <div class="segmented" aria-label="advantage mode">
+              <button type="button" data-advantage="normal" class="active">普通</button>
+              <button type="button" data-advantage="advantage">优势</button>
+              <button type="button" data-advantage="disadvantage">劣势</button>
+            </div>
+            <button type="submit">掷骰</button>
+          </form>
+          <div id="dice-result" class="dice-result">等待投掷</div>
+        </aside>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
