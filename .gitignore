@@ -8,6 +8,6 @@ model_cache*/
 venv/
 web/node_modules/
 web/dist/
-./PLAN.md
-./ENVIRONMENT.md
-./document/
+PLAN.md
+ENVIRONMENT.md
+document/
