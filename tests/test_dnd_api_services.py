@@ -1,9 +1,16 @@
 from __future__ import annotations
 
+import json
+import shutil
+from pathlib import Path
+
 import pytest
 
-from playscript_agent.api.services import chat_service, dice_service, map_service
+from playscript_agent.api.services import character_repository, chat_service, dice_service, map_service
 from playscript_agent.api.services.game_state import game_state
+
+
+TEST_CHARACTER_ROOT = Path(__file__).resolve().parents[1] / "document" / "characters" / ".test-permanent-repository"
 
 
 class FakeMessage:
@@ -95,6 +102,95 @@ def test_player_can_only_update_owned_character_card():
         )
 
 
+def test_permanent_character_repository_stores_each_character_in_own_file(monkeypatch):
+    character_root = TEST_CHARACTER_ROOT
+    character_dir = character_root / "permanent"
+    shutil.rmtree(character_root, ignore_errors=True)
+    monkeypatch.setattr(character_repository, "PERMANENT_CHARACTER_DIR", character_dir)
+
+    try:
+        character_repository.create_permanent_character({
+            "id": "hero-one",
+            "name": "Hero One",
+            "images": [
+                {
+                    "id": "portrait",
+                    "purpose": "portrait",
+                    "title": "Portrait",
+                    "fileName": "portrait.png",
+                    "mimeType": "image/png",
+                    "size": 0,
+                    "dataUrl": "data:image/png;base64,aGVsbG8=",
+                    "notes": "",
+                    "createdAt": "2026-06-05T00:00:00Z",
+                }
+            ],
+        })
+        character_repository.create_permanent_character({"id": "hero-two", "name": "Hero Two"})
+        updated = character_repository.update_permanent_character(
+            "hero-one",
+            {"name": "Renamed Hero", "hp": {"current": 7, "max": 10, "temp": 0}},
+        )
+
+        assert updated["name"] == "Renamed Hero"
+        assert updated["hp"]["current"] == 7
+        assert (character_dir / "hero-one" / "character.json").exists()
+        assert (character_dir / "hero-two" / "character.json").exists()
+        assert (character_dir / "hero-one" / "images" / "portrait.png").exists()
+        loaded_characters = character_repository.load_permanent_characters()
+        hero_one = next(character for character in loaded_characters if character["id"] == "hero-one")
+        assert {character["id"] for character in loaded_characters} == {
+            "hero-one",
+            "hero-two",
+        }
+        assert hero_one["images"][0]["path"] == "images/portrait.png"
+        assert hero_one["images"][0]["url"] == "/character-assets/hero-one/images/portrait.png"
+        assert "dataUrl" not in hero_one["images"][0]
+    finally:
+        shutil.rmtree(character_root, ignore_errors=True)
+
+
+def test_permanent_character_repository_ignores_legacy_library_file(monkeypatch):
+    character_root = TEST_CHARACTER_ROOT
+    character_dir = character_root / "permanent"
+    legacy_path = character_root / "old-library.json"
+    shutil.rmtree(character_root, ignore_errors=True)
+    character_root.mkdir(parents=True)
+    legacy_path.write_text(
+        json.dumps([
+            {"id": "legacy-hero", "name": "Legacy Hero"},
+            {"id": "legacy-mage", "name": "Legacy Mage"},
+        ]),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(character_repository, "PERMANENT_CHARACTER_DIR", character_dir)
+
+    try:
+        characters = character_repository.load_permanent_characters()
+
+        assert characters == []
+        assert not character_dir.exists()
+    finally:
+        shutil.rmtree(character_root, ignore_errors=True)
+
+
+def test_chat_state_context_strips_image_payloads():
+    payload = {
+        "images": [
+            {
+                "id": "portrait",
+                "dataUrl": "data:image/png;base64,aGVsbG8=",
+                "url": "/character-assets/hero/images/portrait.png",
+            }
+        ]
+    }
+
+    stripped = chat_service.strip_image_payloads(payload)
+
+    assert "dataUrl" not in stripped["images"][0]
+    assert stripped["images"][0]["url"] == "/character-assets/hero/images/portrait.png"
+
+
 def test_dice_service_records_roll():
     result = dice_service.roll_and_record("1d20+5", reason="attack roll")
 
@@ -142,6 +238,25 @@ def test_chat_can_move_token_and_roll_dice(monkeypatch):
 
 
 def test_chat_uses_llm_dm_for_plain_dialogue(monkeypatch):
+    game_state.update_character(
+        "kael",
+        {
+            "images": [
+                {
+                    "id": "portrait",
+                    "purpose": "portrait",
+                    "title": "Portrait",
+                    "fileName": "portrait.png",
+                    "mimeType": "image/png",
+                    "size": 5,
+                    "dataUrl": "data:image/png;base64,aGVsbG8=",
+                    "notes": "",
+                    "createdAt": "2026-06-05T00:00:00Z",
+                }
+            ]
+        },
+        user_id="player-kael",
+    )
     fake_dm = FakeDmModel([FakeMessage(content="门后传来低沉的呼吸声，火光忽明忽暗。")])
     monkeypatch.setattr(chat_service, "get_llm", lambda role: fake_dm)
 
@@ -160,6 +275,8 @@ def test_chat_uses_llm_dm_for_plain_dialogue(monkeypatch):
     prompt_text = "\n".join(part for _, part in fake_dm.messages[0])
     assert '"class": "Wizard 3"' in prompt_text
     assert '"race": "High Elf"' in prompt_text
+    assert "dataUrl" not in prompt_text
+    assert "aGVsbG8=" not in prompt_text
 
 
 def test_chat_uses_llm_tool_calls_and_dm_narration(monkeypatch):

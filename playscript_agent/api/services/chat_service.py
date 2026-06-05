@@ -392,11 +392,11 @@ def _build_state_context(*, user_id: str) -> str:
     )
     current_state = {
         "current_user": player,
-        "controlled_character": controlled_character,
+        "controlled_character": strip_image_payloads(controlled_character),
         "session": state["session"],
         "map": state["map"],
         "tokens": state["tokens"],
-        "characters": state["characters"],
+        "characters": strip_image_payloads(state["characters"]),
         "recent_public_events": state["events"][-8:],
     }
     return (
@@ -406,6 +406,18 @@ def _build_state_context(*, user_id: str) -> str:
         "Do not call tools for monsters, map objects, or other player characters unless the current user is DM.\n"
         f"{json.dumps(current_state, ensure_ascii=False)}"
     )
+
+
+def strip_image_payloads(value: Any) -> Any:
+    if isinstance(value, list):
+        return [strip_image_payloads(item) for item in value]
+    if isinstance(value, dict):
+        return {
+            key: strip_image_payloads(item)
+            for key, item in value.items()
+            if key != "dataUrl"
+        }
+    return value
 
 
 def _extract_tool_calls(response: Any, *, user_id: str) -> list[ToolCall]:

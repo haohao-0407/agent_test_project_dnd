@@ -114,7 +114,9 @@ export type CharacterImage = {
   fileName: string;
   mimeType: string;
   size: number;
-  dataUrl: string;
+  path?: string;
+  url?: string;
+  dataUrl?: string;
   notes: string;
   createdAt: string;
 };

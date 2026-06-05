@@ -1,0 +1,203 @@
+{
+  "id": "character-1780641103735",
+  "ownerUserId": "library",
+  "name": "2",
+  "playerName": "",
+  "class": "Fighter 1",
+  "classes": [
+    {
+      "name": "Fighter",
+      "subclass": "",
+      "level": 1,
+      "hitDie": "d10"
+    }
+  ],
+  "level": 1,
+  "race": "Human",
+  "subrace": "",
+  "background": "Adventurer",
+  "alignment": "Neutral",
+  "experience": 0,
+  "inspiration": false,
+  "proficiencyBonus": 2,
+  "hp": {
+    "current": 10,
+    "max": 10,
+    "temp": 0
+  },
+  "hitDice": [
+    {
+      "die": "d10",
+      "max": 1,
+      "current": 1
+    }
+  ],
+  "deathSaves": {
+    "successes": 0,
+    "failures": 0
+  },
+  "ac": 10,
+  "initiative": 0,
+  "speed": 30,
+  "attributes": {
+    "STR": 10,
+    "DEX": 10,
+    "CON": 10,
+    "INT": 10,
+    "WIS": 10,
+    "CHA": 10
+  },
+  "abilities": {
+    "STR": {
+      "score": 10,
+      "modifier": 0,
+      "saveProficient": false
+    },
+    "DEX": {
+      "score": 10,
+      "modifier": 0,
+      "saveProficient": false
+    },
+    "CON": {
+      "score": 10,
+      "modifier": 0,
+      "saveProficient": false
+    },
+    "INT": {
+      "score": 10,
+      "modifier": 0,
+      "saveProficient": false
+    },
+    "WIS": {
+      "score": 10,
+      "modifier": 0,
+      "saveProficient": false
+    },
+    "CHA": {
+      "score": 10,
+      "modifier": 0,
+      "saveProficient": false
+    }
+  },
+  "savingThrows": [],
+  "skills": [],
+  "skillDetails": [],
+  "attacks": [],
+  "attackDetails": [],
+  "actions": [],
+  "actionDetails": [],
+  "conditions": [],
+  "defenses": {
+    "resistances": [],
+    "immunities": [],
+    "vulnerabilities": []
+  },
+  "senses": {
+    "passivePerception": 10,
+    "passiveInvestigation": 10,
+    "passiveInsight": 10,
+    "other": []
+  },
+  "proficiencies": {
+    "armor": [],
+    "weapons": [],
+    "tools": []
+  },
+  "languages": [],
+  "equipment": {
+    "items": [],
+    "attunedItems": [],
+    "carryingCapacity": 0
+  },
+  "currency": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 0,
+    "pp": 0
+  },
+  "features": [],
+  "featureDetails": [],
+  "traits": [],
+  "traitDetails": [],
+  "spellcasting": {
+    "ability": "",
+    "saveDc": 0,
+    "attackBonus": 0,
+    "slots": {
+      "1": {
+        "max": 0,
+        "current": 0
+      },
+      "2": {
+        "max": 0,
+        "current": 0
+      },
+      "3": {
+        "max": 0,
+        "current": 0
+      },
+      "4": {
+        "max": 0,
+        "current": 0
+      },
+      "5": {
+        "max": 0,
+        "current": 0
+      },
+      "6": {
+        "max": 0,
+        "current": 0
+      },
+      "7": {
+        "max": 0,
+        "current": 0
+      },
+      "8": {
+        "max": 0,
+        "current": 0
+      },
+      "9": {
+        "max": 0,
+        "current": 0
+      }
+    },
+    "pactSlots": {
+      "slotLevel": 0,
+      "max": 0,
+      "current": 0
+    },
+    "spellsKnown": [],
+    "spellsPrepared": []
+  },
+  "resources": [],
+  "personality": {
+    "traits": "",
+    "ideals": "",
+    "bonds": "",
+    "flaws": ""
+  },
+  "appearance": {
+    "age": "",
+    "height": "",
+    "weight": "",
+    "eyes": "",
+    "skin": "",
+    "hair": ""
+  },
+  "images": [
+    {
+      "id": "image-1780651131230-cn9lz9",
+      "purpose": "portrait",
+      "title": "QQ图片20240630112012",
+      "fileName": "QQ图片20240630112012.gif",
+      "mimeType": "image/gif",
+      "size": 1191014,
+      "path": "images/image-1780651131230-cn9lz9.gif",
+      "url": "/character-assets/character-1780641103735/images/image-1780651131230-cn9lz9.gif",
+      "notes": "",
+      "createdAt": "2026-06-05T09:18:51.230Z"
+    }
+  ],
+  "notes": ""
+}

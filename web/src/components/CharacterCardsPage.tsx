@@ -956,7 +956,11 @@ function CharacterImageTable({
             {images.length ? images.map((image, index) => (
               <tr key={image.id || `${image.fileName}-${index}`}>
                 <td>
-                  <img className="character-image-preview" src={image.dataUrl} alt={image.title || image.fileName || "角色图片"} />
+                  {imagePreviewSource(image) ? (
+                    <img className="character-image-preview" src={imagePreviewSource(image)} alt={image.title || image.fileName || "角色图片"} />
+                  ) : (
+                    <span className="muted-cell">无预览</span>
+                  )}
                 </td>
                 <td>
                   <select
@@ -1097,6 +1101,10 @@ function readCharacterImage(file: File): Promise<CharacterImage> {
     reader.addEventListener("error", () => reject(reader.error || new Error("image file could not be read")));
     reader.readAsDataURL(file);
   });
+}
+
+function imagePreviewSource(image: CharacterImage): string {
+  return image.dataUrl || image.url || "";
 }
 
 function createBlankCharacter(userId: string): Character {

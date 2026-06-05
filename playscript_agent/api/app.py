@@ -8,6 +8,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from playscript_agent.api.routers import characters, chat, dice, maps, rag, sessions
+from playscript_agent.api.services.character_repository import PERMANENT_CHARACTER_DIR
 
 
 DEFAULT_HOST = "127.0.0.1"
@@ -24,6 +25,11 @@ def create_app() -> FastAPI:
     app.include_router(rag.router)
     app.include_router(chat.router)
     app.mount("/static", StaticFiles(directory=STATIC_ROOT), name="static")
+    app.mount(
+        "/character-assets",
+        StaticFiles(directory=PERMANENT_CHARACTER_DIR, check_dir=False),
+        name="character-assets",
+    )
 
     @app.get("/")
     def index() -> FileResponse:

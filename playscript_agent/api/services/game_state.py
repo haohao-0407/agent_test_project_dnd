@@ -200,22 +200,26 @@ def normalize_character_images(raw_images: Any) -> list[dict[str, Any]]:
         if not isinstance(raw_image, dict):
             continue
         data_url = str(raw_image.get("dataUrl") or "").strip()
-        if not data_url:
+        image_path = str(raw_image.get("path") or "").strip()
+        image_url = str(raw_image.get("url") or "").strip()
+        if not data_url and not image_path and not image_url:
             continue
         image_id = str(raw_image.get("id") or f"image-{index + 1}").strip()
-        normalized.append(
-            {
-                "id": image_id or f"image-{index + 1}",
-                "purpose": str(raw_image.get("purpose") or "other").strip() or "other",
-                "title": str(raw_image.get("title") or "").strip(),
-                "fileName": str(raw_image.get("fileName") or "").strip(),
-                "mimeType": str(raw_image.get("mimeType") or "").strip(),
-                "size": max(0, int(raw_image.get("size") or 0)),
-                "dataUrl": data_url,
-                "notes": str(raw_image.get("notes") or ""),
-                "createdAt": str(raw_image.get("createdAt") or ""),
-            }
-        )
+        image = {
+            "id": image_id or f"image-{index + 1}",
+            "purpose": str(raw_image.get("purpose") or "other").strip() or "other",
+            "title": str(raw_image.get("title") or "").strip(),
+            "fileName": str(raw_image.get("fileName") or "").strip(),
+            "mimeType": str(raw_image.get("mimeType") or "").strip(),
+            "size": max(0, int(raw_image.get("size") or 0)),
+            "path": image_path,
+            "url": image_url,
+            "notes": str(raw_image.get("notes") or ""),
+            "createdAt": str(raw_image.get("createdAt") or ""),
+        }
+        if data_url:
+            image["dataUrl"] = data_url
+        normalized.append(image)
     return normalized
 
 
