@@ -27,18 +27,49 @@ export type Annotation = {
   label: string;
 };
 
+export type MapBackground = {
+  url: string;
+  width: number;
+  height: number;
+  opacity: number;
+};
+
+export type MapGrid = {
+  size: number;
+  originX: number;
+  originY: number;
+  scale: number;
+  offsetX: number;
+  offsetY: number;
+};
+
+export type MapLayers = {
+  terrain: Terrain[];
+  walls: Terrain[];
+  doors: (Terrain & { open?: boolean })[];
+  obstacles: Terrain[];
+  annotations: Annotation[];
+  fog: { x: number; y: number; visibility: string }[];
+  effects: Record<string, unknown>[];
+  dmNotes: Record<string, unknown>[];
+};
+
 export type GameMap = {
   id: string;
   name: string;
   width: number;
   height: number;
   gridSize: number;
+  background?: MapBackground;
+  grid?: MapGrid;
+  layers?: MapLayers;
   terrain: Terrain[];
   annotations: Annotation[];
 };
 
 export type Token = {
   id: string;
+  actorId?: string;
   name: string;
   kind: "player" | "monster" | string;
   x: number;
@@ -207,9 +238,59 @@ export type GameState = {
   session: Session;
   players: Player[];
   map: GameMap;
+  combat: CombatState;
+  pendingActions: PendingAction[];
   tokens: Token[];
   characters: Character[];
   events: EventLogEntry[];
+};
+
+export type InitiativeEntry = {
+  actorId: string;
+  name?: string;
+  initiative: number;
+  roll?: number;
+  dexModifier?: number;
+};
+
+export type TurnState = {
+  actorId: string;
+  actionAvailable: boolean;
+  bonusActionAvailable: boolean;
+  reactionAvailable: boolean;
+  objectInteractionAvailable: boolean;
+  movementUsed: number;
+  movementMax: number;
+};
+
+export type ReactionWindow = {
+  id: string;
+  trigger: string;
+  actorId: string;
+  sourceId: string;
+  status: string;
+  availableReactions: { id: string; label: string }[];
+  createdAt: string;
+};
+
+export type CombatState = {
+  active: boolean;
+  round: number;
+  turnIndex: number;
+  initiativeOrder: InitiativeEntry[];
+  turnState: Record<string, TurnState>;
+  reactionWindows: ReactionWindow[];
+  participants: string[];
+};
+
+export type PendingAction = {
+  id: string;
+  type: string;
+  actorId: string;
+  requestedBy?: string;
+  status: "pending" | "confirmed" | "declined" | "resolved" | string;
+  summary?: string;
+  payload?: Record<string, unknown>;
 };
 
 export type DiceMode = "normal" | "advantage" | "disadvantage";
@@ -244,11 +325,24 @@ export type ToolCall =
       };
     }
   | {
-      name: "update_character_state";
+      name: "spend_spell_slot" | "restore_spell_slot";
       arguments: {
         character_id: string;
-        updates: Partial<Character>;
+        level: number;
+        amount?: number;
       };
+    }
+  | {
+      name: "spend_resource" | "restore_resource";
+      arguments: {
+        character_id: string;
+        resource_name: string;
+        amount?: number;
+      };
+    }
+  | {
+      name: string;
+      arguments: Record<string, unknown>;
     };
 
 export type ToolResult =
@@ -261,13 +355,22 @@ export type ToolResult =
       result: DiceResult;
     }
   | {
-      name: "update_character_state";
-      result: { character: Character };
+      name: "spend_spell_slot" | "restore_spell_slot";
+      result: { character: Character; level: string; amount: number; slot: SpellSlot };
+    }
+  | {
+      name: "spend_resource" | "restore_resource";
+      result: { character: Character; amount: number; resource: CharacterResource };
+    }
+  | {
+      name: string;
+      result: Record<string, unknown>;
     };
 
 export type ChatResponse = {
   state: GameState;
   toolCalls: ToolCall[];
   toolResults: ToolResult[];
+  pendingActions?: PendingAction[];
   dmSource?: "llm" | "fallback";
 };

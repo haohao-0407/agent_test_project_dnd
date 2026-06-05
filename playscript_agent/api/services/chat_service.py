@@ -4,12 +4,12 @@ import json
 import re
 from typing import Any, Literal, TypedDict
 
-from playscript_agent.api.services import dice_service, map_service
+from playscript_agent.api.services import combat_service, dice_service, map_service
 from playscript_agent.api.services.game_state import game_state
 from playscript_agent.llm import get_llm
 
 
-ToolName = Literal["move_token", "roll_dice", "update_character_state"]
+ToolName = str
 
 
 class ToolCall(TypedDict):
@@ -37,11 +37,11 @@ DM_TOOL_SCHEMAS = [
                 },
                 "x": {
                     "type": "integer",
-                    "description": "Internal 0-based grid x coordinate. If the player says column 5, pass x=4.",
+                    "description": "0-based grid x coordinate. Do not convert or subtract from player-provided coordinates.",
                 },
                 "y": {
                     "type": "integer",
-                    "description": "Internal 0-based grid y coordinate. If the player says row 4, pass y=3.",
+                    "description": "0-based grid y coordinate. Do not convert or subtract from player-provided coordinates.",
                 },
             },
             "required": ["token_id", "x", "y"],
@@ -74,40 +74,240 @@ DM_TOOL_SCHEMAS = [
             "required": ["expression", "reason"],
         },
     },
-    {
-        "name": "update_character_state",
-        "description": (
-            "Update a DND 5e character card when game state changes. Use this for HP, temp HP, "
-            "death saves, conditions, resources, hit dice, spell slots, prepared spells, equipment, "
-            "or other character card fields."
-        ),
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "character_id": {
-                    "type": "string",
-                    "description": "Character id or name, such as kael or mira.",
-                },
-                "updates": {
-                    "type": "object",
-                    "description": (
-                        "Partial character card update using current_state field names. "
-                        "Examples: {'hp': {'current': 12, 'max': 18, 'temp': 0}}, "
-                        "{'conditions': ['poisoned']}, or "
-                        "{'spellcasting': {'slots': {'1': {'max': 4, 'current': 2}}}}."
-                    ),
-                },
-            },
-            "required": ["character_id", "updates"],
-        },
-    },
 ]
 
+DM_TOOL_SCHEMAS.extend(
+    [
+        {
+            "name": "start_combat",
+            "description": "Start DND 5e combat and roll initiative for the given participants, or all map tokens if omitted. DM-only.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "participant_ids": {"type": "array", "items": {"type": "string"}},
+                },
+            },
+        },
+        {
+            "name": "end_turn",
+            "description": "End the current combat actor's turn and advance initiative.",
+            "parameters": {
+                "type": "object",
+                "properties": {"actor_id": {"type": "string"}},
+            },
+        },
+        {
+            "name": "advance_turn",
+            "description": "Force initiative to advance. DM-only.",
+            "parameters": {"type": "object", "properties": {}},
+        },
+        {
+            "name": "apply_damage",
+            "description": "Apply deterministic damage to an actor or character.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "target_id": {"type": "string"},
+                    "amount": {"type": "integer"},
+                    "damage_type": {"type": "string"},
+                },
+                "required": ["target_id", "amount"],
+            },
+        },
+        {
+            "name": "apply_healing",
+            "description": "Apply healing to an actor or character.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "target_id": {"type": "string"},
+                    "amount": {"type": "integer"},
+                },
+                "required": ["target_id", "amount"],
+            },
+        },
+        {
+            "name": "apply_condition",
+            "description": "Apply a supported 5e condition to an actor.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "target_id": {"type": "string"},
+                    "condition": {"type": "string"},
+                },
+                "required": ["target_id", "condition"],
+            },
+        },
+        {
+            "name": "remove_condition",
+            "description": "Remove a condition from an actor.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "target_id": {"type": "string"},
+                    "condition": {"type": "string"},
+                },
+                "required": ["target_id", "condition"],
+            },
+        },
+        {
+            "name": "spend_spell_slot",
+            "description": "Spend one or more spell slots for a character. Use this instead of directly editing spellcasting state.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "character_id": {"type": "string"},
+                    "level": {"type": "integer", "minimum": 1, "maximum": 9},
+                    "amount": {"type": "integer", "minimum": 1},
+                },
+                "required": ["character_id", "level"],
+            },
+        },
+        {
+            "name": "restore_spell_slot",
+            "description": "Restore one or more spell slots for a character, clamped to the slot maximum.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "character_id": {"type": "string"},
+                    "level": {"type": "integer", "minimum": 1, "maximum": 9},
+                    "amount": {"type": "integer", "minimum": 1},
+                },
+                "required": ["character_id", "level"],
+            },
+        },
+        {
+            "name": "spend_resource",
+            "description": "Spend a named limited-use character resource, such as Second Wind or Arcane Recovery.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "character_id": {"type": "string"},
+                    "resource_name": {"type": "string"},
+                    "amount": {"type": "integer", "minimum": 1},
+                },
+                "required": ["character_id", "resource_name"],
+            },
+        },
+        {
+            "name": "restore_resource",
+            "description": "Restore a named limited-use character resource, clamped to the resource maximum.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "character_id": {"type": "string"},
+                    "resource_name": {"type": "string"},
+                    "amount": {"type": "integer", "minimum": 1},
+                },
+                "required": ["character_id", "resource_name"],
+            },
+        },
+        {
+            "name": "resolve_attack",
+            "description": "Resolve a 5e attack roll, spend the attacker's action, and apply damage on hit.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "attacker_id": {"type": "string"},
+                    "target_id": {"type": "string"},
+                    "attack_bonus": {"type": "integer"},
+                    "damage_expression": {"type": "string"},
+                    "damage_type": {"type": "string"},
+                    "advantage": {"type": "string", "enum": ["normal", "advantage", "disadvantage"]},
+                },
+                "required": ["attacker_id", "target_id", "attack_bonus", "damage_expression"],
+            },
+        },
+        {
+            "name": "resolve_saving_throw",
+            "description": "Roll and resolve an ability saving throw against a DC.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "actor_id": {"type": "string"},
+                    "ability": {"type": "string"},
+                    "dc": {"type": "integer"},
+                    "advantage": {"type": "string", "enum": ["normal", "advantage", "disadvantage"]},
+                },
+                "required": ["actor_id", "ability", "dc"],
+            },
+        },
+        {
+            "name": "resolve_skill_check",
+            "description": "Roll and resolve an ability or skill check against a DC.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "actor_id": {"type": "string"},
+                    "ability": {"type": "string"},
+                    "dc": {"type": "integer"},
+                    "proficient": {"type": "boolean"},
+                    "advantage": {"type": "string", "enum": ["normal", "advantage", "disadvantage"]},
+                },
+                "required": ["actor_id", "ability", "dc"],
+            },
+        },
+        {
+            "name": "open_reaction_window",
+            "description": "Open a deterministic reaction window, such as an opportunity attack trigger.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "trigger": {"type": "string"},
+                    "actor_id": {"type": "string"},
+                    "source_id": {"type": "string"},
+                },
+                "required": ["trigger", "actor_id", "source_id"],
+            },
+        },
+        {
+            "name": "resolve_reaction",
+            "description": "Resolve an open reaction window.",
+            "parameters": {
+                "type": "object",
+                "properties": {"window_id": {"type": "string"}},
+                "required": ["window_id"],
+            },
+        },
+        {
+            "name": "decline_reaction",
+            "description": "Decline an open reaction window.",
+            "parameters": {
+                "type": "object",
+                "properties": {"window_id": {"type": "string"}},
+                "required": ["window_id"],
+            },
+        },
+        {
+            "name": "edit_map_layer",
+            "description": "Replace one structured map layer such as terrain, walls, doors, fog, annotations, effects, or dmNotes. DM-only.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "layer": {"type": "string"},
+                    "items": {"type": "array", "items": {"type": "object"}},
+                },
+                "required": ["layer", "items"],
+            },
+        },
+        {
+            "name": "set_map_background",
+            "description": "Set the map background image metadata. DM-only.",
+            "parameters": {
+                "type": "object",
+                "properties": {"background": {"type": "object"}},
+                "required": ["background"],
+            },
+        },
+    ]
+)
+
 DM_SYSTEM_PROMPT = """You are the Dungeon Master for a DND tabletop web app.
-Use tool calls for every action that changes game state, moves tokens, rolls dice, or changes a character card.
+Use tool calls for every action that changes game state, moves tokens, rolls dice, or changes HP, conditions, spell slots, or resources.
 Do not reveal tool JSON, function names, or backend details in player-facing text.
 If no tool is needed, answer in concise Chinese as the DM.
-For map coordinates, players use 1-based visible coordinates, while tools require 0-based x/y.
+For map coordinates, every surface uses 0-based x/y: player text, tool arguments, tool results, current_state, events, and system messages.
+Never convert, add, or subtract coordinate values.
 Keep public replies short and based only on the known game state and tool results.
 The current_state JSON is authoritative for player character facts. Never invent or infer a player character's class, race, HP, AC, skills, resources, spell slots, equipment, or conditions. If a fact is missing, say it is unknown."""
 
@@ -168,11 +368,13 @@ def handle_chat(
             "text": dm_text,
         }
     )
+    snapshot = game_state.snapshot()
     return {
         "toolCalls": tool_calls,
         "toolResults": tool_results,
         "dmSource": dm_plan["source"],
-        "state": game_state.snapshot(),
+        "pendingActions": snapshot.get("pendingActions", []),
+        "state": snapshot,
     }
 
 
@@ -242,6 +444,7 @@ def _plan_with_llm(message: str, *, speaker: str, user_id: str) -> DmPlan | None
 def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dict[str, Any]:
     name = tool_call["name"]
     arguments = tool_call["arguments"]
+    authority_user_id = _authority_user_for_tool(name, user_id)
     if name == "move_token":
         token = map_service.move_token(
             str(arguments["token_id"]),
@@ -264,14 +467,171 @@ def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dic
             advantage=str(arguments.get("advantage", "normal")),
         )
         return {"name": name, "result": result}
-    if name == "update_character_state":
-        character = game_state.update_character(
-            str(arguments["character_id"]),
-            dict(arguments["updates"]),
+    if name == "start_combat":
+        combat = combat_service.start_combat(
+            arguments.get("participant_ids"),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": {"combat": combat}}
+    if name == "end_turn":
+        combat = combat_service.end_turn(
+            arguments.get("actor_id"),
             user_id=user_id or "dm",
         )
-        return {"name": name, "result": {"character": character}}
+        return {"name": name, "result": {"combat": combat}}
+    if name == "advance_turn":
+        combat = combat_service.advance_turn(user_id=authority_user_id)
+        return {"name": name, "result": {"combat": combat}}
+    if name == "apply_damage":
+        result = combat_service.apply_damage(
+            str(arguments["target_id"]),
+            int(arguments["amount"]),
+            damage_type=str(arguments.get("damage_type", "untyped")),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "apply_healing":
+        result = combat_service.apply_healing(
+            str(arguments["target_id"]),
+            int(arguments["amount"]),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "apply_condition":
+        result = combat_service.apply_condition(
+            str(arguments["target_id"]),
+            str(arguments["condition"]),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "remove_condition":
+        result = combat_service.remove_condition(
+            str(arguments["target_id"]),
+            str(arguments["condition"]),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "spend_spell_slot":
+        result = combat_service.spend_spell_slot(
+            _canonical_token(str(arguments["character_id"])),
+            arguments["level"],
+            int(arguments.get("amount", 1)),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "restore_spell_slot":
+        result = combat_service.restore_spell_slot(
+            _canonical_token(str(arguments["character_id"])),
+            arguments["level"],
+            int(arguments.get("amount", 1)),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "spend_resource":
+        result = combat_service.spend_resource(
+            _canonical_token(str(arguments["character_id"])),
+            str(arguments["resource_name"]),
+            int(arguments.get("amount", 1)),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "restore_resource":
+        result = combat_service.restore_resource(
+            _canonical_token(str(arguments["character_id"])),
+            str(arguments["resource_name"]),
+            int(arguments.get("amount", 1)),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
+    if name == "resolve_attack":
+        result = combat_service.resolve_attack(
+            str(arguments["attacker_id"]),
+            str(arguments["target_id"]),
+            attack_bonus=int(arguments.get("attack_bonus", 0)),
+            damage_expression=str(arguments.get("damage_expression", "1d4")),
+            damage_type=str(arguments.get("damage_type", "untyped")),
+            advantage=str(arguments.get("advantage", "normal")),
+            user_id=user_id or "dm",
+        )
+        return {"name": name, "result": result}
+    if name == "resolve_saving_throw":
+        result = combat_service.resolve_saving_throw(
+            str(arguments["actor_id"]),
+            ability=str(arguments["ability"]),
+            dc=int(arguments["dc"]),
+            advantage=str(arguments.get("advantage", "normal")),
+            user_id=user_id or "dm",
+        )
+        return {"name": name, "result": result}
+    if name == "resolve_skill_check":
+        result = combat_service.resolve_skill_check(
+            str(arguments["actor_id"]),
+            ability=str(arguments["ability"]),
+            dc=int(arguments["dc"]),
+            proficient=bool(arguments.get("proficient", False)),
+            advantage=str(arguments.get("advantage", "normal")),
+            user_id=user_id or "dm",
+        )
+        return {"name": name, "result": result}
+    if name == "open_reaction_window":
+        result = combat_service.open_reaction_window(
+            str(arguments["trigger"]),
+            str(arguments["actor_id"]),
+            str(arguments["source_id"]),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": {"reactionWindow": result}}
+    if name == "resolve_reaction":
+        result = combat_service.resolve_reaction(
+            str(arguments["window_id"]),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": {"reactionWindow": result}}
+    if name == "decline_reaction":
+        result = combat_service.decline_reaction(
+            str(arguments["window_id"]),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": {"reactionWindow": result}}
+    if name == "edit_map_layer":
+        game_map = map_service.edit_map_layer(
+            str(arguments["layer"]),
+            list(arguments.get("items", [])),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": {"map": game_map}}
+    if name == "set_map_background":
+        game_map = map_service.set_map_background(
+            dict(arguments["background"]),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": {"map": game_map}}
     raise ValueError(f"unsupported tool call: {name}")
+
+
+DM_AUTHORITY_TOOLS = {
+    "start_combat",
+    "advance_turn",
+    "apply_damage",
+    "apply_healing",
+    "apply_condition",
+    "remove_condition",
+    "spend_spell_slot",
+    "restore_spell_slot",
+    "spend_resource",
+    "restore_resource",
+    "open_reaction_window",
+    "resolve_reaction",
+    "decline_reaction",
+    "edit_map_layer",
+    "set_map_background",
+}
+
+
+def _authority_user_for_tool(name: str, user_id: str | None) -> str:
+    if name in DM_AUTHORITY_TOOLS:
+        return "dm"
+    return user_id or "dm"
 
 
 def narrate_dm_response(
@@ -348,11 +708,45 @@ def build_result_message(tool_results: list[dict[str, Any]]) -> str:
     for tool_result in tool_results:
         if tool_result["name"] == "move_token":
             token = tool_result["result"]["token"]
-            parts.append(f"{token['name']} 移动到 ({token['x'] + 1}, {token['y'] + 1})")
+            parts.append(f"{token['name']} 移动到 ({token['x']}, {token['y']})")
         elif tool_result["name"] == "roll_dice":
             result = tool_result["result"]
             parts.append(f"{result['expression']} 结果为 {result['total']}")
-    return "；".join(parts) + "。"
+        elif tool_result["name"] == "apply_damage":
+            result = tool_result["result"]
+            character = result["character"]
+            parts.append(f"{character['name']} 受到 {result['amount']} 点伤害")
+        elif tool_result["name"] == "apply_healing":
+            result = tool_result["result"]
+            character = result["character"]
+            parts.append(f"{character['name']} 恢复 {result['amount']} 点生命")
+        elif tool_result["name"] == "apply_condition":
+            result = tool_result["result"]
+            character = result["character"]
+            parts.append(f"{character['name']} 获得 {result['condition']} 状态")
+        elif tool_result["name"] == "remove_condition":
+            result = tool_result["result"]
+            character = result["character"]
+            parts.append(f"{character['name']} 移除 {result['condition']} 状态")
+        elif tool_result["name"] == "spend_spell_slot":
+            result = tool_result["result"]
+            character = result["character"]
+            parts.append(f"{character['name']} 消耗 {result['amount']} 个 {result['level']} 环法术位")
+        elif tool_result["name"] == "restore_spell_slot":
+            result = tool_result["result"]
+            character = result["character"]
+            parts.append(f"{character['name']} 恢复 {result['amount']} 个 {result['level']} 环法术位")
+        elif tool_result["name"] == "spend_resource":
+            result = tool_result["result"]
+            character = result["character"]
+            resource = result["resource"]
+            parts.append(f"{character['name']} 消耗 {result['amount']} 点 {resource['name']}")
+        elif tool_result["name"] == "restore_resource":
+            result = tool_result["result"]
+            character = result["character"]
+            resource = result["resource"]
+            parts.append(f"{character['name']} 恢复 {result['amount']} 点 {resource['name']}")
+    return "；".join(parts) + "。" if parts else "行动已记录。"
 
 
 def _build_dm_messages(
@@ -395,6 +789,8 @@ def _build_state_context(*, user_id: str) -> str:
         "controlled_character": strip_image_payloads(controlled_character),
         "session": state["session"],
         "map": state["map"],
+        "combat": state.get("combat", {}),
+        "pending_actions": state.get("pendingActions", []),
         "tokens": state["tokens"],
         "characters": strip_image_payloads(state["characters"]),
         "recent_public_events": state["events"][-8:],
@@ -402,7 +798,7 @@ def _build_state_context(*, user_id: str) -> str:
     return (
         "Authoritative current_state JSON follows. Use it as the only source of truth "
         "for player character identity, race, class, HP, AC, skills, attacks, resources, spell slots, and conditions.\n"
-        "Player users may only move, roll for, or update their controlled character. "
+        "Player users may only move, roll for, or spend resources on their controlled character. "
         "Do not call tools for monsters, map objects, or other player characters unless the current user is DM.\n"
         f"{json.dumps(current_state, ensure_ascii=False)}"
     )
@@ -481,18 +877,28 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
                 "advantage": str(arguments.get("advantage", "normal")),
             },
         }
-    if name == "update_character_state":
-        character_id = arguments.get("character_id", arguments.get("characterId"))
-        updates = arguments.get("updates")
-        if character_id is None or not isinstance(updates, dict):
-            return None
-        return {
-            "name": "update_character_state",
-            "arguments": {
-                "character_id": _canonical_token(str(character_id)),
-                "updates": updates,
-            },
-        }
+    if name in {
+        "start_combat",
+        "end_turn",
+        "advance_turn",
+        "apply_damage",
+        "apply_healing",
+        "apply_condition",
+        "remove_condition",
+        "spend_spell_slot",
+        "restore_spell_slot",
+        "spend_resource",
+        "restore_resource",
+        "resolve_attack",
+        "resolve_saving_throw",
+        "resolve_skill_check",
+        "open_reaction_window",
+        "resolve_reaction",
+        "decline_reaction",
+        "edit_map_layer",
+        "set_map_background",
+    }:
+        return {"name": name, "arguments": _snake_case_arguments(arguments)}
     return None
 
 
@@ -517,9 +923,8 @@ def _plan_move_call(message: str) -> ToolCall | None:
         if not match:
             continue
         token_id = _canonical_token(match.group("token"))
-        # User-facing coordinates are 1-based; map state is 0-based.
-        x = int(match.group("x")) - 1
-        y = int(match.group("y")) - 1
+        x = int(match.group("x"))
+        y = int(match.group("y"))
         return {
             "name": "move_token",
             "arguments": {
@@ -566,3 +971,22 @@ def _plan_roll_call(message: str, *, speaker: str, user_id: str) -> ToolCall | N
 def _canonical_token(value: str) -> str:
     normalized = value.strip().lower()
     return TOKEN_ALIASES.get(value.strip(), TOKEN_ALIASES.get(normalized, normalized))
+
+
+def _snake_case_arguments(arguments: dict[str, Any]) -> dict[str, Any]:
+    aliases = {
+        "participantIds": "participant_ids",
+        "actorId": "actor_id",
+        "sourceId": "source_id",
+        "targetId": "target_id",
+        "characterId": "character_id",
+        "attackerId": "attacker_id",
+        "attackBonus": "attack_bonus",
+        "damageExpression": "damage_expression",
+        "damageType": "damage_type",
+        "resourceName": "resource_name",
+        "slotLevel": "level",
+        "spellLevel": "level",
+        "windowId": "window_id",
+    }
+    return {aliases.get(key, key): value for key, value in arguments.items()}

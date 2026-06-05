@@ -213,16 +213,16 @@ def test_chat_can_move_token_and_roll_dice(monkeypatch):
     state = response["state"]
     kael = next(token for token in state["tokens"] if token["id"] == "kael")
 
-    assert kael["x"] == 4
-    assert kael["y"] == 3
+    assert kael["x"] == 5
+    assert kael["y"] == 4
     assert [call["name"] for call in response["toolCalls"]] == [
         "move_token",
         "roll_dice",
     ]
     assert response["toolCalls"][0]["arguments"] == {
         "token_id": "kael",
-        "x": 4,
-        "y": 3,
+        "x": 5,
+        "y": 4,
     }
     assert response["toolCalls"][1]["arguments"]["expression"] == "1d20+2"
     assert [result["name"] for result in response["toolResults"]] == [
@@ -233,7 +233,7 @@ def test_chat_can_move_token_and_roll_dice(monkeypatch):
     assert "Tool calls resolved" not in state["events"][-1]["text"]
     assert "move_token" not in state["events"][-1]["text"]
     assert "roll_dice" not in state["events"][-1]["text"]
-    assert "移动到" in state["events"][-1]["text"]
+    assert "移动到 (5, 4)" in state["events"][-1]["text"]
     assert "结果为" in state["events"][-1]["text"]
 
 
@@ -267,11 +267,14 @@ def test_chat_uses_llm_dm_for_plain_dialogue(monkeypatch):
     assert response["toolCalls"] == []
     assert state["events"][-1]["type"] == "dm"
     assert state["events"][-1]["text"] == "门后传来低沉的呼吸声，火光忽明忽暗。"
-    assert [tool["name"] for tool in fake_dm.tools] == [
-        "move_token",
-        "roll_dice",
-        "update_character_state",
-    ]
+    tool_names = [tool["name"] for tool in fake_dm.tools]
+    assert tool_names[:2] == ["move_token", "roll_dice"]
+    assert "update_character_state" not in tool_names
+    assert "start_combat" in tool_names
+    assert "resolve_attack" in tool_names
+    assert "spend_spell_slot" in tool_names
+    assert "spend_resource" in tool_names
+    assert "edit_map_layer" in tool_names
     prompt_text = "\n".join(part for _, part in fake_dm.messages[0])
     assert '"class": "Wizard 3"' in prompt_text
     assert '"race": "High Elf"' in prompt_text
@@ -321,21 +324,19 @@ def test_chat_uses_llm_tool_calls_and_dm_narration(monkeypatch):
     assert len(fake_dm.messages) == 2
 
 
-def test_chat_uses_llm_tool_call_to_update_character_state(monkeypatch):
+def test_chat_uses_granular_llm_tools_for_damage_and_conditions(monkeypatch):
     fake_dm = FakeDmModel(
         [
             FakeMessage(
                 tool_calls=[
                     {
-                        "name": "update_character_state",
-                        "args": {
-                            "character_id": "kael",
-                            "updates": {
-                                "hp": {"current": 12, "max": 30, "temp": 0},
-                                "conditions": ["poisoned"],
-                            },
-                        },
-                    }
+                        "name": "apply_damage",
+                        "args": {"target_id": "kael", "amount": 12, "damage_type": "poison"},
+                    },
+                    {
+                        "name": "apply_condition",
+                        "args": {"target_id": "kael", "condition": "poisoned"},
+                    },
                 ]
             ),
             FakeMessage(content="Kael 的伤势已记录。"),
@@ -348,18 +349,105 @@ def test_chat_uses_llm_tool_call_to_update_character_state(monkeypatch):
 
     assert response["toolCalls"] == [
         {
-            "name": "update_character_state",
-            "arguments": {
-                "character_id": "kael",
-                "updates": {
-                    "hp": {"current": 12, "max": 30, "temp": 0},
-                    "conditions": ["poisoned"],
-                },
-            },
-        }
+            "name": "apply_damage",
+            "arguments": {"target_id": "kael", "amount": 12, "damage_type": "poison"},
+        },
+        {
+            "name": "apply_condition",
+            "arguments": {"target_id": "kael", "condition": "poisoned"},
+        },
     ]
     assert kael["hp"]["current"] == 12
     assert kael["conditions"] == ["poisoned"]
+
+
+def test_chat_uses_granular_llm_tools_for_spell_slots_and_resources(monkeypatch):
+    fake_dm = FakeDmModel(
+        [
+            FakeMessage(
+                tool_calls=[
+                    {
+                        "name": "spend_spell_slot",
+                        "args": {"character_id": "mira", "level": 2, "amount": 1},
+                    },
+                    {
+                        "name": "spend_resource",
+                        "args": {"character_id": "kael", "resource_name": "Second Wind", "amount": 1},
+                    },
+                ]
+            ),
+            FakeMessage(content="资源消耗已记录。"),
+        ]
+    )
+    monkeypatch.setattr(chat_service, "get_llm", lambda role: fake_dm)
+
+    response = chat_service.handle_chat("Mira 施放二环法术，Kael 使用 Second Wind", speaker="DM", user_id="dm")
+    mira = next(character for character in response["state"]["characters"] if character["id"] == "mira")
+    kael = next(character for character in response["state"]["characters"] if character["id"] == "kael")
+    second_wind = next(resource for resource in kael["resources"] if resource["name"] == "Second Wind")
+
+    assert [call["name"] for call in response["toolCalls"]] == ["spend_spell_slot", "spend_resource"]
+    assert mira["spellcasting"]["slots"]["2"]["current"] == 0
+    assert second_wind["current"] == 0
+
+
+def test_legacy_update_character_state_tool_call_is_ignored(monkeypatch):
+    fake_dm = FakeDmModel(
+        [
+            FakeMessage(
+                content="我需要使用更具体的规则工具。",
+                tool_calls=[
+                    {
+                        "name": "update_character_state",
+                        "args": {
+                            "character_id": "kael",
+                            "updates": {"hp": {"current": 1, "max": 30, "temp": 0}},
+                        },
+                    }
+                ],
+            ),
+        ]
+    )
+    monkeypatch.setattr(chat_service, "get_llm", lambda role: fake_dm)
+
+    response = chat_service.handle_chat("把 Kael 的 HP 改成 1", speaker="Kael Player")
+    kael = next(character for character in response["state"]["characters"] if character["id"] == "kael")
+
+    assert response["toolCalls"] == []
+    assert kael["hp"]["current"] == 24
+
+
+def test_chat_llm_can_start_combat_with_dm_authority(monkeypatch):
+    fake_dm = FakeDmModel(
+        [
+            FakeMessage(
+                tool_calls=[
+                    {
+                        "name": "start_combat",
+                        "args": {"participant_ids": ["kael", "goblin-1"]},
+                    }
+                ]
+            ),
+            FakeMessage(content="战斗开始，先攻顺序已经建立。"),
+        ]
+    )
+    monkeypatch.setattr(chat_service, "get_llm", lambda role: fake_dm)
+
+    response = chat_service.handle_chat(
+        "战斗",
+        speaker="Kael Player",
+        user_id="player-kael",
+    )
+
+    assert response["toolCalls"] == [
+        {
+            "name": "start_combat",
+            "arguments": {"participant_ids": ["kael", "goblin-1"]},
+        }
+    ]
+    assert response["state"]["combat"]["active"] is True
+    assert response["state"]["session"]["mode"] == "combat"
+    assert response["state"]["events"][-1]["text"] == "战斗开始，先攻顺序已经建立。"
 
 
 def test_chat_rejects_llm_tool_call_for_unowned_token(monkeypatch):
@@ -435,3 +523,76 @@ def test_chat_reuses_rule_context_in_tool_narration_prompt(monkeypatch):
     narration_prompt = "\n".join(part for _, part in fake_dm.messages[1])
     assert "RAG_CONTEXT: Use perception rules." in narration_prompt
     assert '"class": "Wizard 3"' in narration_prompt
+
+
+def test_map_repository_migrates_legacy_map_to_layered_map():
+    from playscript_agent.api.services import map_repository
+
+    game_map = map_repository.validate_map(
+        {
+            "id": "legacy",
+            "name": "Legacy",
+            "width": 4,
+            "height": 4,
+            "gridSize": 50,
+            "terrain": [{"x": 1, "y": 1, "type": "wall"}],
+            "annotations": [{"x": 2, "y": 2, "label": "door"}],
+        }
+    )
+
+    assert game_map["layers"]["terrain"] == [{"x": 1, "y": 1, "type": "wall"}]
+    assert game_map["layers"]["walls"] == [{"x": 1, "y": 1, "type": "wall"}]
+    assert game_map["layers"]["annotations"] == [{"x": 2, "y": 2, "label": "door"}]
+    assert game_map["background"]["url"] == ""
+    assert game_map["terrain"] == game_map["layers"]["terrain"]
+
+
+def test_combat_start_end_turn_and_damage(monkeypatch):
+    from playscript_agent.api.services import combat_service
+
+    monkeypatch.setattr("playscript_agent.api.services.game_state.random.randint", lambda low, high: 10)
+
+    combat = combat_service.start_combat(["kael", "goblin-1"], user_id="dm")
+
+    assert combat["active"] is True
+    assert combat["round"] == 1
+    assert {entry["actorId"] for entry in combat["initiativeOrder"]} == {"kael", "goblin-1"}
+
+    current_actor = game_state.current_combat_actor_id()
+    next_combat = combat_service.end_turn(current_actor, user_id="dm")
+
+    assert next_combat["turnIndex"] == 1
+
+    result = combat_service.apply_damage("goblin-1", 3, damage_type="slashing", user_id="dm")
+    assert result["character"]["hp"]["current"] == 4
+
+
+def test_combat_advances_monster_turns_to_next_player(monkeypatch):
+    from playscript_agent.api.services import combat_service
+
+    monkeypatch.setattr("playscript_agent.api.services.game_state.random.randint", lambda low, high: 10)
+    game_state.start_combat(["goblin-1", "kael"], user_id="dm")
+
+    assert game_state.current_combat_actor_id() == "goblin-1"
+
+    combat = combat_service.advance_to_player_turn(user_id="player-kael")
+
+    assert combat["turnState"]["kael"]["actorId"] == "kael"
+    assert game_state.current_combat_actor_id() == "kael"
+    assert "DM control" in game_state.snapshot()["events"][-1]["text"]
+
+
+def test_player_reaction_pending_requires_actor_control():
+    game_state.start_combat(["kael", "goblin-1"], user_id="dm")
+    window = game_state.open_reaction_window(
+        trigger="leaves_reach",
+        actor_id="kael",
+        source_id="kael",
+        user_id="player-kael",
+    )
+
+    assert window["status"] == "open"
+    with pytest.raises(PermissionError):
+        game_state.confirm_pending_action(window["id"], user_id="player-mira")
+    confirmed = game_state.confirm_pending_action(window["id"], user_id="player-kael")
+    assert confirmed["status"] == "confirmed"

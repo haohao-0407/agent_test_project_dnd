@@ -69,6 +69,7 @@ button:disabled {
 .topbar,
 .map-panel,
 .sheet-panel,
+.combat-panel,
 .chat-panel,
 .tool-panel {
   border: 1px solid var(--line);
@@ -207,14 +208,30 @@ button:disabled {
   grid-area: chat;
 }
 
+.sheet-stack,
 .sheet-panel,
+.combat-panel,
 .tool-panel {
   min-height: 0;
   overflow: auto;
 }
 
-.sheet-panel {
+.sheet-stack {
   grid-area: sheet;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sheet-panel {
+  min-height: 0;
+}
+
+.combat-panel {
+  min-height: 0;
+  overflow: hidden;
 }
 
 .panel-header {
@@ -225,6 +242,122 @@ button:disabled {
   min-height: 58px;
   padding: 12px 14px;
   border-bottom: 1px solid var(--line);
+}
+
+.panel-header.compact {
+  min-height: 48px;
+  padding: 10px 12px;
+}
+
+.combat-actions {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.combat-actions button,
+.pending-action button {
+  min-height: 30px;
+  padding: 5px 9px;
+  color: #fff;
+  border-color: var(--accent);
+  background: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pending-action button:last-child {
+  color: var(--ink);
+  border-color: var(--line);
+  background: var(--surface);
+}
+
+.combat-body {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.7fr) minmax(150px, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+.turn-card {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.turn-card span,
+.pending-empty {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.turn-card strong {
+  font-size: 14px;
+}
+
+.action-economy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.action-economy span {
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: #e7f0ee;
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.action-economy span.spent {
+  background: var(--surface-2);
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.initiative-list,
+.pending-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.initiative-list {
+  list-style: none;
+}
+
+.initiative-list li,
+.pending-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 12px;
+}
+
+.initiative-list li.active {
+  border-color: var(--accent);
+  background: #e7f0ee;
+}
+
+.pending-list {
+  grid-column: 1 / -1;
+}
+
+.pending-action > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .icon-button {
@@ -269,6 +402,9 @@ button:disabled {
 .map-grid {
   --cols: 12;
   --rows: 8;
+  --map-background: none;
+  --map-background-opacity: 1;
+  position: relative;
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   grid-template-rows: repeat(var(--rows), minmax(0, 1fr));
@@ -283,8 +419,20 @@ button:disabled {
   contain: layout paint;
 }
 
+.map-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--map-background);
+  background-position: center;
+  background-size: cover;
+  opacity: var(--map-background-opacity);
+  pointer-events: none;
+}
+
 .cell {
   position: relative;
+  z-index: 1;
   min-width: 0;
   min-height: 0;
   border: 0;
@@ -299,6 +447,26 @@ button:disabled {
 
 .cell.wall {
   background: #5c594f;
+}
+
+.cell.door {
+  background: #6e5135;
+}
+
+.cell.door-open {
+  background: #b89363;
+}
+
+.cell.obstacle {
+  background: repeating-linear-gradient(135deg, #6e6250, #6e6250 5px, #877a62 5px, #877a62 10px);
+}
+
+.cell.fog-hidden {
+  background: #171815;
+}
+
+.cell.fog-dim {
+  box-shadow: inset 0 0 0 999px rgba(0, 0, 0, 0.28);
 }
 
 .cell.water {

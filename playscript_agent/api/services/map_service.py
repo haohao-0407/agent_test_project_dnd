@@ -13,7 +13,7 @@ def move_token(token_id: str, x: int, y: int, *, user_id: str | None = None) -> 
         {
             "type": "system",
             "speaker": "Map",
-            "text": f"{token['name']} moved to ({x + 1}, {y + 1}).",
+            "text": f"{token['name']} moved to ({x}, {y}).",
         }
     )
     return token
@@ -26,6 +26,30 @@ def update_map(updates: dict[str, Any], *, user_id: str) -> dict[str, Any]:
             "type": "system",
             "speaker": "Map",
             "text": f"Map {game_map['name']} updated.",
+        }
+    )
+    return game_map
+
+
+def edit_map_layer(layer: str, items: list[dict[str, Any]], *, user_id: str) -> dict[str, Any]:
+    game_map = game_state.update_map_layer(layer, items, user_id=user_id)
+    game_state.append_event(
+        {
+            "type": "system",
+            "speaker": "Map",
+            "text": f"Map layer {layer} updated.",
+        }
+    )
+    return game_map
+
+
+def set_map_background(background: dict[str, Any], *, user_id: str) -> dict[str, Any]:
+    game_map = game_state.update_map_background(background, user_id=user_id)
+    game_state.append_event(
+        {
+            "type": "system",
+            "speaker": "Map",
+            "text": f"Map background updated for {game_map['name']}.",
         }
     )
     return game_map

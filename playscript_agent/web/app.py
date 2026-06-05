@@ -204,7 +204,7 @@ def handle_token_move(payload: dict[str, Any]) -> dict[str, Any]:
         {
             "type": "system",
             "speaker": "Map",
-            "text": f"{token['name']} moved to ({x + 1}, {y + 1}).",
+            "text": f"{token['name']} moved to ({x}, {y}).",
         }
     )
     return {"state": snapshot_state()}

@@ -56,7 +56,7 @@ function renderMap() {
       cell.className = "cell";
       cell.dataset.x = x;
       cell.dataset.y = y;
-      cell.setAttribute("aria-label", `grid ${x + 1}, ${y + 1}`);
+      cell.setAttribute("aria-label", `grid ${x}, ${y}`);
 
       const terrain = state.map.terrain.find((item) => item.x === x && item.y === y);
       if (terrain) {

@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
-import { getState, moveToken, sendChat, updateMap } from "../api/client";
+import {
+  advanceToPlayerTurn,
+  confirmPendingAction,
+  declinePendingAction,
+  endTurn,
+  getState,
+  moveToken,
+  sendChat,
+  startCombat,
+  updateMap
+} from "../api/client";
 import type { GameState, MapEditTool, Terrain } from "../api/types";
 import { CharacterCardsPage } from "./CharacterCardsPage";
 import { CharacterSheet } from "./CharacterSheet";
 import { ChatPanel } from "./ChatPanel";
+import { CombatPanel } from "./CombatPanel";
 import { MapView } from "./MapView";
 
 export function TabletopApp() {
@@ -12,6 +23,7 @@ export function TabletopApp() {
   const [currentUserId, setCurrentUserId] = useState("player-kael");
   const [mapEditTool, setMapEditTool] = useState<MapEditTool>("move");
   const [activePage, setActivePage] = useState<"tabletop" | "characters">("tabletop");
+  const [isAutoAdvancing, setIsAutoAdvancing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,6 +36,24 @@ export function TabletopApp() {
       })
       .catch((apiError: Error) => setError(apiError.message));
   }, []);
+
+  useEffect(() => {
+    if (!state || isAutoAdvancing || !state.combat.active) return;
+    const currentUser = state.players.find((player) => player.id === currentUserId) || state.players[0];
+    if (!currentUser || currentUser.role === "dm") return;
+
+    const currentActorId = state.combat.initiativeOrder[state.combat.turnIndex]?.actorId;
+    const currentToken = state.tokens.find(
+      (token) => token.actorId === currentActorId || token.id === currentActorId
+    );
+    if (!currentToken || currentToken.kind === "player") return;
+
+    setIsAutoAdvancing(true);
+    advanceToPlayerTurn({ userId: currentUserId })
+      .then((response) => setState(response.state))
+      .catch((apiError: Error) => setError(apiError.message))
+      .finally(() => setIsAutoAdvancing(false));
+  }, [currentUserId, isAutoAdvancing, state]);
 
   async function handleMoveToken(x: number, y: number) {
     if (!selectedTokenId) return;
@@ -50,6 +80,32 @@ export function TabletopApp() {
       userId: currentUserId,
       updates: { terrain: nextTerrain }
     });
+    setState(response.state);
+  }
+
+  async function handleStartCombat() {
+    const response = await startCombat({
+      userId: currentUserId,
+      participantIds: state?.tokens.map((token) => token.actorId || token.id) || null
+    });
+    setState(response.state);
+  }
+
+  async function handleEndTurn() {
+    const response = await endTurn({
+      userId: currentUserId,
+      actorId: state?.combat.active ? state.combat.initiativeOrder[state.combat.turnIndex]?.actorId : null
+    });
+    setState(response.state);
+  }
+
+  async function handleConfirmPending(actionId: string) {
+    const response = await confirmPendingAction({ actionId, userId: currentUserId });
+    setState(response.state);
+  }
+
+  async function handleDeclinePending(actionId: string) {
+    const response = await declinePendingAction({ actionId, userId: currentUserId });
     setState(response.state);
   }
 
@@ -141,7 +197,20 @@ export function TabletopApp() {
             onEditMapCell={handleEditMapCell}
             onMapEditToolChange={setMapEditTool}
           />
-          <CharacterSheet characters={state.characters} />
+          <div className="sheet-stack">
+            <CombatPanel
+              combat={state.combat}
+              pendingActions={state.pendingActions}
+              tokens={state.tokens}
+              currentUser={currentUser}
+              currentUserId={currentUserId}
+              onStartCombat={handleStartCombat}
+              onEndTurn={handleEndTurn}
+              onConfirmPending={handleConfirmPending}
+              onDeclinePending={handleDeclinePending}
+            />
+            <CharacterSheet characters={state.characters} />
+          </div>
           <ChatPanel events={state.events} onSend={handleSend} />
         </section>
       )}

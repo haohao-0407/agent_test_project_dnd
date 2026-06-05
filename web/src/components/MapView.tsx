@@ -33,20 +33,34 @@ export function MapView({
   onMapEditToolChange
 }: MapViewProps) {
   const cells = [];
+  const terrainLayer = map.layers?.terrain || map.terrain;
+  const wallLayer = map.layers?.walls || map.terrain.filter((item) => item.type === "wall");
+  const doorLayer = map.layers?.doors || [];
+  const obstacleLayer = map.layers?.obstacles || [];
+  const annotationLayer = map.layers?.annotations || map.annotations;
+  const fogLayer = map.layers?.fog || [];
   for (let y = 0; y < map.height; y += 1) {
     for (let x = 0; x < map.width; x += 1) {
-      const terrain = map.terrain.find((item) => item.x === x && item.y === y);
-      const annotation = map.annotations.find((item) => item.x === x && item.y === y);
+      const terrain = terrainLayer.find((item) => item.x === x && item.y === y);
+      const wall = wallLayer.find((item) => item.x === x && item.y === y);
+      const door = doorLayer.find((item) => item.x === x && item.y === y);
+      const obstacle = obstacleLayer.find((item) => item.x === x && item.y === y);
+      const annotation = annotationLayer.find((item) => item.x === x && item.y === y);
+      const fog = fogLayer.find((item) => item.x === x && item.y === y);
       const token = tokens.find((item) => item.x === x && item.y === y);
       const canControlToken = token ? controlledTokenIds.includes(token.id) : false;
       const classes = ["cell"];
       if (terrain) classes.push(terrainClass[terrain.type] || terrain.type);
-      if (selectedTokenId && terrain?.type !== "wall") classes.push("selected");
+      if (wall) classes.push("wall");
+      if (door) classes.push(door.open ? "door-open" : "door");
+      if (obstacle) classes.push("obstacle");
+      if (fog) classes.push(`fog-${fog.visibility}`);
+      if (selectedTokenId && terrain?.type !== "wall" && !wall) classes.push("selected");
       if (token && !canControlToken) classes.push("locked");
 
       cells.push(
         <button
-          aria-label={`grid ${x + 1}, ${y + 1}`}
+          aria-label={`grid ${x}, ${y}`}
           className={classes.join(" ")}
           key={`${x}-${y}`}
           onClick={() => {
@@ -115,7 +129,14 @@ export function MapView({
       <div className="map-grid-frame">
         <div
           className="map-grid"
-          style={{ "--cols": map.width, "--rows": map.height } as CSSProperties}
+          style={
+            {
+              "--cols": map.width,
+              "--rows": map.height,
+              "--map-background": map.background?.url ? `url(${map.background.url})` : "none",
+              "--map-background-opacity": map.background?.opacity ?? 1
+            } as CSSProperties
+          }
           aria-label="battle map"
         >
           {cells}

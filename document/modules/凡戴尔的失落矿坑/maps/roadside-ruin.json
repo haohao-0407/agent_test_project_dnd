@@ -4,6 +4,143 @@
   "width": 12,
   "height": 8,
   "gridSize": 48,
+  "background": {
+    "url": "",
+    "width": 0,
+    "height": 0,
+    "opacity": 1.0
+  },
+  "grid": {
+    "size": 48,
+    "originX": 0,
+    "originY": 0,
+    "scale": 1.0,
+    "offsetX": 0,
+    "offsetY": 0
+  },
+  "layers": {
+    "terrain": [
+      {
+        "x": 4,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 5,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 6,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 4,
+        "y": 2,
+        "type": "wall"
+      },
+      {
+        "x": 2,
+        "y": 5,
+        "type": "water"
+      },
+      {
+        "x": 3,
+        "y": 5,
+        "type": "water"
+      },
+      {
+        "x": 7,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 7,
+        "y": 2,
+        "type": "wall"
+      }
+    ],
+    "walls": [
+      {
+        "x": 4,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 5,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 6,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 4,
+        "y": 2,
+        "type": "wall"
+      },
+      {
+        "x": 7,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 7,
+        "y": 2,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 7,
+        "type": "wall"
+      },
+      {
+        "x": 1,
+        "y": 7,
+        "type": "wall"
+      }
+    ],
+    "doors": [],
+    "obstacles": [],
+    "annotations": [
+      {
+        "x": 6,
+        "y": 3,
+        "label": "door"
+      },
+      {
+        "x": 10,
+        "y": 6,
+        "label": "firelight"
+      }
+    ],
+    "fog": [],
+    "effects": [],
+    "dmNotes": []
+  },
   "terrain": [
     {
       "x": 4,

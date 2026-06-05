@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .cache/
+.tmp_tests/
 model_cache*/
 .env
 .venv/
