@@ -97,6 +97,28 @@ export type CharacterFeatureDetail = {
   description: string;
 };
 
+export type CharacterImagePurpose =
+  | "combat"
+  | "travel"
+  | "topDown"
+  | "sideView"
+  | "portrait"
+  | "scene"
+  | "token"
+  | "other";
+
+export type CharacterImage = {
+  id: string;
+  purpose: CharacterImagePurpose | string;
+  title: string;
+  fileName: string;
+  mimeType: string;
+  size: number;
+  dataUrl: string;
+  notes: string;
+  createdAt: string;
+};
+
 export type Character = {
   id: string;
   ownerUserId?: string | null;
@@ -155,6 +177,7 @@ export type Character = {
   resources?: CharacterResource[];
   personality?: { traits: string; ideals: string; bonds: string; flaws: string };
   appearance?: { age: string; height: string; weight: string; eyes: string; skin: string; hair: string };
+  images?: CharacterImage[];
   notes?: string;
 };
 

@@ -904,6 +904,54 @@ textarea {
   text-align: center;
 }
 
+.upload-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 6px;
+  color: white;
+  background: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.upload-button input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-table table {
+  min-width: 1080px;
+}
+
+.character-image-preview {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-2);
+}
+
+.muted-cell {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.empty-table-cell {
+  height: 56px;
+  color: var(--muted);
+  text-align: center !important;
+}
+
 .rules-page {
   flex: 1;
   display: grid;

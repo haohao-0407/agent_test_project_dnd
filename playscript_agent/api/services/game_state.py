@@ -54,6 +54,7 @@ CHARACTER_EDITABLE_FIELDS = {
     "resources",
     "personality",
     "appearance",
+    "images",
     "notes",
 }
 
@@ -128,6 +129,7 @@ def base_character_card(character_id: str, name: str) -> dict[str, Any]:
         "resources": [],
         "personality": {"traits": "", "ideals": "", "bonds": "", "flaws": ""},
         "appearance": {"age": "", "height": "", "weight": "", "eyes": "", "skin": "", "hair": ""},
+        "images": [],
         "notes": "",
     }
 
@@ -171,6 +173,7 @@ def normalize_character_card(raw_character: dict[str, Any]) -> dict[str, Any]:
     normalized["speed"] = int(normalized.get("speed", 30))
     normalized["level"] = int(normalized.get("level", 1))
     normalized["proficiencyBonus"] = int(normalized.get("proficiencyBonus", 2))
+    normalized["images"] = normalize_character_images(normalized.get("images"))
 
     spellcasting = normalized.get("spellcasting") if isinstance(normalized.get("spellcasting"), dict) else {}
     normalized["spellcasting"] = base_character_card(character_id, name)["spellcasting"]
@@ -186,6 +189,33 @@ def normalize_character_card(raw_character: dict[str, Any]) -> dict[str, Any]:
                     "current": max(0, int(slot.get("current", 0))),
                 }
     normalized["spellcasting"]["slots"] = slots
+    return normalized
+
+
+def normalize_character_images(raw_images: Any) -> list[dict[str, Any]]:
+    if not isinstance(raw_images, list):
+        return []
+    normalized: list[dict[str, Any]] = []
+    for index, raw_image in enumerate(raw_images):
+        if not isinstance(raw_image, dict):
+            continue
+        data_url = str(raw_image.get("dataUrl") or "").strip()
+        if not data_url:
+            continue
+        image_id = str(raw_image.get("id") or f"image-{index + 1}").strip()
+        normalized.append(
+            {
+                "id": image_id or f"image-{index + 1}",
+                "purpose": str(raw_image.get("purpose") or "other").strip() or "other",
+                "title": str(raw_image.get("title") or "").strip(),
+                "fileName": str(raw_image.get("fileName") or "").strip(),
+                "mimeType": str(raw_image.get("mimeType") or "").strip(),
+                "size": max(0, int(raw_image.get("size") or 0)),
+                "dataUrl": data_url,
+                "notes": str(raw_image.get("notes") or ""),
+                "createdAt": str(raw_image.get("createdAt") or ""),
+            }
+        )
     return normalized
 
 

@@ -12,6 +12,8 @@ import type {
   CharacterActionDetail,
   CharacterAttack,
   CharacterFeatureDetail,
+  CharacterImage,
+  CharacterImagePurpose,
   CharacterResource,
   ClassLevel,
   GameState,
@@ -72,6 +74,116 @@ const alignmentOptions = [
   "Chaotic Evil",
   "Unaligned"
 ];
+const imagePurposeOptions: Array<{ value: CharacterImagePurpose; label: string }> = [
+  { value: "combat", label: "战斗" },
+  { value: "travel", label: "旅行" },
+  { value: "topDown", label: "俯视图" },
+  { value: "sideView", label: "侧视图" },
+  { value: "portrait", label: "肖像" },
+  { value: "scene", label: "场景" },
+  { value: "token", label: "地图棋子" },
+  { value: "other", label: "其他" }
+];
+const optionLabels: Record<string, string> = {
+  Barbarian: "野蛮人",
+  Bard: "吟游诗人",
+  Cleric: "牧师",
+  Druid: "德鲁伊",
+  Fighter: "战士",
+  Monk: "武僧",
+  Paladin: "圣武士",
+  Ranger: "游侠",
+  Rogue: "游荡者",
+  Sorcerer: "术士",
+  Warlock: "邪术师",
+  Wizard: "法师",
+  "Path of the Berserker": "狂战士道途",
+  "Path of the Totem Warrior": "图腾战士道途",
+  "College of Lore": "逸闻学院",
+  "College of Valor": "勇气学院",
+  "Life Domain": "生命领域",
+  "Light Domain": "光明领域",
+  "Trickery Domain": "诡术领域",
+  "War Domain": "战争领域",
+  "Circle of the Land": "大地结社",
+  "Circle of the Moon": "月亮结社",
+  Champion: "冠军勇士",
+  "Battle Master": "战斗大师",
+  "Eldritch Knight": "魔能骑士",
+  "Way of the Open Hand": "散打宗",
+  "Way of Shadow": "暗影宗",
+  "Way of the Four Elements": "四象宗",
+  "Oath of Devotion": "奉献誓言",
+  "Oath of the Ancients": "古贤誓言",
+  "Oath of Vengeance": "复仇誓言",
+  Hunter: "猎人",
+  "Beast Master": "兽王",
+  Thief: "盗贼",
+  Assassin: "刺客",
+  "Arcane Trickster": "诡术师",
+  "Draconic Bloodline": "龙族血脉",
+  "Wild Magic": "狂野魔法",
+  "The Archfey": "至高妖精",
+  "The Fiend": "邪魔",
+  "The Great Old One": "旧日支配者",
+  "School of Evocation": "塑能学派",
+  "School of Abjuration": "防护学派",
+  "School of Divination": "预言学派",
+  "School of Illusion": "幻术学派",
+  Human: "人类",
+  "Standard Human": "标准人类",
+  "Variant Human": "变体人类",
+  Elf: "精灵",
+  "High Elf": "高等精灵",
+  "Wood Elf": "木精灵",
+  Drow: "卓尔",
+  Dwarf: "矮人",
+  "Hill Dwarf": "丘陵矮人",
+  "Mountain Dwarf": "山地矮人",
+  Halfling: "半身人",
+  "Lightfoot Halfling": "轻足半身人",
+  "Stout Halfling": "壮心半身人",
+  Dragonborn: "龙裔",
+  Black: "黑龙",
+  Blue: "蓝龙",
+  Brass: "黄铜龙",
+  Bronze: "青铜龙",
+  Copper: "赤铜龙",
+  Gold: "金龙",
+  Green: "绿龙",
+  Red: "红龙",
+  Silver: "银龙",
+  White: "白龙",
+  Gnome: "侏儒",
+  "Forest Gnome": "森林侏儒",
+  "Rock Gnome": "岩侏儒",
+  "Half-Elf": "半精灵",
+  "Half-Orc": "半兽人",
+  Tiefling: "提夫林",
+  Acolyte: "侍祭",
+  Charlatan: "骗子",
+  Criminal: "罪犯",
+  Entertainer: "艺人",
+  "Folk Hero": "平民英雄",
+  "Guild Artisan": "行会工匠",
+  Hermit: "隐士",
+  Noble: "贵族",
+  Outlander: "化外之民",
+  Sage: "智者",
+  Sailor: "水手",
+  Soldier: "士兵",
+  Urchin: "流浪儿",
+  "Lawful Good": "守序善良",
+  "Neutral Good": "中立善良",
+  "Chaotic Good": "混乱善良",
+  "Lawful Neutral": "守序中立",
+  Neutral: "绝对中立",
+  "Chaotic Neutral": "混乱中立",
+  "Lawful Evil": "守序邪恶",
+  "Neutral Evil": "中立邪恶",
+  "Chaotic Evil": "混乱邪恶",
+  Unaligned: "无阵营"
+};
 
 type HitDie = { die: string; max: number; current: number };
 
@@ -297,6 +409,7 @@ export function CharacterCardsPage({
                 label="种族"
                 value={draft.race}
                 options={withCurrentOption(raceOptions.map((option) => option.name), draft.race)}
+                formatOption={bilingualOption}
                 onChange={(value) => updateDraft((next) => {
                   const selectedRace = raceOptions.find((option) => option.name === value) || raceOptions[0];
                   next.race = selectedRace.name;
@@ -307,18 +420,21 @@ export function CharacterCardsPage({
                 label="亚种"
                 value={draft.subrace || ""}
                 options={withCurrentOption((raceOptions.find((option) => option.name === draft.race) || raceOptions[0]).subraces, draft.subrace || "")}
+                formatOption={bilingualOption}
                 onChange={(value) => updateDraft((next) => (next.subrace = value))}
               />
               <SelectField
                 label="背景"
                 value={draft.background || ""}
                 options={withCurrentOption(backgroundOptions, draft.background || "")}
+                formatOption={bilingualOption}
                 onChange={(value) => updateDraft((next) => (next.background = value))}
               />
               <SelectField
                 label="阵营"
                 value={draft.alignment || ""}
                 options={withCurrentOption(alignmentOptions, draft.alignment || "")}
+                formatOption={bilingualOption}
                 onChange={(value) => updateDraft((next) => (next.alignment = value))}
               />
               <NumberField label="经验" value={draft.experience || 0} onChange={(value) => updateDraft((next) => (next.experience = value))} />
@@ -335,6 +451,14 @@ export function CharacterCardsPage({
             <ClassTable
               classes={draft.classes || []}
               onChange={(classes) => updateDraft((next) => (next.classes = classes))}
+            />
+          </section>
+
+          <section className="sheet-section">
+            <h3>图片</h3>
+            <CharacterImageTable
+              images={draft.images || []}
+              onChange={(images) => updateDraft((next) => (next.images = images))}
             />
           </section>
 
@@ -499,12 +623,14 @@ function SelectField({
   label,
   value,
   options,
-  onChange
+  onChange,
+  formatOption = defaultOptionLabel
 }: {
   label: string;
   value: string;
   options: string[];
   onChange: (value: string) => void;
+  formatOption?: (value: string) => string;
 }) {
   return (
     <label className="field">
@@ -512,7 +638,7 @@ function SelectField({
       <select value={value} onChange={(event) => onChange(event.target.value)}>
         {options.map((option) => (
           <option key={option || "none"} value={option}>
-            {option || "None"}
+            {formatOption(option)}
           </option>
         ))}
       </select>
@@ -565,7 +691,7 @@ function ClassTable({ classes, onChange }: { classes: ClassLevel[]; onChange: (c
                 }}
               >
                 {withCurrentOption(classOptions.map((option) => option.name), item.name).map((name) => (
-                  <option key={name} value={name}>{name}</option>
+                  <option key={name} value={name}>{bilingualOption(name)}</option>
                 ))}
               </select>
             </td>
@@ -575,7 +701,7 @@ function ClassTable({ classes, onChange }: { classes: ClassLevel[]; onChange: (c
                 onChange={(event) => onChange(updateAt(classes, index, { ...item, subclass: event.target.value }))}
               >
                 {subclassOptions.map((subclass) => (
-                  <option key={subclass} value={subclass}>{subclass || "None"}</option>
+                  <option key={subclass} value={subclass}>{bilingualOption(subclass)}</option>
                 ))}
               </select>
             </td>
@@ -779,6 +905,99 @@ function StringListTable({
   );
 }
 
+function CharacterImageTable({
+  images,
+  onChange
+}: {
+  images: CharacterImage[];
+  onChange: (images: CharacterImage[]) => void;
+}) {
+  async function uploadImages(files: FileList | null) {
+    if (!files?.length) {
+      return;
+    }
+    const nextImages = await Promise.all(Array.from(files).filter((file) => file.type.startsWith("image/")).map(readCharacterImage));
+    if (nextImages.length) {
+      onChange([...images, ...nextImages]);
+    }
+  }
+
+  return (
+    <div className="editable-table wide-table image-table">
+      <div className="table-title">
+        <span>角色图片</span>
+        <label className="upload-button">
+          上传图片
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(event) => {
+              void uploadImages(event.target.files);
+              event.target.value = "";
+            }}
+          />
+        </label>
+      </div>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>预览</th>
+              <th>用途</th>
+              <th>名称</th>
+              <th>文件</th>
+              <th>大小</th>
+              <th>备注</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {images.length ? images.map((image, index) => (
+              <tr key={image.id || `${image.fileName}-${index}`}>
+                <td>
+                  <img className="character-image-preview" src={image.dataUrl} alt={image.title || image.fileName || "角色图片"} />
+                </td>
+                <td>
+                  <select
+                    value={image.purpose || "other"}
+                    onChange={(event) => onChange(updateAt(images, index, { ...image, purpose: event.target.value }))}
+                  >
+                    {withCurrentOption(imagePurposeOptions.map((option) => option.value), image.purpose || "other").map((purpose) => (
+                      <option key={purpose} value={purpose}>
+                        {formatImagePurpose(purpose)}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <input
+                    value={image.title}
+                    onChange={(event) => onChange(updateAt(images, index, { ...image, title: event.target.value }))}
+                  />
+                </td>
+                <td><span className="muted-cell">{image.fileName || "未命名文件"}</span></td>
+                <td><span className="muted-cell">{formatFileSize(image.size)}</span></td>
+                <td>
+                  <input
+                    value={image.notes}
+                    onChange={(event) => onChange(updateAt(images, index, { ...image, notes: event.target.value }))}
+                  />
+                </td>
+                <td><button type="button" onClick={() => onChange(removeAt(images, index))}>删除</button></td>
+              </tr>
+            )) : (
+              <tr>
+                <td colSpan={7} className="empty-table-cell">还没有上传图片</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function SpellSlotTable({
   draft,
   updateDraft
@@ -854,6 +1073,32 @@ function EditableTable({
   );
 }
 
+function readCharacterImage(file: File): Promise<CharacterImage> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      const dataUrl = typeof reader.result === "string" ? reader.result : "";
+      if (!dataUrl) {
+        reject(new Error("image file could not be read"));
+        return;
+      }
+      resolve({
+        id: `image-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        purpose: "combat",
+        title: file.name.replace(/\.[^.]+$/, ""),
+        fileName: file.name,
+        mimeType: file.type,
+        size: file.size,
+        dataUrl,
+        notes: "",
+        createdAt: new Date().toISOString()
+      });
+    });
+    reader.addEventListener("error", () => reject(reader.error || new Error("image file could not be read")));
+    reader.readAsDataURL(file);
+  });
+}
+
 function createBlankCharacter(userId: string): Character {
   const id = `character-${Date.now()}`;
   return {
@@ -909,6 +1154,7 @@ function createBlankCharacter(userId: string): Character {
     resources: [],
     personality: { traits: "", ideals: "", bonds: "", flaws: "" },
     appearance: { age: "", height: "", weight: "", eyes: "", skin: "", hair: "" },
+    images: [],
     notes: ""
   };
 }
@@ -1098,6 +1344,33 @@ function withCurrentOption(options: string[], current: string): string[] {
     return options;
   }
   return [current, ...options];
+}
+
+function bilingualOption(value: string): string {
+  if (!value) {
+    return "无 / None";
+  }
+  const label = optionLabels[value];
+  return label ? `${label} / ${value}` : value;
+}
+
+function formatImagePurpose(value: string): string {
+  const option = imagePurposeOptions.find((item) => item.value === value);
+  return option ? `${option.label} / ${value}` : value;
+}
+
+function defaultOptionLabel(value: string): string {
+  return value || "None";
+}
+
+function formatFileSize(size: number): string {
+  if (!size) {
+    return "0 KB";
+  }
+  if (size < 1024 * 1024) {
+    return `${Math.ceil(size / 1024)} KB`;
+  }
+  return `${(size / 1024 / 1024).toFixed(1)} MB`;
 }
 
 function uniqueCharacterId(baseId: string, characters: Character[]): string {
