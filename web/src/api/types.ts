@@ -6,11 +6,20 @@ export type Session = {
   currentTurn: string;
 };
 
+export type Player = {
+  id: string;
+  displayName: string;
+  characterId?: string | null;
+  role: "player" | "dm" | string;
+};
+
 export type Terrain = {
   x: number;
   y: number;
   type: "wall" | "water" | "difficult" | string;
 };
+
+export type MapEditTool = "move" | "wall" | "water" | "difficult" | "erase";
 
 export type Annotation = {
   x: number;
@@ -36,18 +45,117 @@ export type Token = {
   y: number;
 };
 
+export type AbilityKey = "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
+
+export type AbilityDetail = {
+  score: number;
+  modifier: number;
+  saveProficient: boolean;
+};
+
+export type ClassLevel = {
+  name: string;
+  subclass: string;
+  level: number;
+  hitDie: string;
+};
+
+export type CharacterResource = {
+  name: string;
+  max: number;
+  current: number;
+  reset: string;
+};
+
+export type SpellSlot = {
+  max: number;
+  current: number;
+};
+
+export type CharacterAttack = {
+  name: string;
+  ability: AbilityKey;
+  proficient: boolean;
+  extraAttackBonus: number;
+  damageDice: string;
+  damageAbility: boolean;
+  extraDamageBonus: number;
+  damageType: string;
+  range: string;
+  notes: string;
+};
+
+export type CharacterActionDetail = {
+  name: string;
+  cost: string;
+  description: string;
+};
+
+export type CharacterFeatureDetail = {
+  name: string;
+  source: string;
+  description: string;
+};
+
 export type Character = {
   id: string;
+  ownerUserId?: string | null;
   name: string;
+  playerName?: string;
   class: string;
+  classes?: ClassLevel[];
+  level?: number;
   race: string;
+  subrace?: string;
+  background?: string;
+  alignment?: string;
+  experience?: number;
+  inspiration?: boolean;
+  proficiencyBonus?: number;
   hp: { current: number; max: number; temp: number };
+  hitDice?: { die: string; max: number; current: number }[];
+  deathSaves?: { successes: number; failures: number };
   ac: number;
+  initiative?: number;
   speed: number;
   attributes: Record<string, number>;
+  abilities?: Record<AbilityKey, AbilityDetail>;
+  savingThrows?: string[];
   skills: string[];
+  skillDetails?: string[];
   attacks: string[];
+  attackDetails?: CharacterAttack[];
+  actions?: string[];
+  actionDetails?: CharacterActionDetail[];
   conditions: string[];
+  defenses?: { resistances: string[]; immunities: string[]; vulnerabilities: string[] };
+  senses?: {
+    passivePerception: number;
+    passiveInvestigation: number;
+    passiveInsight: number;
+    other: string[];
+  };
+  proficiencies?: { armor: string[]; weapons: string[]; tools: string[] };
+  languages?: string[];
+  equipment?: { items: string[]; attunedItems: string[]; carryingCapacity: number };
+  currency?: { cp: number; sp: number; ep: number; gp: number; pp: number };
+  features?: string[];
+  featureDetails?: CharacterFeatureDetail[];
+  traits?: string[];
+  traitDetails?: CharacterFeatureDetail[];
+  spellcasting?: {
+    ability: string;
+    saveDc: number;
+    attackBonus: number;
+    slots: Record<string, SpellSlot>;
+    pactSlots: { slotLevel: number; max: number; current: number };
+    spellsKnown: string[];
+    spellsPrepared: string[];
+  };
+  resources?: CharacterResource[];
+  personality?: { traits: string; ideals: string; bonds: string; flaws: string };
+  appearance?: { age: string; height: string; weight: string; eyes: string; skin: string; hair: string };
+  notes?: string;
 };
 
 export type DiceResult = {
@@ -72,6 +180,7 @@ export type EventLogEntry = {
 
 export type GameState = {
   session: Session;
+  players: Player[];
   map: GameMap;
   tokens: Token[];
   characters: Character[];
@@ -79,6 +188,17 @@ export type GameState = {
 };
 
 export type DiceMode = "normal" | "advantage" | "disadvantage";
+
+export type RagChunk = {
+  chunkId: string;
+  content: string;
+  metadata: Record<string, string | number | boolean | null>;
+  distance?: number | null;
+};
+
+export type RagQueryResponse = {
+  chunks: RagChunk[];
+};
 
 export type ToolCall =
   | {
@@ -97,6 +217,13 @@ export type ToolCall =
         roller_id?: string | null;
         advantage: DiceMode;
       };
+    }
+  | {
+      name: "update_character_state";
+      arguments: {
+        character_id: string;
+        updates: Partial<Character>;
+      };
     };
 
 export type ToolResult =
@@ -107,6 +234,10 @@ export type ToolResult =
   | {
       name: "roll_dice";
       result: DiceResult;
+    }
+  | {
+      name: "update_character_state";
+      result: { character: Character };
     };
 
 export type ChatResponse = {

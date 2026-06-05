@@ -1,0 +1,61 @@
+{
+  "id": "roadside-ruin",
+  "name": "Roadside Ruin",
+  "width": 12,
+  "height": 8,
+  "gridSize": 48,
+  "terrain": [
+    {
+      "x": 4,
+      "y": 1,
+      "type": "wall"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "type": "wall"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "type": "wall"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "type": "wall"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "type": "water"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "type": "water"
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "type": "wall"
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "type": "wall"
+    }
+  ],
+  "annotations": [
+    {
+      "x": 6,
+      "y": 3,
+      "label": "door"
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "label": "firelight"
+    }
+  ]
+}

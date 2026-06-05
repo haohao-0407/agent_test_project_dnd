@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Sequence
@@ -21,6 +22,7 @@ from playscript_agent.rag.ingest import (
 
 DEFAULT_RULE_COLLECTION_NAME = "dnd_rule_chunks"
 DEFAULT_DOCUMENT_DIR = Path(__file__).resolve().parents[2] / "document"
+DEFAULT_MODULE_DIR = DEFAULT_DOCUMENT_DIR / "modules"
 SUPPORTED_RULEBOOK_EXTENSIONS = {".md", ".txt", ".pdf"}
 
 
@@ -75,17 +77,22 @@ def load_rule_documents(
     paths: str | Path | Sequence[str | Path] = DEFAULT_DOCUMENT_DIR,
     *,
     ruleset: str = "dnd5e",
-    document_type: str = "rules_core",
-    visibility: str = "public",
+    document_type: str | None = None,
+    visibility: str | None = None,
 ) -> tuple[RuleDocument, ...]:
     documents: list[RuleDocument] = []
     for path in _iter_rulebook_files(paths):
+        effective_document_type, effective_visibility = _infer_document_scope(
+            path,
+            document_type=document_type,
+            visibility=visibility,
+        )
         documents.append(
             load_rule_document(
                 path,
                 ruleset=ruleset,
-                document_type=document_type,
-                visibility=visibility,
+                document_type=effective_document_type,
+                visibility=effective_visibility,
             )
         )
     if not documents:
@@ -100,8 +107,8 @@ def load_rule_document(
     path: str | Path,
     *,
     ruleset: str = "dnd5e",
-    document_type: str = "rules_core",
-    visibility: str = "public",
+    document_type: str | None = None,
+    visibility: str | None = None,
 ) -> RuleDocument:
     source_path = Path(path)
     if not source_path.exists():
@@ -114,14 +121,20 @@ def load_rule_document(
     if not pages:
         raise ValueError(f"rulebook contains no extractable text: {source_path}")
 
+    effective_document_type, effective_visibility = _infer_document_scope(
+        source_path,
+        document_type=document_type,
+        visibility=visibility,
+    )
+
     return RuleDocument(
         source_id=_slug(source_path.stem),
         title=source_path.stem,
         source_path=source_path,
         pages=pages,
         ruleset=ruleset,
-        document_type=document_type,
-        visibility=visibility,
+        document_type=effective_document_type,
+        visibility=effective_visibility,
     )
 
 
@@ -195,8 +208,8 @@ def ingest_rulebooks(
     embedding_model: EmbeddingModel | None = None,
     persist_directory: str | Path | None = DEFAULT_CHROMA_DIR,
     ruleset: str = "dnd5e",
-    document_type: str = "rules_core",
-    visibility: str = "public",
+    document_type: str | None = None,
+    visibility: str | None = None,
     chunk_size: int = 1200,
     chunk_overlap: int = 160,
 ) -> tuple[Collection, IngestResult]:
@@ -265,6 +278,23 @@ def _iter_rulebook_files(
                 and child.suffix.lower() in SUPPORTED_RULEBOOK_EXTENSIONS
             )
     return tuple(sorted(files))
+
+
+def _infer_document_scope(
+    path: Path,
+    *,
+    document_type: str | None,
+    visibility: str | None,
+) -> tuple[str, str]:
+    is_module = _is_module_document(path)
+    return (
+        document_type or ("module_dm_only" if is_module else "rules_core"),
+        visibility or ("dm_only" if is_module else "public"),
+    )
+
+
+def _is_module_document(path: Path) -> bool:
+    return any(part.lower() == "modules" for part in path.parts)
 
 
 def _read_rulebook_pages(path: Path) -> tuple[RulePage, ...]:
@@ -378,4 +408,7 @@ def _looks_like_heading(text: str) -> bool:
 
 def _slug(text: str) -> str:
     slug = re.sub(r"[^a-zA-Z0-9]+", "_", text.lower()).strip("_")
-    return slug or "rulebook"
+    if slug:
+        return slug
+    digest = hashlib.sha1(text.encode("utf-8")).hexdigest()[:10]
+    return f"doc_{digest}"

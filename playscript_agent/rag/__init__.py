@@ -16,6 +16,7 @@ from playscript_agent.rag.retrievers import (
 )
 from playscript_agent.rag.rules import (
     DEFAULT_DOCUMENT_DIR,
+    DEFAULT_MODULE_DIR,
     DEFAULT_RULE_COLLECTION_NAME,
     RuleChunk,
     RuleDocument,
@@ -29,6 +30,7 @@ from playscript_agent.rag.rules import (
 
 __all__ = [
     "DEFAULT_DOCUMENT_DIR",
+    "DEFAULT_MODULE_DIR",
     "DEFAULT_RULE_COLLECTION_NAME",
     "EmbeddingModel",
     "HashEmbeddingModel",

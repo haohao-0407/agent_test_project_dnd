@@ -12,6 +12,12 @@ router = APIRouter()
 @router.post("/api/chat")
 def chat(request: ChatRequest) -> dict:
     try:
-        return chat_service.handle_chat(request.message, speaker=request.speaker)
+        return chat_service.handle_chat(
+            request.message,
+            speaker=request.speaker,
+            user_id=request.userId,
+        )
+    except PermissionError as error:
+        raise HTTPException(status_code=403, detail=str(error)) from error
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error

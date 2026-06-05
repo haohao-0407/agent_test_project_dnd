@@ -1,12 +1,17 @@
 import type { CSSProperties } from "react";
-import type { GameMap, Token } from "../api/types";
+import type { GameMap, MapEditTool, Token } from "../api/types";
 
 type MapViewProps = {
   map: GameMap;
   tokens: Token[];
   selectedTokenId: string | null;
+  controlledTokenIds: string[];
+  mapEditTool: MapEditTool;
+  canEditMap: boolean;
   onSelectToken: (tokenId: string | null) => void;
   onMoveToken: (x: number, y: number) => void;
+  onEditMapCell: (x: number, y: number) => void;
+  onMapEditToolChange: (tool: MapEditTool) => void;
 };
 
 const terrainClass: Record<string, string> = {
@@ -19,8 +24,13 @@ export function MapView({
   map,
   tokens,
   selectedTokenId,
+  controlledTokenIds,
+  mapEditTool,
+  canEditMap,
   onSelectToken,
-  onMoveToken
+  onMoveToken,
+  onEditMapCell,
+  onMapEditToolChange
 }: MapViewProps) {
   const cells = [];
   for (let y = 0; y < map.height; y += 1) {
@@ -28,9 +38,11 @@ export function MapView({
       const terrain = map.terrain.find((item) => item.x === x && item.y === y);
       const annotation = map.annotations.find((item) => item.x === x && item.y === y);
       const token = tokens.find((item) => item.x === x && item.y === y);
+      const canControlToken = token ? controlledTokenIds.includes(token.id) : false;
       const classes = ["cell"];
       if (terrain) classes.push(terrainClass[terrain.type] || terrain.type);
       if (selectedTokenId && terrain?.type !== "wall") classes.push("selected");
+      if (token && !canControlToken) classes.push("locked");
 
       cells.push(
         <button
@@ -38,9 +50,17 @@ export function MapView({
           className={classes.join(" ")}
           key={`${x}-${y}`}
           onClick={() => {
+            if (canEditMap && mapEditTool !== "move") {
+              onEditMapCell(x, y);
+              return;
+            }
             if (token) {
-              onSelectToken(token.id === selectedTokenId ? null : token.id);
-            } else if (selectedTokenId) {
+              if (canControlToken) {
+                onSelectToken(token.id === selectedTokenId ? null : token.id);
+              }
+              return;
+            }
+            if (selectedTokenId) {
               onMoveToken(x, y);
             }
           }}
@@ -76,13 +96,30 @@ export function MapView({
         >
           X
         </button>
+        {canEditMap ? (
+          <div className="map-tools" aria-label="map editor">
+            {(["move", "wall", "water", "difficult", "erase"] as MapEditTool[]).map((tool) => (
+              <button
+                className={mapEditTool === tool ? "active" : ""}
+                key={tool}
+                onClick={() => onMapEditToolChange(tool)}
+                title={tool}
+                type="button"
+              >
+                {tool}
+              </button>
+            ))}
+          </div>
+        ) : null}
       </div>
-      <div
-        className="map-grid"
-        style={{ "--cols": map.width, "--rows": map.height } as CSSProperties}
-        aria-label="battle map"
-      >
-        {cells}
+      <div className="map-grid-frame">
+        <div
+          className="map-grid"
+          style={{ "--cols": map.width, "--rows": map.height } as CSSProperties}
+          aria-label="battle map"
+        >
+          {cells}
+        </div>
       </div>
     </section>
   );

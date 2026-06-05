@@ -9,7 +9,7 @@ from playscript_agent.api.services.game_state import game_state
 from playscript_agent.llm import get_llm
 
 
-ToolName = Literal["move_token", "roll_dice"]
+ToolName = Literal["move_token", "roll_dice", "update_character_state"]
 
 
 class ToolCall(TypedDict):
@@ -21,6 +21,7 @@ class DmPlan(TypedDict):
     tool_calls: list[ToolCall]
     content: str
     source: Literal["llm", "fallback"]
+    rule_context: str
 
 
 DM_TOOL_SCHEMAS = [
@@ -73,14 +74,42 @@ DM_TOOL_SCHEMAS = [
             "required": ["expression", "reason"],
         },
     },
+    {
+        "name": "update_character_state",
+        "description": (
+            "Update a DND 5e character card when game state changes. Use this for HP, temp HP, "
+            "death saves, conditions, resources, hit dice, spell slots, prepared spells, equipment, "
+            "or other character card fields."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "character_id": {
+                    "type": "string",
+                    "description": "Character id or name, such as kael or mira.",
+                },
+                "updates": {
+                    "type": "object",
+                    "description": (
+                        "Partial character card update using current_state field names. "
+                        "Examples: {'hp': {'current': 12, 'max': 18, 'temp': 0}}, "
+                        "{'conditions': ['poisoned']}, or "
+                        "{'spellcasting': {'slots': {'1': {'max': 4, 'current': 2}}}}."
+                    ),
+                },
+            },
+            "required": ["character_id", "updates"],
+        },
+    },
 ]
 
 DM_SYSTEM_PROMPT = """You are the Dungeon Master for a DND tabletop web app.
-Use tool calls for every action that changes game state, moves tokens, or rolls dice.
+Use tool calls for every action that changes game state, moves tokens, rolls dice, or changes a character card.
 Do not reveal tool JSON, function names, or backend details in player-facing text.
 If no tool is needed, answer in concise Chinese as the DM.
 For map coordinates, players use 1-based visible coordinates, while tools require 0-based x/y.
-Keep public replies short and based only on the known game state and tool results."""
+Keep public replies short and based only on the known game state and tool results.
+The current_state JSON is authoritative for player character facts. Never invent or infer a player character's class, race, HP, AC, skills, resources, spell slots, equipment, or conditions. If a fact is missing, say it is unknown."""
 
 
 MOVE_PATTERNS = [
@@ -107,21 +136,30 @@ TOKEN_ALIASES = {
 }
 
 
-def handle_chat(message: str, *, speaker: str = "player") -> dict[str, Any]:
+def handle_chat(
+    message: str,
+    *,
+    speaker: str = "player",
+    user_id: str = "player-kael",
+) -> dict[str, Any]:
     message = message.strip()
     if not message:
         raise ValueError("message is required")
 
     game_state.append_event({"type": "player", "speaker": speaker, "text": message})
 
-    dm_plan = plan_dm_turn(message, speaker=speaker)
+    dm_plan = plan_dm_turn(message, speaker=speaker, user_id=user_id)
     tool_calls = dm_plan["tool_calls"]
-    tool_results = [execute_tool_call(tool_call) for tool_call in tool_calls]
+    tool_results = [
+        execute_tool_call(tool_call, user_id=user_id) for tool_call in tool_calls
+    ]
     dm_text = narrate_dm_response(
         message,
         speaker=speaker,
+        user_id=user_id,
         tool_results=tool_results,
         planned_content=dm_plan["content"],
+        rule_context=dm_plan["rule_context"],
     )
     game_state.append_event(
         {
@@ -138,50 +176,70 @@ def handle_chat(message: str, *, speaker: str = "player") -> dict[str, Any]:
     }
 
 
-def plan_dm_turn(message: str, *, speaker: str) -> DmPlan:
-    llm_plan = _plan_with_llm(message, speaker=speaker)
+def plan_dm_turn(message: str, *, speaker: str, user_id: str = "player-kael") -> DmPlan:
+    llm_plan = _plan_with_llm(message, speaker=speaker, user_id=user_id)
     if llm_plan is not None:
         return llm_plan
     return {
-        "tool_calls": _fallback_plan_tool_calls(message, speaker=speaker),
+        "tool_calls": _fallback_plan_tool_calls(message, speaker=speaker, user_id=user_id),
         "content": "",
         "source": "fallback",
+        "rule_context": "",
     }
 
 
-def plan_tool_calls(message: str, *, speaker: str) -> list[ToolCall]:
-    return plan_dm_turn(message, speaker=speaker)["tool_calls"]
+def plan_tool_calls(
+    message: str,
+    *,
+    speaker: str,
+    user_id: str = "player-kael",
+) -> list[ToolCall]:
+    return plan_dm_turn(message, speaker=speaker, user_id=user_id)["tool_calls"]
 
 
-def _fallback_plan_tool_calls(message: str, *, speaker: str) -> list[ToolCall]:
+def _fallback_plan_tool_calls(
+    message: str,
+    *,
+    speaker: str,
+    user_id: str,
+) -> list[ToolCall]:
     tool_calls: list[ToolCall] = []
     move_call = _plan_move_call(message)
     if move_call:
         tool_calls.append(move_call)
 
-    roll_call = _plan_roll_call(message, speaker=speaker)
+    roll_call = _plan_roll_call(message, speaker=speaker, user_id=user_id)
     if roll_call:
         tool_calls.append(roll_call)
 
     return tool_calls
 
 
-def _plan_with_llm(message: str, *, speaker: str) -> DmPlan | None:
+def _plan_with_llm(message: str, *, speaker: str, user_id: str) -> DmPlan | None:
     try:
+        rule_context = _build_rule_context(message, user_id=user_id)
         llm = get_llm("dm")
         tool_bound_llm = llm.bind_tools(DM_TOOL_SCHEMAS)
-        response = tool_bound_llm.invoke(_build_dm_messages(message, speaker=speaker))
+        response = tool_bound_llm.invoke(
+            _build_dm_messages(
+                message,
+                speaker=speaker,
+                user_id=user_id,
+                rule_context=rule_context,
+            )
+        )
     except Exception:
         return None
 
     return {
-        "tool_calls": _extract_tool_calls(response),
+        "tool_calls": _extract_tool_calls(response, user_id=user_id),
         "content": _extract_content(response),
         "source": "llm",
+        "rule_context": rule_context,
     }
 
 
-def execute_tool_call(tool_call: ToolCall) -> dict[str, Any]:
+def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dict[str, Any]:
     name = tool_call["name"]
     arguments = tool_call["arguments"]
     if name == "move_token":
@@ -189,16 +247,30 @@ def execute_tool_call(tool_call: ToolCall) -> dict[str, Any]:
             str(arguments["token_id"]),
             int(arguments["x"]),
             int(arguments["y"]),
+            user_id=user_id,
         )
         return {"name": name, "result": {"token": token}}
     if name == "roll_dice":
+        roller_id = arguments.get("roller_id")
+        if user_id is not None and not game_state.can_roll_for_actor(
+            user_id,
+            str(roller_id) if roller_id is not None else None,
+        ):
+            raise PermissionError(f"user {user_id} cannot roll for {roller_id}")
         result = dice_service.roll_and_record(
             str(arguments["expression"]),
             reason=str(arguments.get("reason", "chat roll")),
-            roller_id=arguments.get("roller_id"),
+            roller_id=roller_id,
             advantage=str(arguments.get("advantage", "normal")),
         )
         return {"name": name, "result": result}
+    if name == "update_character_state":
+        character = game_state.update_character(
+            str(arguments["character_id"]),
+            dict(arguments["updates"]),
+            user_id=user_id or "dm",
+        )
+        return {"name": name, "result": {"character": character}}
     raise ValueError(f"unsupported tool call: {name}")
 
 
@@ -206,8 +278,10 @@ def narrate_dm_response(
     message: str,
     *,
     speaker: str,
+    user_id: str,
     tool_results: list[dict[str, Any]],
     planned_content: str,
+    rule_context: str = "",
 ) -> str:
     fallback = build_result_message(tool_results) if tool_results else planned_content.strip()
     if not fallback:
@@ -218,21 +292,52 @@ def narrate_dm_response(
     try:
         llm = get_llm("dm")
         response = llm.invoke(
-            [
-                ("system", DM_SYSTEM_PROMPT),
-                (
-                    "system",
-                    "Write one concise Chinese DM reply using only the tool results. "
-                    "Do not mention JSON, function calls, tools, or hidden backend details.",
-                ),
-                ("human", f"Speaker: {speaker}\nPlayer action: {message}\nTool results: {json.dumps(tool_results, ensure_ascii=False)}"),
-            ]
+            _build_narration_messages(
+                message,
+                speaker=speaker,
+                user_id=user_id,
+                tool_results=tool_results,
+                rule_context=rule_context,
+            )
         )
     except Exception:
         return fallback
 
     content = _extract_content(response)
     return content or fallback
+
+
+def _build_narration_messages(
+    message: str,
+    *,
+    speaker: str,
+    user_id: str,
+    tool_results: list[dict[str, Any]],
+    rule_context: str,
+) -> list[tuple[str, str]]:
+    messages = [
+        ("system", DM_SYSTEM_PROMPT),
+        ("system", _build_state_context(user_id=user_id)),
+    ]
+    if rule_context:
+        messages.append(("system", rule_context))
+    messages.extend(
+        [
+            (
+                "system",
+                "Write one concise Chinese DM reply using only current_state, "
+                "retrieved rule context, and tool results. Do not mention JSON, "
+                "function calls, tools, or hidden backend details.",
+            ),
+            (
+                "human",
+                "Speaker: "
+                f"{speaker}\nPlayer action: {message}\n"
+                f"Tool results: {json.dumps(tool_results, ensure_ascii=False)}",
+            ),
+        ]
+    )
+    return messages
 
 
 def build_result_message(tool_results: list[dict[str, Any]]) -> str:
@@ -250,37 +355,60 @@ def build_result_message(tool_results: list[dict[str, Any]]) -> str:
     return "；".join(parts) + "。"
 
 
-def _build_dm_messages(message: str, *, speaker: str) -> list[tuple[str, str]]:
-    return [
+def _build_dm_messages(
+    message: str,
+    *,
+    speaker: str,
+    user_id: str,
+    rule_context: str = "",
+) -> list[tuple[str, str]]:
+    messages = [
         ("system", DM_SYSTEM_PROMPT),
-        ("system", _build_state_context()),
-        ("human", f"{speaker}: {message}"),
+        ("system", _build_state_context(user_id=user_id)),
     ]
+    if rule_context:
+        messages.append(("system", rule_context))
+    messages.append(("human", f"{speaker}: {message}"))
+    return messages
 
 
-def _build_state_context() -> str:
+def _build_rule_context(message: str, *, user_id: str) -> str:
+    try:
+        from playscript_agent.api.services.rag_service import build_rule_context
+
+        return build_rule_context(message, user_id=user_id)
+    except Exception:
+        return ""
+
+
+def _build_state_context(*, user_id: str) -> str:
     state = game_state.snapshot()
-    game_map = state["map"]
-    tokens = ", ".join(
-        f"{token['id']}({token['name']}) at visible ({token['x'] + 1}, {token['y'] + 1})"
-        for token in state["tokens"]
+    player = game_state.find_player(user_id)
+    controlled_character_id = player.get("characterId")
+    controlled_character = (
+        game_state.find_character(str(controlled_character_id))
+        if controlled_character_id
+        else None
     )
-    characters = ", ".join(
-        f"{character['id']}({character['name']} HP {character['hp']['current']}/{character['hp']['max']} AC {character['ac']})"
-        for character in state["characters"]
-    )
-    recent_events = "\n".join(
-        f"- {event['speaker']}: {event['text']}" for event in state["events"][-8:]
-    )
+    current_state = {
+        "current_user": player,
+        "controlled_character": controlled_character,
+        "session": state["session"],
+        "map": state["map"],
+        "tokens": state["tokens"],
+        "characters": state["characters"],
+        "recent_public_events": state["events"][-8:],
+    }
     return (
-        f"Map: {game_map['name']} visible size {game_map['width']}x{game_map['height']}.\n"
-        f"Tokens: {tokens}.\n"
-        f"Characters: {characters}.\n"
-        f"Recent public events:\n{recent_events}"
+        "Authoritative current_state JSON follows. Use it as the only source of truth "
+        "for player character identity, race, class, HP, AC, skills, attacks, resources, spell slots, and conditions.\n"
+        "Player users may only move, roll for, or update their controlled character. "
+        "Do not call tools for monsters, map objects, or other player characters unless the current user is DM.\n"
+        f"{json.dumps(current_state, ensure_ascii=False)}"
     )
 
 
-def _extract_tool_calls(response: Any) -> list[ToolCall]:
+def _extract_tool_calls(response: Any, *, user_id: str) -> list[ToolCall]:
     raw_calls = getattr(response, "tool_calls", None) or []
     if not raw_calls:
         additional_kwargs = getattr(response, "additional_kwargs", {}) or {}
@@ -288,13 +416,13 @@ def _extract_tool_calls(response: Any) -> list[ToolCall]:
 
     tool_calls: list[ToolCall] = []
     for raw_call in raw_calls:
-        normalized = _normalize_tool_call(raw_call)
+        normalized = _normalize_tool_call(raw_call, user_id=user_id)
         if normalized is not None:
             tool_calls.append(normalized)
     return tool_calls
 
 
-def _normalize_tool_call(raw_call: Any) -> ToolCall | None:
+def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
     if not isinstance(raw_call, dict):
         return None
 
@@ -321,7 +449,7 @@ def _normalize_tool_call(raw_call: Any) -> ToolCall | None:
         return {
             "name": "move_token",
             "arguments": {
-                "token_id": str(token_id),
+                "token_id": _canonical_token(str(token_id)),
                 "x": int(arguments["x"]),
                 "y": int(arguments["y"]),
             },
@@ -335,8 +463,22 @@ def _normalize_tool_call(raw_call: Any) -> ToolCall | None:
             "arguments": {
                 "expression": str(expression),
                 "reason": str(arguments.get("reason", "chat roll")),
-                "roller_id": arguments.get("roller_id", arguments.get("rollerId")),
+                "roller_id": arguments.get("roller_id", arguments.get("rollerId"))
+                or game_state.character_id_for_user(user_id)
+                or user_id,
                 "advantage": str(arguments.get("advantage", "normal")),
+            },
+        }
+    if name == "update_character_state":
+        character_id = arguments.get("character_id", arguments.get("characterId"))
+        updates = arguments.get("updates")
+        if character_id is None or not isinstance(updates, dict):
+            return None
+        return {
+            "name": "update_character_state",
+            "arguments": {
+                "character_id": _canonical_token(str(character_id)),
+                "updates": updates,
             },
         }
     return None
@@ -377,7 +519,7 @@ def _plan_move_call(message: str) -> ToolCall | None:
     return None
 
 
-def _plan_roll_call(message: str, *, speaker: str) -> ToolCall | None:
+def _plan_roll_call(message: str, *, speaker: str, user_id: str) -> ToolCall | None:
     expression = dice_service.find_inline_dice_expression(message)
     reason = "chat roll"
     lower_message = message.lower()
@@ -403,7 +545,7 @@ def _plan_roll_call(message: str, *, speaker: str) -> ToolCall | None:
         "arguments": {
             "expression": expression,
             "reason": reason,
-            "roller_id": speaker,
+            "roller_id": game_state.character_id_for_user(user_id) or speaker,
             "advantage": "normal",
         },
     }
