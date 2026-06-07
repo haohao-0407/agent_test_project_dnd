@@ -1,12 +1,13 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import { getState, queryRules } from "../api/client";
-import type { Player, RagChunk } from "../api/types";
+import { FormEvent, useEffect, useState } from "react";
+import { ApiError, logout, me, queryRules, type AuthSession } from "../api/client";
+import type { RagChunk } from "../api/types";
+import { JoinScreen } from "./JoinScreen";
 
 const DEFAULT_QUERY = "How do opportunity attacks work?";
 
 export function RulesLookupPage() {
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [userId, setUserId] = useState("player-kael");
+  const [identity, setIdentity] = useState<AuthSession | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const [query, setQuery] = useState(DEFAULT_QUERY);
   const [k, setK] = useState(4);
   const [chunks, setChunks] = useState<RagChunk[]>([]);
@@ -15,20 +16,17 @@ export function RulesLookupPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getState()
-      .then((state) => {
-        setPlayers(state.players);
-        if (state.players.length > 0) {
-          setUserId(state.players[0].id);
+    me()
+      .then(setIdentity)
+      .catch((apiError: Error) => {
+        if (apiError instanceof ApiError && apiError.status === 401) {
+          setIdentity(null);
+          return;
         }
+        setError(apiError.message);
       })
-      .catch((apiError: Error) => setError(apiError.message));
+      .finally(() => setAuthChecked(true));
   }, []);
-
-  const currentUser = useMemo(
-    () => players.find((player) => player.id === userId),
-    [players, userId]
-  );
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,7 +42,7 @@ export function RulesLookupPage() {
     setError(null);
     setHasSearched(true);
     try {
-      const response = await queryRules({ query: trimmedQuery, userId, k });
+      const response = await queryRules({ query: trimmedQuery, k });
       setChunks(response.chunks);
     } catch (apiError) {
       setChunks([]);
@@ -52,6 +50,21 @@ export function RulesLookupPage() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  async function handleLogout() {
+    await logout();
+    setIdentity(null);
+    setChunks([]);
+    setHasSearched(false);
+  }
+
+  if (!authChecked) {
+    return <main className="app-shell">Loading rules...</main>;
+  }
+
+  if (!identity) {
+    return <JoinScreen title="Join to search rules" onJoined={setIdentity} />;
   }
 
   return (
@@ -62,12 +75,16 @@ export function RulesLookupPage() {
           <h1>Rules Lookup</h1>
         </div>
         <div className="session-strip">
+          <span>{identity.player?.displayName || identity.userId}</span>
           <a className="nav-link" href="/">
             返回战棋
           </a>
           <a className="nav-link" href="/characters/permanent">
             永久库
           </a>
+          <button type="button" onClick={() => void handleLogout()}>
+            Logout
+          </button>
         </div>
       </header>
 
@@ -95,21 +112,6 @@ export function RulesLookupPage() {
 
             <div className="form-grid two">
               <label className="field">
-                <span>Access Scope</span>
-                <select value={userId} onChange={(event) => setUserId(event.target.value)}>
-                  {players.length === 0 ? (
-                    <option value={userId}>{userId}</option>
-                  ) : (
-                    players.map((player) => (
-                      <option key={player.id} value={player.id}>
-                        {player.displayName} ({player.role})
-                      </option>
-                    ))
-                  )}
-                </select>
-              </label>
-
-              <label className="field">
                 <span>Chunks</span>
                 <input
                   type="number"
@@ -122,8 +124,8 @@ export function RulesLookupPage() {
             </div>
 
             <div className="rules-scope-card">
-              <strong>{currentUser?.displayName || userId}</strong>
-              <span>{currentUser?.role || "custom"} scope</span>
+              <strong>{identity.player?.displayName || identity.userId}</strong>
+              <span>{identity.role} scope</span>
             </div>
           </div>
         </form>

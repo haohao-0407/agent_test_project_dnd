@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import datetime, timezone
+from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 import random
+import secrets
 from threading import RLock
 from typing import Any
 
@@ -70,6 +72,22 @@ CORE_CONDITIONS = {
     "dead",
     "dying",
 }
+DEFAULT_SESSION_ID = "default"
+SESSION_TOKEN_TTL = timedelta(hours=12)
+
+
+@dataclass(frozen=True, slots=True)
+class Principal:
+    session_id: str
+    user_id: str
+    role: str
+
+
+@dataclass(frozen=True, slots=True)
+class SessionToken:
+    token: str
+    principal: Principal
+    expires_at: datetime
 
 
 def default_combat_state() -> dict[str, Any]:
@@ -416,7 +434,7 @@ _DEFAULT_STATE: dict[str, Any] = {
 class GameStateStore:
     def __init__(self) -> None:
         self._lock = RLock()
-        self._state = fresh_default_state()
+        self._state = fresh_adventure_start_state()
 
     def snapshot(self) -> dict[str, Any]:
         with self._lock:
@@ -475,7 +493,102 @@ class GameStateStore:
             if next_character["id"].lower() in existing_ids:
                 raise ValueError(f"character already exists: {next_character['id']}")
             self._state["characters"].append(next_character)
+            if not self.is_dm(user_id):
+                player = self.find_player(user_id)
+                if not player.get("characterId"):
+                    player["characterId"] = next_character["id"]
+                    player["displayName"] = next_character.get("playerName") or player["displayName"]
             return deepcopy(next_character)
+
+    def start_adventure(
+        self,
+        *,
+        user_id: str,
+        module_name: str,
+        game_map: dict[str, Any],
+        monsters: list[dict[str, Any]],
+        opening_text: str,
+        source: str,
+    ) -> dict[str, Any]:
+        with self._lock:
+            if not self.is_dm(user_id):
+                character_id = self.character_id_for_user(user_id)
+                if not character_id:
+                    raise PermissionError("create a character before starting the adventure")
+
+            player_characters = self._player_characters()
+            if not player_characters:
+                raise ValueError("at least one player character is required")
+
+            next_map = map_repository.validate_map(game_map)
+            monster_characters = [
+                normalize_character_card(monster.get("character", {}))
+                for monster in monsters
+            ]
+            player_positions = self._starting_positions(next_map, len(player_characters))
+            player_tokens = [
+                {
+                    "id": character["id"],
+                    "actorId": character["id"],
+                    "name": character["name"],
+                    "kind": "player",
+                    "x": position[0],
+                    "y": position[1],
+                }
+                for character, position in zip(player_characters, player_positions, strict=False)
+            ]
+            monster_tokens = [
+                {
+                    "id": str(monster.get("id") or monster.get("character", {}).get("id")),
+                    "actorId": str(monster.get("id") or monster.get("character", {}).get("id")),
+                    "name": str(monster.get("name") or monster.get("character", {}).get("name") or "Monster"),
+                    "kind": "monster",
+                    "x": int(monster.get("x", 0)),
+                    "y": int(monster.get("y", 0)),
+                }
+                for monster in monsters
+            ]
+
+            self._state["session"] = {
+                "id": "demo-dnd-session",
+                "title": module_name,
+                "mode": "exploration",
+                "round": 1,
+                "currentTurn": player_tokens[0]["id"] if player_tokens else "",
+            }
+            self._state["adventure"] = {
+                "moduleName": module_name,
+                "chapter": "地精箭矢",
+                "scene": next_map["name"],
+                "source": source,
+                "startedAt": current_time(),
+            }
+            self._state["map"] = next_map
+            self._state["tokens"] = player_tokens + monster_tokens
+            player_character_ids = {character["id"] for character in player_characters}
+            self._state["characters"] = [
+                normalize_character_card(character)
+                for character in self._state["characters"]
+                if character["id"] in player_character_ids
+            ] + monster_characters
+            self._state["combat"] = default_combat_state()
+            self._state["pendingActions"] = []
+            self._state["events"] = [
+                {
+                    "type": "system",
+                    "speaker": "Adventure",
+                    "text": f"{module_name} 已开始，地图由 {source} 生成。",
+                    "time": current_time(),
+                },
+                {
+                    "type": "dm",
+                    "speaker": "DM",
+                    "text": opening_text,
+                    "time": current_time(),
+                },
+            ]
+            self._assert_tokens_fit_map(next_map)
+            return self.snapshot()
 
     def update_map(
         self,
@@ -918,6 +1031,44 @@ class GameStateStore:
             if (x, y) in wall_squares:
                 raise ValueError(f"map update would place a wall under token {token['id']}")
 
+    def _player_characters(self) -> list[dict[str, Any]]:
+        character_by_id = {character["id"]: character for character in self._state["characters"]}
+        characters: list[dict[str, Any]] = []
+        for player in self._state["players"]:
+            if player.get("role") != "player" or not player.get("characterId"):
+                continue
+            character = character_by_id.get(str(player["characterId"]))
+            if character is not None:
+                characters.append(character)
+        return characters
+
+    def _starting_positions(self, game_map: dict[str, Any], count: int) -> list[tuple[int, int]]:
+        preferred = [(2, game_map["height"] - 3), (2, game_map["height"] - 2), (1, game_map["height"] - 3), (3, game_map["height"] - 3), (3, game_map["height"] - 2)]
+        positions: list[tuple[int, int]] = []
+        blocked = {
+            (item["x"], item["y"])
+            for item in [
+                *game_map.get("terrain", []),
+                *game_map.get("layers", {}).get("walls", []),
+                *game_map.get("layers", {}).get("obstacles", []),
+            ]
+            if item.get("type") in {"wall", "obstacle"}
+        }
+        for x, y in preferred:
+            candidate = (min(max(x, 0), game_map["width"] - 1), min(max(y, 0), game_map["height"] - 1))
+            if candidate not in blocked and candidate not in positions:
+                positions.append(candidate)
+            if len(positions) >= count:
+                return positions
+        for y in range(game_map["height"]):
+            for x in range(game_map["width"]):
+                candidate = (x, y)
+                if candidate not in blocked and candidate not in positions:
+                    positions.append(candidate)
+                if len(positions) >= count:
+                    return positions
+        return positions
+
     def _advance_turn_locked(self) -> dict[str, Any]:
         combat = self._state["combat"]
         order = combat["initiativeOrder"]
@@ -1058,4 +1209,148 @@ def fresh_default_state() -> dict[str, Any]:
     return state
 
 
-game_state = GameStateStore()
+def fresh_adventure_start_state() -> dict[str, Any]:
+    state = {
+        "session": {
+            "id": "demo-dnd-session",
+            "title": "凡戴尔的失落矿坑",
+            "mode": "character_creation",
+            "round": 0,
+            "currentTurn": "",
+        },
+        "adventure": {
+            "moduleName": "凡戴尔的失落矿坑",
+            "chapter": "冒险准备",
+            "scene": "",
+            "source": "module",
+            "startedAt": "",
+        },
+        "players": [
+            {"id": f"player-{index}", "displayName": f"Player {index}", "characterId": None, "role": "player"}
+            for index in range(1, 6)
+        ] + [{"id": "dm", "displayName": "DM", "characterId": None, "role": "dm"}],
+        "map": map_repository.validate_map(
+            {
+                "id": "adventure-start",
+                "name": "冒险准备",
+                "width": 10,
+                "height": 6,
+                "gridSize": 48,
+                "terrain": [],
+                "annotations": [{"x": 4, "y": 2, "label": "队伍集结"}],
+            }
+        ),
+        "tokens": [],
+        "characters": [],
+        "combat": default_combat_state(),
+        "pendingActions": [],
+        "events": [
+            {
+                "type": "system",
+                "speaker": "Adventure",
+                "text": "玩家加入后先创建角色；准备好后即可从冒险模组开始。",
+                "time": current_time(),
+            }
+        ],
+    }
+    return state
+
+
+class _SessionRegistry:
+    def __init__(self) -> None:
+        self._lock = RLock()
+        self._stores: dict[str, GameStateStore] = {DEFAULT_SESSION_ID: GameStateStore()}
+        self._tokens: dict[str, SessionToken] = {}
+        self._claimed: dict[str, set[str]] = {}
+
+    def get(self, session_id: str = DEFAULT_SESSION_ID) -> GameStateStore:
+        with self._lock:
+            return self._stores[DEFAULT_SESSION_ID]
+
+    def join(self, *, role: str = "player", session_id: str = DEFAULT_SESSION_ID) -> SessionToken:
+        normalized_role = role.strip().lower()
+        if normalized_role not in {"player", "dm"}:
+            raise ValueError("role must be player or dm")
+
+        now = datetime.now(timezone.utc)
+        with self._lock:
+            self._reap_expired_locked(now)
+            store = self.get(session_id)
+            claimed = self._claimed.setdefault(session_id, set())
+            for player in store.snapshot()["players"]:
+                if player.get("role") != normalized_role or player["id"] in claimed:
+                    continue
+                claimed.add(player["id"])
+                token = secrets.token_urlsafe(32)
+                session_token = SessionToken(
+                    token=token,
+                    principal=Principal(
+                        session_id=session_id,
+                        user_id=str(player["id"]),
+                        role=str(player.get("role", normalized_role)),
+                    ),
+                    expires_at=now + SESSION_TOKEN_TTL,
+                )
+                self._tokens[token] = session_token
+                return session_token
+        raise PermissionError(f"no available {normalized_role} seats")
+
+    def resolve(self, token: str) -> Principal:
+        now = datetime.now(timezone.utc)
+        with self._lock:
+            self._reap_expired_locked(now)
+            session_token = self._tokens.get(token)
+            if session_token is None:
+                raise KeyError("invalid session token")
+            if session_token.expires_at <= now:
+                self._revoke_locked(token)
+                raise KeyError("expired session token")
+            return session_token.principal
+
+    def revoke(self, token: str) -> None:
+        with self._lock:
+            self._revoke_locked(token)
+
+    def reset_auth(self) -> None:
+        with self._lock:
+            self._tokens.clear()
+            self._claimed.clear()
+
+    def _reap_expired_locked(self, now: datetime) -> None:
+        for token, session_token in list(self._tokens.items()):
+            if session_token.expires_at <= now:
+                self._revoke_locked(token)
+
+    def _revoke_locked(self, token: str) -> None:
+        session_token = self._tokens.pop(token, None)
+        if session_token is None:
+            return
+        claimed = self._claimed.get(session_token.principal.session_id)
+        if claimed is not None:
+            claimed.discard(session_token.principal.user_id)
+
+
+_registry = _SessionRegistry()
+
+
+def get_store(session_id: str = DEFAULT_SESSION_ID) -> GameStateStore:
+    return _registry.get(session_id)
+
+
+def join_session(*, role: str = "player", session_id: str = DEFAULT_SESSION_ID) -> SessionToken:
+    return _registry.join(role=role, session_id=session_id)
+
+
+def resolve_session_token(token: str) -> Principal:
+    return _registry.resolve(token)
+
+
+def revoke_session_token(token: str) -> None:
+    _registry.revoke(token)
+
+
+def reset_auth() -> None:
+    _registry.reset_auth()
+
+
+game_state = get_store(DEFAULT_SESSION_ID)

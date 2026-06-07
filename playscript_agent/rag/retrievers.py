@@ -8,10 +8,8 @@ from chromadb.api.models.Collection import Collection
 from playscript_agent.rag.embeddings import EmbeddingModel
 from playscript_agent.rag.filters import (
     RuleAccessContext,
-    build_chroma_where_filter,
     build_rule_chroma_where_filter,
 )
-from playscript_agent.script import AccessContext
 
 
 @dataclass(frozen=True, slots=True)
@@ -20,34 +18,6 @@ class RetrievedChunk:
     content: str
     metadata: dict[str, Any]
     distance: float | None
-
-
-class ScopedRetriever:
-    def __init__(
-        self,
-        collection: Collection,
-        embedding_model: EmbeddingModel,
-        context: AccessContext,
-        *,
-        default_k: int = 4,
-    ) -> None:
-        self.collection = collection
-        self.embedding_model = embedding_model
-        self.context = context
-        self.default_k = default_k
-
-    def search(self, query: str, *, k: int | None = None) -> list[RetrievedChunk]:
-        limit = k or self.default_k
-        where_filter = build_chroma_where_filter(self.context)
-        candidate_count = max(limit, min(_collection_count(self.collection), limit * 4))
-        raw = self.collection.query(
-            query_embeddings=[self.embedding_model.embed_query(query)],
-            n_results=candidate_count,
-            where=where_filter or None,
-            include=["documents", "metadatas", "distances"],
-        )
-        chunks = _parse_query_result(raw)
-        return _rerank(query, chunks)[:limit]
 
 
 class RuleRetriever:
@@ -76,21 +46,6 @@ class RuleRetriever:
         )
         chunks = _parse_query_result(raw)
         return _rerank(query, chunks)[:limit]
-
-
-def build_scoped_retriever(
-    collection: Collection,
-    embedding_model: EmbeddingModel,
-    context: AccessContext,
-    *,
-    default_k: int = 4,
-) -> ScopedRetriever:
-    return ScopedRetriever(
-        collection=collection,
-        embedding_model=embedding_model,
-        context=context,
-        default_k=default_k,
-    )
 
 
 def build_rule_retriever(

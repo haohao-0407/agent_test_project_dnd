@@ -215,8 +215,8 @@ export function CharacterCardsPage({
   const [draft, setDraft] = useState<Character>(() =>
     cloneCharacter(selectedCharacter || createBlankCharacter(currentUserId))
   );
-  const [isNew, setIsNew] = useState(false);
-  const [dirty, setDirty] = useState(false);
+  const [isNew, setIsNew] = useState(!selectedCharacter);
+  const [dirty, setDirty] = useState(!selectedCharacter);
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [permanentCharacters, setPermanentCharacters] = useState<Character[]>([]);
@@ -275,17 +275,15 @@ export function CharacterCardsPage({
     try {
       const payload = mode === "permanent"
         ? isNew
-          ? await createPermanentCharacter({ userId: currentUserId, character: draft })
+          ? await createPermanentCharacter({ character: draft })
           : await updatePermanentCharacter({
               characterId: draft.id,
-              userId: currentUserId,
               updates: omitId(draft)
             })
         : isNew
-          ? await createCharacter({ userId: currentUserId, character: draft })
+          ? await createCharacter({ character: draft })
           : await updateCharacter({
               characterId: draft.id,
-              userId: currentUserId,
               updates: omitId(draft)
             });
       if ("state" in payload) {
@@ -318,7 +316,7 @@ export function CharacterCardsPage({
     const imported = cloneCharacter(source);
     imported.id = uniqueCharacterId(imported.id, state.characters);
     imported.ownerUserId = currentUserId;
-    const payload = await createCharacter({ userId: currentUserId, character: imported });
+    const payload = await createCharacter({ character: imported });
     onStateChange?.(payload.state);
     setSelectedId(payload.character.id);
     setDraft(cloneCharacter(payload.character));

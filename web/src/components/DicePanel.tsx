@@ -3,17 +3,15 @@ import type { DiceMode, DiceResult } from "../api/types";
 
 type DicePanelProps = {
   selectedTokenId: string | null;
-  userId: string;
   onRoll: (input: {
     expression: string;
     reason: string;
     advantage: DiceMode;
     rollerId?: string | null;
-    userId: string;
   }) => Promise<DiceResult>;
 };
 
-export function DicePanel({ selectedTokenId, userId, onRoll }: DicePanelProps) {
+export function DicePanel({ selectedTokenId, onRoll }: DicePanelProps) {
   const [expression, setExpression] = useState("1d20+3");
   const [reason, setReason] = useState("ability check");
   const [advantage, setAdvantage] = useState<DiceMode>("normal");
@@ -25,8 +23,7 @@ export function DicePanel({ selectedTokenId, userId, onRoll }: DicePanelProps) {
       expression,
       reason,
       advantage,
-      rollerId: selectedTokenId,
-      userId
+      rollerId: selectedTokenId
     });
     setLastResult(`${result.expression} -> ${result.total} | rolls ${result.rolls.join(", ")}`);
   }

@@ -788,6 +788,7 @@ def _build_state_context(*, user_id: str) -> str:
         "current_user": player,
         "controlled_character": strip_image_payloads(controlled_character),
         "session": state["session"],
+        "adventure": state.get("adventure", {}),
         "map": state["map"],
         "combat": state.get("combat", {}),
         "pending_actions": state.get("pendingActions", []),
@@ -800,7 +801,25 @@ def _build_state_context(*, user_id: str) -> str:
         "for player character identity, race, class, HP, AC, skills, attacks, resources, spell slots, and conditions.\n"
         "Player users may only move, roll for, or spend resources on their controlled character. "
         "Do not call tools for monsters, map objects, or other player characters unless the current user is DM.\n"
-        f"{json.dumps(current_state, ensure_ascii=False)}"
+        f"{json.dumps(current_state, ensure_ascii=False)}\n"
+        f"{_build_adventure_context(state)}"
+    )
+
+
+def _build_adventure_context(state: dict[str, Any]) -> str:
+    if state["session"].get("mode") == "character_creation":
+        return ""
+    try:
+        from playscript_agent.api.services import adventure_service
+
+        module_name = state.get("adventure", {}).get("moduleName") or "凡戴尔的失落矿坑"
+        excerpt = adventure_service.opening_module_excerpt(str(module_name))
+    except Exception:
+        return ""
+    return (
+        "Current adventure module excerpt follows. Use it to pace locations, clues, NPC motives, "
+        "encounter triggers, and scene descriptions, but keep player-facing replies concise.\n"
+        f"{excerpt}"
     )
 
 

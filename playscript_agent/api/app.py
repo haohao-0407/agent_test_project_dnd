@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from playscript_agent.api.routers import characters, chat, combat, dice, maps, pending_actions, rag, sessions
+from playscript_agent.api.routers import adventures, characters, chat, combat, dice, maps, pending_actions, rag, sessions
 from playscript_agent.api.services.character_repository import PERMANENT_CHARACTER_DIR
 
 
@@ -19,6 +19,7 @@ STATIC_ROOT = Path(__file__).resolve().parents[1] / "web" / "static"
 def create_app() -> FastAPI:
     app = FastAPI(title="DND Agent Tabletop API", version="0.1.0")
     app.include_router(sessions.router)
+    app.include_router(adventures.router)
     app.include_router(characters.router)
     app.include_router(dice.router)
     app.include_router(maps.router)

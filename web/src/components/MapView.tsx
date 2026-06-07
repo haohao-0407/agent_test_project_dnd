@@ -20,6 +20,42 @@ const terrainClass: Record<string, string> = {
   difficult: "difficult"
 };
 
+function mapBackgroundStyles(map: GameMap): CSSProperties {
+  const background = map.background;
+  const grid = map.grid || {
+    size: map.gridSize,
+    originX: 0,
+    originY: 0,
+    scale: 1,
+    offsetX: 0,
+    offsetY: 0
+  };
+  const cellSize = grid.size > 0 ? grid.size : map.gridSize;
+  const scale = grid.scale > 0 ? grid.scale : 1;
+  const backgroundWidth = background?.width || 0;
+  const backgroundHeight = background?.height || 0;
+  const hasDimensions = backgroundWidth > 0 && backgroundHeight > 0;
+  const widthCells = hasDimensions ? (backgroundWidth / cellSize) * scale : map.width * scale;
+  const heightCells = hasDimensions ? (backgroundHeight / cellSize) * scale : map.height * scale;
+  const originXCells = (grid.originX / cellSize) * scale;
+  const originYCells = (grid.originY / cellSize) * scale;
+  const offsetXCells = grid.offsetX / cellSize;
+  const offsetYCells = grid.offsetY / cellSize;
+  const positionX = ((offsetXCells - originXCells) / map.width) * 100;
+  const positionY = ((offsetYCells - originYCells) / map.height) * 100;
+
+  return {
+    "--cols": map.width,
+    "--rows": map.height,
+    "--map-background": background?.url ? `url("${background.url.replace(/"/g, '\\"')}")` : "none",
+    "--map-background-opacity": background?.opacity ?? 1,
+    "--map-background-size-x": `${(widthCells / map.width) * 100}%`,
+    "--map-background-size-y": `${(heightCells / map.height) * 100}%`,
+    "--map-background-position-x": `${positionX}%`,
+    "--map-background-position-y": `${positionY}%`
+  } as CSSProperties;
+}
+
 export function MapView({
   map,
   tokens,
@@ -129,14 +165,7 @@ export function MapView({
       <div className="map-grid-frame">
         <div
           className="map-grid"
-          style={
-            {
-              "--cols": map.width,
-              "--rows": map.height,
-              "--map-background": map.background?.url ? `url(${map.background.url})` : "none",
-              "--map-background-opacity": map.background?.opacity ?? 1
-            } as CSSProperties
-          }
+          style={mapBackgroundStyles(map)}
           aria-label="battle map"
         >
           {cells}

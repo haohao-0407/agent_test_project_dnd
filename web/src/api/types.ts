@@ -6,6 +6,14 @@ export type Session = {
   currentTurn: string;
 };
 
+export type Adventure = {
+  moduleName: string;
+  chapter: string;
+  scene: string;
+  source: string;
+  startedAt: string;
+};
+
 export type Player = {
   id: string;
   displayName: string;
@@ -236,6 +244,7 @@ export type EventLogEntry = {
 
 export type GameState = {
   session: Session;
+  adventure?: Adventure;
   players: Player[];
   map: GameMap;
   combat: CombatState;

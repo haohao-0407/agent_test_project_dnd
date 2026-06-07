@@ -11,16 +11,93 @@ import type {
   SpellSlot
 } from "./types";
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+const AUTH_TOKEN_KEY = "dnd-seat-token";
+
+export type JoinRole = "player" | "dm";
+
+export type AuthSession = {
+  token?: string;
+  sessionId: string;
+  userId: string;
+  role: JoinRole | string;
+  player?: GameState["players"][number] | null;
+  state: GameState;
+};
+
+export class ApiError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
+
+export function getAuthToken(): string | null {
+  return window.localStorage.getItem(AUTH_TOKEN_KEY);
+}
+
+export function clearAuthToken(): void {
+  window.localStorage.removeItem(AUTH_TOKEN_KEY);
+}
+
+function setAuthToken(token: string): void {
+  window.localStorage.setItem(AUTH_TOKEN_KEY, token);
+}
+
+async function request<T>(path: string, init?: RequestInit, options?: { auth?: boolean }): Promise<T> {
+  const headers = new Headers(init?.headers);
+  const hasBody = init?.body !== undefined;
+  if (hasBody && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+  if (options?.auth !== false) {
+    const token = getAuthToken();
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+  }
+
   const response = await fetch(path, {
-    headers: { "Content-Type": "application/json" },
-    ...init
+    ...init,
+    headers
   });
-  const payload = await response.json();
+  const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw new Error(payload.detail || payload.error || "request failed");
+    if (response.status === 401) {
+      clearAuthToken();
+    }
+    throw new ApiError(payload.detail || payload.error || "request failed", response.status);
   }
   return payload as T;
+}
+
+export async function joinSession(role: JoinRole): Promise<AuthSession> {
+  const session = await request<AuthSession>(
+    "/api/auth/join",
+    {
+      method: "POST",
+      body: JSON.stringify({ role })
+    },
+    { auth: false }
+  );
+  if (session.token) {
+    setAuthToken(session.token);
+  }
+  return session;
+}
+
+export function me(): Promise<AuthSession> {
+  return request<AuthSession>("/api/auth/me");
+}
+
+export async function logout(): Promise<void> {
+  try {
+    await request<{ ok: boolean }>("/api/auth/logout", { method: "POST" });
+  } finally {
+    clearAuthToken();
+  }
 }
 
 export function getState(): Promise<GameState> {
@@ -30,17 +107,15 @@ export function getState(): Promise<GameState> {
 export function moveToken(
   tokenId: string,
   x: number,
-  y: number,
-  userId: string
+  y: number
 ): Promise<{ state: GameState }> {
   return request<{ state: GameState }>("/api/token/move", {
     method: "POST",
-    body: JSON.stringify({ tokenId, x, y, userId })
+    body: JSON.stringify({ tokenId, x, y })
   });
 }
 
 export function updateMap(input: {
-  userId: string;
   updates: Partial<GameMap>;
 }): Promise<{ state: GameState }> {
   return request<{ state: GameState }>("/api/map", {
@@ -50,7 +125,6 @@ export function updateMap(input: {
 }
 
 export function updateMapLayer(input: {
-  userId: string;
   layer: string;
   items: Record<string, unknown>[];
 }): Promise<{ state: GameState }> {
@@ -61,7 +135,6 @@ export function updateMapLayer(input: {
 }
 
 export function updateMapBackground(input: {
-  userId: string;
   background: NonNullable<GameMap["background"]>;
 }): Promise<{ state: GameState }> {
   return request<{ state: GameState }>("/api/map/background", {
@@ -70,8 +143,16 @@ export function updateMapBackground(input: {
   });
 }
 
+export function startAdventure(input: {
+  moduleName?: string;
+} = {}): Promise<{ state: GameState }> {
+  return request<{ state: GameState }>("/api/adventure/start", {
+    method: "POST",
+    body: JSON.stringify({ moduleName: input.moduleName || "凡戴尔的失落矿坑" })
+  });
+}
+
 export function startCombat(input: {
-  userId: string;
   participantIds?: string[] | null;
 }): Promise<{ combat: GameState["combat"]; state: GameState }> {
   return request<{ combat: GameState["combat"]; state: GameState }>("/api/combat/start", {
@@ -81,7 +162,6 @@ export function startCombat(input: {
 }
 
 export function endTurn(input: {
-  userId: string;
   actorId?: string | null;
 }): Promise<{ combat: GameState["combat"]; state: GameState }> {
   return request<{ combat: GameState["combat"]; state: GameState }>("/api/combat/end-turn", {
@@ -90,26 +170,21 @@ export function endTurn(input: {
   });
 }
 
-export function advanceTurn(input: {
-  userId: string;
-}): Promise<{ combat: GameState["combat"]; state: GameState }> {
+export function advanceTurn(): Promise<{ combat: GameState["combat"]; state: GameState }> {
   return request<{ combat: GameState["combat"]; state: GameState }>("/api/combat/advance-turn", {
     method: "POST",
-    body: JSON.stringify(input)
+    body: JSON.stringify({})
   });
 }
 
-export function advanceToPlayerTurn(input: {
-  userId: string;
-}): Promise<{ combat: GameState["combat"]; state: GameState }> {
+export function advanceToPlayerTurn(): Promise<{ combat: GameState["combat"]; state: GameState }> {
   return request<{ combat: GameState["combat"]; state: GameState }>("/api/combat/advance-to-player-turn", {
     method: "POST",
-    body: JSON.stringify(input)
+    body: JSON.stringify({})
   });
 }
 
 export function spendSpellSlot(input: {
-  userId: string;
   characterId: string;
   level: number;
   amount?: number;
@@ -124,7 +199,6 @@ export function spendSpellSlot(input: {
 }
 
 export function restoreSpellSlot(input: {
-  userId: string;
   characterId: string;
   level: number;
   amount?: number;
@@ -139,7 +213,6 @@ export function restoreSpellSlot(input: {
 }
 
 export function spendResource(input: {
-  userId: string;
   characterId: string;
   resourceName: string;
   amount?: number;
@@ -154,7 +227,6 @@ export function spendResource(input: {
 }
 
 export function restoreResource(input: {
-  userId: string;
   characterId: string;
   resourceName: string;
   amount?: number;
@@ -170,32 +242,29 @@ export function restoreResource(input: {
 
 export function confirmPendingAction(input: {
   actionId: string;
-  userId: string;
 }): Promise<{ pendingAction: PendingAction; state: GameState }> {
   return request<{ pendingAction: PendingAction; state: GameState }>(
     `/api/pending-actions/${input.actionId}/confirm`,
     {
       method: "POST",
-      body: JSON.stringify({ userId: input.userId })
+      body: JSON.stringify({})
     }
   );
 }
 
 export function declinePendingAction(input: {
   actionId: string;
-  userId: string;
 }): Promise<{ pendingAction: PendingAction; state: GameState }> {
   return request<{ pendingAction: PendingAction; state: GameState }>(
     `/api/pending-actions/${input.actionId}/decline`,
     {
       method: "POST",
-      body: JSON.stringify({ userId: input.userId })
+      body: JSON.stringify({})
     }
   );
 }
 
 export function createCharacter(input: {
-  userId: string;
   character: Character;
 }): Promise<{ character: Character; state: GameState }> {
   return request<{ character: Character; state: GameState }>("/api/characters", {
@@ -206,12 +275,11 @@ export function createCharacter(input: {
 
 export function updateCharacter(input: {
   characterId: string;
-  userId: string;
   updates: Partial<Character>;
 }): Promise<{ character: Character; state: GameState }> {
   return request<{ character: Character; state: GameState }>(`/api/characters/${input.characterId}`, {
     method: "PATCH",
-    body: JSON.stringify({ userId: input.userId, updates: input.updates })
+    body: JSON.stringify({ updates: input.updates })
   });
 }
 
@@ -220,7 +288,6 @@ export function getPermanentCharacters(): Promise<{ characters: Character[] }> {
 }
 
 export function createPermanentCharacter(input: {
-  userId: string;
   character: Character;
 }): Promise<{ character: Character; characters: Character[] }> {
   return request<{ character: Character; characters: Character[] }>("/api/permanent-characters", {
@@ -231,14 +298,13 @@ export function createPermanentCharacter(input: {
 
 export function updatePermanentCharacter(input: {
   characterId: string;
-  userId: string;
   updates: Partial<Character>;
 }): Promise<{ character: Character; characters: Character[] }> {
   return request<{ character: Character; characters: Character[] }>(
     `/api/permanent-characters/${input.characterId}`,
     {
       method: "PATCH",
-      body: JSON.stringify({ userId: input.userId, updates: input.updates })
+      body: JSON.stringify({ updates: input.updates })
     }
   );
 }
@@ -248,7 +314,6 @@ export function rollDice(input: {
   reason: string;
   rollerId?: string | null;
   advantage: DiceMode;
-  userId: string;
 }): Promise<{ result: DiceResult; state: GameState }> {
   return request<{ result: DiceResult; state: GameState }>("/api/dice", {
     method: "POST",
@@ -258,7 +323,6 @@ export function rollDice(input: {
 
 export function sendChat(input: {
   speaker: string;
-  userId: string;
   message: string;
 }): Promise<ChatResponse> {
   return request<ChatResponse>("/api/chat", {
@@ -269,7 +333,6 @@ export function sendChat(input: {
 
 export function queryRules(input: {
   query: string;
-  userId: string;
   k: number;
 }): Promise<RagQueryResponse> {
   return request<RagQueryResponse>("/api/rag/query", {

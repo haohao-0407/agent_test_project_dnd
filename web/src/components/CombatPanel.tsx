@@ -5,7 +5,6 @@ type CombatPanelProps = {
   pendingActions: PendingAction[];
   tokens: Token[];
   currentUser: Player;
-  currentUserId: string;
   onStartCombat: () => void;
   onEndTurn: () => void;
   onConfirmPending: (actionId: string) => void;
@@ -17,7 +16,6 @@ export function CombatPanel({
   pendingActions,
   tokens,
   currentUser,
-  currentUserId,
   onStartCombat,
   onEndTurn,
   onConfirmPending,

@@ -1,20 +1,22 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 
+from playscript_agent.api.dependencies import get_principal
 from playscript_agent.api.schemas import RagQueryRequest
 from playscript_agent.api.services import rag_service
+from playscript_agent.api.services.game_state import Principal
 
 
 router = APIRouter()
 
 
 @router.post("/api/rag/query")
-def query_rag(request: RagQueryRequest) -> dict:
+def query_rag(request: RagQueryRequest, principal: Principal = Depends(get_principal)) -> dict:
     try:
         hits = rag_service.search_rules(
             request.query,
-            user_id=request.userId,
+            user_id=principal.user_id,
             k=request.k,
         )
     except PermissionError as error:

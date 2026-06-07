@@ -1,45 +1,65 @@
 import { useEffect, useState } from "react";
 import {
   advanceToPlayerTurn,
+  ApiError,
   confirmPendingAction,
   declinePendingAction,
   endTurn,
-  getState,
+  logout,
+  me,
   moveToken,
   sendChat,
   startCombat,
   updateMap
 } from "../api/client";
-import type { GameState, MapEditTool, Terrain } from "../api/types";
+import type { AuthSession } from "../api/client";
+import type { GameState, MapEditTool, Player, Terrain } from "../api/types";
+import { AdventureSetup } from "./AdventureSetup";
 import { CharacterCardsPage } from "./CharacterCardsPage";
 import { CharacterSheet } from "./CharacterSheet";
 import { ChatPanel } from "./ChatPanel";
 import { CombatPanel } from "./CombatPanel";
+import { JoinScreen } from "./JoinScreen";
+import { MapBackgroundEditor } from "./MapBackgroundEditor";
 import { MapView } from "./MapView";
+
+type Identity = {
+  userId: string;
+  role: string;
+  player?: Player | null;
+};
 
 export function TabletopApp() {
   const [state, setState] = useState<GameState | null>(null);
   const [selectedTokenId, setSelectedTokenId] = useState<string | null>(null);
-  const [currentUserId, setCurrentUserId] = useState("player-kael");
+  const [identity, setIdentity] = useState<Identity | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const [mapEditTool, setMapEditTool] = useState<MapEditTool>("move");
   const [activePage, setActivePage] = useState<"tabletop" | "characters">("tabletop");
   const [isAutoAdvancing, setIsAutoAdvancing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const currentUser = state && identity
+    ? state.players.find((player) => player.id === identity.userId) || identity.player || state.players[0]
+    : null;
+  const currentUserId = identity?.userId || "";
 
   useEffect(() => {
-    getState()
-      .then((nextState) => {
-        setState(nextState);
-        if (nextState.players.length > 0) {
-          setCurrentUserId(nextState.players[0].id);
+    me()
+      .then(applySession)
+      .catch((apiError: Error) => {
+        if (apiError instanceof ApiError && apiError.status === 401) {
+          setIdentity(null);
+          setState(null);
+          return;
         }
+        setError(apiError.message);
       })
-      .catch((apiError: Error) => setError(apiError.message));
+      .finally(() => setAuthChecked(true));
   }, []);
 
   useEffect(() => {
-    if (!state || isAutoAdvancing || !state.combat.active) return;
-    const currentUser = state.players.find((player) => player.id === currentUserId) || state.players[0];
+    if (!identity || !state || isAutoAdvancing || !state.combat.active) return;
+    const currentUser = state.players.find((player) => player.id === identity.userId) || identity.player || state.players[0];
     if (!currentUser || currentUser.role === "dm") return;
 
     const currentActorId = state.combat.initiativeOrder[state.combat.turnIndex]?.actorId;
@@ -49,23 +69,40 @@ export function TabletopApp() {
     if (!currentToken || currentToken.kind === "player") return;
 
     setIsAutoAdvancing(true);
-    advanceToPlayerTurn({ userId: currentUserId })
+    advanceToPlayerTurn()
       .then((response) => setState(response.state))
       .catch((apiError: Error) => setError(apiError.message))
       .finally(() => setIsAutoAdvancing(false));
-  }, [currentUserId, isAutoAdvancing, state]);
+  }, [identity, isAutoAdvancing, state]);
+
+  function applySession(session: AuthSession) {
+    setIdentity({
+      userId: session.userId,
+      role: session.role,
+      player: session.player
+    });
+    setState(session.state);
+    setSelectedTokenId(null);
+    setError(null);
+  }
+
+  async function handleLogout() {
+    await logout();
+    setIdentity(null);
+    setState(null);
+    setSelectedTokenId(null);
+  }
 
   async function handleMoveToken(x: number, y: number) {
     if (!selectedTokenId) return;
-    const response = await moveToken(selectedTokenId, x, y, currentUserId);
+    const response = await moveToken(selectedTokenId, x, y);
     setState(response.state);
     setSelectedTokenId(null);
   }
 
   async function handleSend(message: string) {
     const response = await sendChat({
-      speaker: currentUser?.displayName || currentUserId,
-      userId: currentUserId,
+      speaker: currentUser?.displayName || identity?.userId || "player",
       message
     });
     setState(response.state);
@@ -77,7 +114,6 @@ export function TabletopApp() {
     const nextTerrain: Terrain[] =
       mapEditTool === "erase" ? terrain : [...terrain, { x, y, type: mapEditTool }];
     const response = await updateMap({
-      userId: currentUserId,
       updates: { terrain: nextTerrain }
     });
     setState(response.state);
@@ -85,7 +121,6 @@ export function TabletopApp() {
 
   async function handleStartCombat() {
     const response = await startCombat({
-      userId: currentUserId,
       participantIds: state?.tokens.map((token) => token.actorId || token.id) || null
     });
     setState(response.state);
@@ -93,19 +128,18 @@ export function TabletopApp() {
 
   async function handleEndTurn() {
     const response = await endTurn({
-      userId: currentUserId,
       actorId: state?.combat.active ? state.combat.initiativeOrder[state.combat.turnIndex]?.actorId : null
     });
     setState(response.state);
   }
 
   async function handleConfirmPending(actionId: string) {
-    const response = await confirmPendingAction({ actionId, userId: currentUserId });
+    const response = await confirmPendingAction({ actionId });
     setState(response.state);
   }
 
   async function handleDeclinePending(actionId: string) {
-    const response = await declinePendingAction({ actionId, userId: currentUserId });
+    const response = await declinePendingAction({ actionId });
     setState(response.state);
   }
 
@@ -113,12 +147,48 @@ export function TabletopApp() {
     return <main className="app-shell">{error}</main>;
   }
 
-  if (!state) {
+  if (!authChecked) {
     return <main className="app-shell">Loading tabletop...</main>;
   }
 
+  if (!identity || !state) {
+    return <JoinScreen onJoined={applySession} />;
+  }
+
+  if (!currentUser) {
+    return <main className="app-shell">No seat is available for this session.</main>;
+  }
+
+  if (state.session.mode === "character_creation") {
+    return (
+      <main className="app-shell">
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">DND Agent</p>
+            <h1>{state.session.title}</h1>
+          </div>
+          <div className="session-strip" aria-label="session status">
+            <span>角色创建</span>
+            <div className="identity-chip">
+              <span>{currentUser?.displayName || currentUserId}</span>
+              <strong>{identity.role}</strong>
+            </div>
+            <button type="button" onClick={() => void handleLogout()}>
+              Logout
+            </button>
+          </div>
+        </header>
+        <AdventureSetup
+          state={state}
+          currentUser={currentUser}
+          currentUserId={currentUserId}
+          onStateChange={setState}
+        />
+      </main>
+    );
+  }
+
   const current = state.tokens.find((token) => token.id === state.session.currentTurn);
-  const currentUser = state.players.find((player) => player.id === currentUserId) || state.players[0];
   const controlledTokenIds =
     currentUser?.role === "dm"
       ? state.tokens.map((token) => token.id)
@@ -157,22 +227,13 @@ export function TabletopApp() {
           <a className="nav-link" href="/rules">
             Rules
           </a>
-          <label className="user-switcher">
-            <span>User</span>
-            <select
-              value={currentUserId}
-              onChange={(event) => {
-                setCurrentUserId(event.target.value);
-                setSelectedTokenId(null);
-              }}
-            >
-              {state.players.map((player) => (
-                <option key={player.id} value={player.id}>
-                  {player.displayName}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="identity-chip">
+            <span>{currentUser?.displayName || currentUserId}</span>
+            <strong>{identity.role}</strong>
+          </div>
+          <button type="button" onClick={() => void handleLogout()}>
+            Logout
+          </button>
         </div>
       </header>
 
@@ -198,17 +259,21 @@ export function TabletopApp() {
             onMapEditToolChange={setMapEditTool}
           />
           <div className="sheet-stack">
-            <CombatPanel
-              combat={state.combat}
-              pendingActions={state.pendingActions}
-              tokens={state.tokens}
-              currentUser={currentUser}
-              currentUserId={currentUserId}
-              onStartCombat={handleStartCombat}
-              onEndTurn={handleEndTurn}
-              onConfirmPending={handleConfirmPending}
-              onDeclinePending={handleDeclinePending}
-            />
+            <div className="dm-panel-stack">
+              {currentUser?.role === "dm" ? (
+                <MapBackgroundEditor map={state.map} onStateChange={setState} />
+              ) : null}
+              <CombatPanel
+                combat={state.combat}
+                pendingActions={state.pendingActions}
+                tokens={state.tokens}
+                currentUser={currentUser}
+                onStartCombat={handleStartCombat}
+                onEndTurn={handleEndTurn}
+                onConfirmPending={handleConfirmPending}
+                onDeclinePending={handleDeclinePending}
+              />
+            </div>
             <CharacterSheet characters={state.characters} />
           </div>
           <ChatPanel events={state.events} onSend={handleSend} />

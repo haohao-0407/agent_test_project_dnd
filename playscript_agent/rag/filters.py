@@ -3,8 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from playscript_agent.script.schema import AccessContext
-
 
 @dataclass(frozen=True, slots=True)
 class RuleAccessContext:
@@ -20,38 +18,6 @@ class RuleAccessContext:
         if not participant_id.strip():
             raise ValueError("participant_id is required for rule access")
         return cls(participant_id=participant_id)
-
-
-def build_chroma_where_filter(context: AccessContext) -> dict[str, Any]:
-    """Build the metadata filter that enforces script visibility.
-
-    Chroma metadata does not need to know the full game state. It receives only
-    deterministic facts from the controller: player id, current phase, and the
-    set of clue ids already revealed to that player.
-    """
-
-    if context.is_dm:
-        return {}
-
-    visible_clues = sorted(context.revealed_clues)
-    clue_gate: dict[str, Any]
-    if visible_clues:
-        clue_gate = {
-            "$or": [
-                {"clue_id": ""},
-                {"clue_id": {"$in": visible_clues}},
-            ]
-        }
-    else:
-        clue_gate = {"clue_id": ""}
-
-    return {
-        "$and": [
-            {"visibility": {"$in": ["public", f"character:{context.participant_id}"]}},
-            {"phase": {"$lte": context.current_phase}},
-            clue_gate,
-        ]
-    }
 
 
 def build_rule_chroma_where_filter(context: RuleAccessContext) -> dict[str, Any]:

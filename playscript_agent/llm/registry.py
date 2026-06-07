@@ -15,8 +15,9 @@ DEFAULT_CONFIG = Path(__file__).resolve().parents[2] / "config" / "llm.yaml"
 def get_llm(role: str, *, config_path: str | Path = DEFAULT_CONFIG) -> Any:
     """Return a LangChain chat model for a role.
 
-    Phase 1 keeps the graph runnable with the offline DeterministicDM, but this
-    function establishes the future single-LLM/multi-LLM boundary.
+    Resolves the role's entry from ``config/llm.yaml`` into an
+    ``init_chat_model`` call, pulling API keys and base URLs from the
+    environment.
     """
 
     load_dotenv()
