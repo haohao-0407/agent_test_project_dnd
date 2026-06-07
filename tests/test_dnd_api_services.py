@@ -6,11 +6,12 @@ from pathlib import Path
 
 import pytest
 
-from playscript_agent.api.services import character_repository, chat_service, dice_service, map_service
+from playscript_agent.api.services import adventure_service, character_repository, chat_service, dice_service, map_service, monster_repository
 from playscript_agent.api.services.game_state import game_state
 
 
 TEST_CHARACTER_ROOT = Path(__file__).resolve().parents[1] / "document" / "characters" / ".test-permanent-repository"
+TEST_MONSTER_ROOT = Path(__file__).resolve().parents[1] / "document" / "characters" / ".test-permanent-monsters"
 
 
 class FakeMessage:
@@ -174,6 +175,46 @@ def test_permanent_character_repository_ignores_legacy_library_file(monkeypatch)
         shutil.rmtree(character_root, ignore_errors=True)
 
 
+def test_permanent_monster_repository_uses_bestiary_fields(monkeypatch):
+    monster_root = TEST_MONSTER_ROOT
+    shutil.rmtree(monster_root, ignore_errors=True)
+    monkeypatch.setattr(monster_repository, "PERMANENT_MONSTER_DIR", monster_root)
+
+    try:
+        monster_repository.create_permanent_monster(
+            {
+                "id": "goblin",
+                "name": "地精",
+                "size": "小型",
+                "type": "类人生物",
+                "armorClass": "15 (皮甲, 盾牌)",
+                "hitPoints": "7 (2d6)",
+                "speed": "30 尺",
+                "attributes": {"STR": 8, "DEX": 14, "CON": 10, "INT": 10, "WIS": 8, "CHA": 8},
+                "skills": "隐匿 +6",
+                "challengeRating": "1/4 (XP 50; PB +2)",
+                "actions": "弯刀 Scimitar. 近战攻击检定: +4，触及 5 尺。命中: 5 (1d6 + 2)挥砍伤害。",
+            }
+        )
+
+        monsters = monster_repository.load_permanent_monsters()
+        assert monsters[0]["challengeRating"].startswith("1/4")
+        assert (monster_root / "goblin" / "monster.json").exists()
+    finally:
+        shutil.rmtree(monster_root, ignore_errors=True)
+
+
+def test_bestiary_monster_converts_to_combat_character():
+    character = monster_repository.bestiary_character_by_name("三角龙", character_id="tri-1")
+
+    assert character is not None
+    assert character["id"] == "tri-1"
+    assert character["class"] == "Monster"
+    assert character["ac"] == 14
+    assert character["hp"]["max"] == 114
+    assert character["attributes"]["STR"] == 22
+
+
 def test_chat_state_context_strips_image_payloads():
     payload = {
         "images": [
@@ -197,6 +238,35 @@ def test_dice_service_records_roll():
     assert 6 <= result["total"] <= 25
     assert result["expression"] == "1d20+5"
     assert game_state.snapshot()["events"][-1]["type"] == "dice"
+
+
+def test_adventure_scene_browser_exposes_linked_lost_mine_scenes():
+    browser = adventure_service.scene_browser()
+    opening = next(scene for scene in browser["explorationScenes"] if scene["id"] == "triboar-trail-road")
+
+    assert len(browser["explorationScenes"]) >= 80
+    assert opening["backgroundUrl"].startswith("/module-assets/")
+    assert opening["combatScene"]["id"] == "triboar-trail-ambush"
+    assert opening["combatScene"]["monsterCount"] == 4
+
+
+def test_dm_can_jump_exploration_scene_and_sync_adventure_state():
+    state = adventure_service.switch_exploration_scene(
+        user_id="dm",
+        scene_id="sleeping-giant",
+    )
+
+    assert state["session"]["mode"] == "exploration"
+    assert state["adventure"]["scene"] == "沉睡的巨人"
+    assert state["adventure"]["explorationSceneId"] == "sleeping-giant"
+    assert state["adventure"]["backgroundUrl"].endswith("/pictures/Player/exploration/sleeping-giant.png")
+    assert state["adventure"]["combatSceneId"] == "phandalin-redbrand-street"
+    assert state["events"][-1]["text"] == "Scene changed to 沉睡的巨人."
+
+
+def test_only_dm_can_prepare_combat_scene():
+    with pytest.raises(PermissionError):
+        adventure_service.prepare_combat_scene(scene_id="triboar-trail-ambush", user_id="player-kael")
 
 
 def test_chat_can_move_token_and_roll_dice(monkeypatch):

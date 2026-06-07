@@ -1,0 +1,301 @@
+{
+  "id": "wave-echo-wizards-quarters",
+  "name": "法师的居所",
+  "width": 12,
+  "height": 10,
+  "gridSize": 48,
+  "background": {
+    "url": "/module-assets/%E5%87%A1%E6%88%B4%E5%B0%94%E7%9A%84%E5%A4%B1%E8%90%BD%E7%9F%BF%E5%9D%91/pictures/DM/battle/wave-echo-wizards-quarters.png",
+    "width": 1280,
+    "height": 720,
+    "opacity": 0.72
+  },
+  "grid": {
+    "size": 80,
+    "originX": 0,
+    "originY": 0,
+    "scale": 1,
+    "offsetX": 0,
+    "offsetY": 0
+  },
+  "terrain": [],
+  "annotations": [
+    {
+      "x": 6,
+      "y": 5,
+      "label": "法器"
+    }
+  ],
+  "layers": {
+    "terrain": [],
+    "walls": [
+      {
+        "x": 0,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 1,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 2,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 3,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 4,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 4,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 5,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 6,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 7,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 8,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 9,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 9,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 10,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 0,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 9,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 1,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 2,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 3,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 4,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 4,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 5,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 6,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 7,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 7,
+        "type": "wall"
+      },
+      {
+        "x": 0,
+        "y": 8,
+        "type": "wall"
+      },
+      {
+        "x": 11,
+        "y": 8,
+        "type": "wall"
+      }
+    ],
+    "doors": [
+      {
+        "x": 6,
+        "y": 9,
+        "type": "door",
+        "open": false
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 4,
+        "y": 4,
+        "type": "obstacle"
+      },
+      {
+        "x": 7,
+        "y": 3,
+        "type": "obstacle"
+      },
+      {
+        "x": 6,
+        "y": 6,
+        "type": "obstacle"
+      },
+      {
+        "x": 9,
+        "y": 5,
+        "type": "obstacle"
+      },
+      {
+        "x": 8,
+        "y": 2,
+        "type": "obstacle"
+      },
+      {
+        "x": 3,
+        "y": 7,
+        "type": "obstacle"
+      },
+      {
+        "x": 2,
+        "y": 4,
+        "type": "obstacle"
+      },
+      {
+        "x": 5,
+        "y": 3,
+        "type": "obstacle"
+      }
+    ],
+    "annotations": [
+      {
+        "x": 6,
+        "y": 5,
+        "label": "法器"
+      }
+    ],
+    "fog": [],
+    "effects": [],
+    "dmNotes": [
+      {
+        "id": "trigger",
+        "x": 1,
+        "y": 1,
+        "text": "角色进入法师居所、交涉失败或冒犯其执念。"
+      }
+    ]
+  }
+}

@@ -7,8 +7,9 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from playscript_agent.api.routers import adventures, characters, chat, combat, dice, maps, pending_actions, rag, sessions
+from playscript_agent.api.routers import adventures, characters, chat, combat, dice, maps, monsters, pending_actions, rag, sessions
 from playscript_agent.api.services.character_repository import PERMANENT_CHARACTER_DIR
+from playscript_agent.api.services.adventure_service import MODULE_ROOT
 
 
 DEFAULT_HOST = "127.0.0.1"
@@ -21,6 +22,7 @@ def create_app() -> FastAPI:
     app.include_router(sessions.router)
     app.include_router(adventures.router)
     app.include_router(characters.router)
+    app.include_router(monsters.router)
     app.include_router(dice.router)
     app.include_router(maps.router)
     app.include_router(combat.router)
@@ -32,6 +34,11 @@ def create_app() -> FastAPI:
         "/character-assets",
         StaticFiles(directory=PERMANENT_CHARACTER_DIR, check_dir=False),
         name="character-assets",
+    )
+    app.mount(
+        "/module-assets",
+        StaticFiles(directory=MODULE_ROOT, check_dir=False),
+        name="module-assets",
     )
 
     @app.get("/")

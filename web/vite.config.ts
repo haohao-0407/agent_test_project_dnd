@@ -7,7 +7,8 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": "http://127.0.0.1:8766",
-      "/character-assets": "http://127.0.0.1:8766"
+      "/character-assets": "http://127.0.0.1:8766",
+      "/module-assets": "http://127.0.0.1:8766"
     }
   }
 });

@@ -33,7 +33,7 @@ class _RuleIndexCache:
     collection: Any | None = None
     embedding_model: Any | None = None
     client: Any | None = None
-    key: tuple[str, str, str] | None = None
+    key: tuple[str, ...] | None = None
 
 
 _cache = _RuleIndexCache()
@@ -132,12 +132,14 @@ def ensure_rule_index(
         if persist_directory is not None
         else default_chroma_dir
     )
+    source_signature = _build_rule_source_signature(effective_document_root)
     key = (
         str(effective_document_root.resolve()),
         effective_collection_name,
         str(effective_persist_directory.resolve())
         if effective_persist_directory is not None
         else "<memory>",
+        source_signature,
     )
 
     with _cache_lock:
@@ -157,9 +159,17 @@ def ensure_rule_index(
         collection = chroma_client.get_or_create_collection(
             name=effective_collection_name,
             embedding_function=None,
-            metadata={"domain": "dnd_rules", "ruleset": "dnd5e"},
+            metadata={
+                "domain": "dnd_rules",
+                "ruleset": "dnd5e",
+                "source_signature": source_signature,
+            },
         )
-        if collection.count() == 0:
+        collection_metadata = getattr(collection, "metadata", None) or {}
+        if (
+            collection.count() == 0
+            or collection_metadata.get("source_signature") != source_signature
+        ):
             collection, _ = _ingest_rulebooks(
                 effective_document_root,
                 client=chroma_client,
@@ -213,6 +223,12 @@ def _ingest_rulebooks(*args: Any, **kwargs: Any) -> tuple[Any, Any]:
     from playscript_agent.rag import ingest_rulebooks
 
     return ingest_rulebooks(*args, **kwargs)
+
+
+def _build_rule_source_signature(paths: str | Path) -> str:
+    from playscript_agent.rag import build_rule_source_signature
+
+    return build_rule_source_signature(paths)
 
 
 def _build_rule_retriever(*args: Any, **kwargs: Any) -> Any:

@@ -1,5 +1,6 @@
 from playscript_agent.api.schemas.dnd import (
     AdventureStartRequest,
+    AdventureSceneJumpRequest,
     CharacterCreateRequest,
     CharacterUpdateRequest,
     ChatRequest,
@@ -15,6 +16,8 @@ from playscript_agent.api.schemas.dnd import (
     MapBackgroundUpdateRequest,
     MapLayerUpdateRequest,
     MapUpdateRequest,
+    MonsterCreateRequest,
+    MonsterUpdateRequest,
     PendingActionRequest,
     RagQueryRequest,
     ReactionRequest,
@@ -26,6 +29,7 @@ from playscript_agent.api.schemas.dnd import (
 
 __all__ = [
     "AdventureStartRequest",
+    "AdventureSceneJumpRequest",
     "CharacterCreateRequest",
     "CharacterUpdateRequest",
     "ChatRequest",
@@ -41,6 +45,8 @@ __all__ = [
     "MapBackgroundUpdateRequest",
     "MapLayerUpdateRequest",
     "MapUpdateRequest",
+    "MonsterCreateRequest",
+    "MonsterUpdateRequest",
     "PendingActionRequest",
     "RagQueryRequest",
     "ReactionRequest",

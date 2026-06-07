@@ -509,6 +509,11 @@ class GameStateStore:
         monsters: list[dict[str, Any]],
         opening_text: str,
         source: str,
+        exploration_scene_id: str = "",
+        exploration_scene_name: str = "",
+        background_url: str = "",
+        combat_scene_id: str = "",
+        combat_scene_name: str = "",
     ) -> dict[str, Any]:
         with self._lock:
             if not self.is_dm(user_id):
@@ -559,7 +564,11 @@ class GameStateStore:
             self._state["adventure"] = {
                 "moduleName": module_name,
                 "chapter": "地精箭矢",
-                "scene": next_map["name"],
+                "scene": exploration_scene_name or next_map["name"],
+                "explorationSceneId": exploration_scene_id,
+                "backgroundUrl": background_url,
+                "combatSceneId": combat_scene_id,
+                "combatSceneName": combat_scene_name or next_map["name"],
                 "source": source,
                 "startedAt": current_time(),
             }
@@ -588,6 +597,117 @@ class GameStateStore:
                 },
             ]
             self._assert_tokens_fit_map(next_map)
+            return self.snapshot()
+
+    def set_combat_scene(
+        self,
+        *,
+        game_map: dict[str, Any],
+        monsters: list[dict[str, Any]],
+        combat_scene_id: str,
+        combat_scene_name: str,
+        user_id: str = "dm",
+        module_name: str | None = None,
+        chapter: str | None = None,
+        exploration_scene_id: str | None = None,
+        exploration_scene_name: str | None = None,
+        background_url: str | None = None,
+    ) -> dict[str, Any]:
+        with self._lock:
+            if not self.is_dm(user_id):
+                raise PermissionError(f"user {user_id} cannot change scenes")
+            player_characters = self._player_characters()
+            if not player_characters:
+                raise ValueError("at least one player character is required")
+
+            next_map = map_repository.validate_map(game_map)
+            monster_characters = [
+                normalize_character_card(monster.get("character", {}))
+                for monster in monsters
+            ]
+            player_positions = self._starting_positions(next_map, len(player_characters))
+            player_tokens = [
+                {
+                    "id": character["id"],
+                    "actorId": character["id"],
+                    "name": character["name"],
+                    "kind": "player",
+                    "x": position[0],
+                    "y": position[1],
+                }
+                for character, position in zip(player_characters, player_positions, strict=False)
+            ]
+            monster_tokens = [
+                {
+                    "id": str(monster.get("id") or monster.get("character", {}).get("id")),
+                    "actorId": str(monster.get("id") or monster.get("character", {}).get("id")),
+                    "name": str(monster.get("name") or monster.get("character", {}).get("name") or "Monster"),
+                    "kind": "monster",
+                    "x": int(monster.get("x", 0)),
+                    "y": int(monster.get("y", 0)),
+                }
+                for monster in monsters
+            ]
+            player_character_ids = {character["id"] for character in player_characters}
+            self._state["map"] = next_map
+            self._state["tokens"] = player_tokens + monster_tokens
+            self._state["characters"] = [
+                normalize_character_card(character)
+                for character in self._state["characters"]
+                if character["id"] in player_character_ids
+            ] + monster_characters
+            self._state.setdefault("adventure", {})
+            if module_name is not None:
+                self._state["adventure"]["moduleName"] = module_name
+                self._state["session"]["title"] = module_name
+            if chapter is not None:
+                self._state["adventure"]["chapter"] = chapter
+            if exploration_scene_id is not None:
+                self._state["adventure"]["explorationSceneId"] = exploration_scene_id
+            if exploration_scene_name:
+                self._state["adventure"]["scene"] = exploration_scene_name
+            elif combat_scene_name:
+                self._state["adventure"]["scene"] = combat_scene_name
+            if background_url is not None:
+                self._state["adventure"]["backgroundUrl"] = background_url
+            self._state["adventure"]["combatSceneId"] = combat_scene_id
+            self._state["adventure"]["combatSceneName"] = combat_scene_name
+            self._assert_tokens_fit_map(next_map)
+            return self.snapshot()
+
+    def set_exploration_scene(
+        self,
+        *,
+        user_id: str,
+        module_name: str,
+        chapter: str,
+        exploration_scene_id: str,
+        exploration_scene_name: str,
+        background_url: str,
+        combat_scene_id: str = "",
+        combat_scene_name: str = "",
+        source: str = "module",
+    ) -> dict[str, Any]:
+        with self._lock:
+            if not self.is_dm(user_id):
+                raise PermissionError(f"user {user_id} cannot change scenes")
+            self._state["session"]["title"] = module_name
+            self._state["session"]["mode"] = "exploration"
+            self._state["session"]["currentTurn"] = ""
+            self._state["adventure"] = {
+                **self._state.get("adventure", {}),
+                "moduleName": module_name,
+                "chapter": chapter,
+                "scene": exploration_scene_name,
+                "explorationSceneId": exploration_scene_id,
+                "backgroundUrl": background_url,
+                "combatSceneId": combat_scene_id,
+                "combatSceneName": combat_scene_name,
+                "source": source,
+                "startedAt": self._state.get("adventure", {}).get("startedAt") or current_time(),
+            }
+            self._state["combat"] = default_combat_state()
+            self._state["pendingActions"] = []
             return self.snapshot()
 
     def update_map(

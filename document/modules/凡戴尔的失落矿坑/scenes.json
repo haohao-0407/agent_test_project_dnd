@@ -1,0 +1,2670 @@
+{
+  "moduleName": "凡戴尔的失落矿坑",
+  "version": "resource-library-1",
+  "assetPolicy": "原创资源；用于兼容跑团，不复制官方地图、原文或美术。",
+  "openingSceneId": "triboar-trail-road",
+  "explorationScenes": [
+    {
+      "id": "triboar-trail-road",
+      "name": "三猪小径",
+      "chapter": "地精箭矢",
+      "kind": "forest-road",
+      "background": "pictures/Player/triboar-trail-exploration-manual.png",
+      "battleSceneId": "triboar-trail-ambush",
+      "combatSceneId": "triboar-trail-ambush",
+      "scenePrompt": "补给车沿林间小径前进，前方出现异常路障；先询问行进队列、侦查与调查方式。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 三猪小径\nScene/backdrop: forest road fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "goblin-trail",
+      "name": "地精踪迹",
+      "chapter": "地精箭矢",
+      "kind": "forest",
+      "background": "pictures/Player/exploration/goblin-trail.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "隐藏小径钻入灌木和湿泥之间，适合处理追踪、陷阱、队列和警戒。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 地精踪迹\nScene/backdrop: forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-entrance",
+      "name": "克拉摩窝点洞口",
+      "chapter": "地精箭矢",
+      "kind": "cave-mouth",
+      "background": "pictures/Player/exploration/cragmaw-hideout-entrance.png",
+      "battleSceneId": "cragmaw-hideout-goblin-blind",
+      "combatSceneId": "cragmaw-hideout-goblin-blind",
+      "scenePrompt": "溪流从矮崖洞口流出，灌木丛遮住暗哨；让玩家选择靠近、潜行或侦查。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点洞口\nScene/backdrop: cave mouth fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-kennel",
+      "name": "克拉摩窝点犬舍",
+      "chapter": "地精箭矢",
+      "kind": "cave",
+      "background": "pictures/Player/exploration/cragmaw-hideout-kennel.png",
+      "battleSceneId": "cragmaw-hideout-kennel",
+      "combatSceneId": "cragmaw-hideout-kennel",
+      "scenePrompt": "潮湿洞室里有兽栏、铁链和低吼声；可谈判、安抚、潜行或爆发战斗。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点犬舍\nScene/backdrop: cave fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-steep-passage",
+      "name": "克拉摩窝点陡峭通道",
+      "chapter": "地精箭矢",
+      "kind": "cave",
+      "background": "pictures/Player/exploration/cragmaw-hideout-steep-passage.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "狭窄斜坡连接上下层，碎石和黑暗让移动变得危险。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点陡峭通道\nScene/backdrop: cave fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-overpass",
+      "name": "克拉摩窝点天桥",
+      "chapter": "地精箭矢",
+      "kind": "cave",
+      "background": "pictures/Player/exploration/cragmaw-hideout-overpass.png",
+      "battleSceneId": "cragmaw-hideout-overpass",
+      "combatSceneId": "cragmaw-hideout-overpass",
+      "scenePrompt": "洞穴上方横跨木桥，下方水声回荡；适合察觉哨兵、潜行或引发警报。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点天桥\nScene/backdrop: cave fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-goblin-den",
+      "name": "克拉摩窝点地精休息室",
+      "chapter": "地精箭矢",
+      "kind": "cave-camp",
+      "background": "pictures/Player/exploration/cragmaw-hideout-goblin-den.png",
+      "battleSceneId": "cragmaw-hideout-goblin-den",
+      "combatSceneId": "cragmaw-hideout-goblin-den",
+      "scenePrompt": "烟火、杂物和俘虏让局势紧绷；把派系争执和谈判空间留给玩家。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点地精休息室\nScene/backdrop: cave camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-twin-pools",
+      "name": "克拉摩窝点双子池",
+      "chapter": "地精箭矢",
+      "kind": "cave-water",
+      "background": "pictures/Player/exploration/cragmaw-hideout-twin-pools.png",
+      "battleSceneId": "cragmaw-hideout-twin-pools",
+      "combatSceneId": "cragmaw-hideout-twin-pools",
+      "scenePrompt": "两座蓄水池被简陋石坝拦住，守卫能利用水势制造混乱。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点双子池\nScene/backdrop: cave water fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-klarg-cave",
+      "name": "克拉摩窝点首领洞穴",
+      "chapter": "地精箭矢",
+      "kind": "cave-camp",
+      "background": "pictures/Player/exploration/cragmaw-hideout-klarg-cave.png",
+      "battleSceneId": "cragmaw-hideout-klarg-cave",
+      "combatSceneId": "cragmaw-hideout-klarg-cave",
+      "scenePrompt": "较大的洞室堆满劫掠物和火坑，首领的宠兽与手下都在附近。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点首领洞穴\nScene/backdrop: cave camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "phandalin-arrival",
+      "name": "凡达林镇口",
+      "chapter": "凡达林",
+      "kind": "town",
+      "background": "pictures/Player/exploration/phandalin-arrival-manual.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "边境小镇出现在山丘和尘土路之间，适合交付补给、打听消息和休整。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 凡达林镇口\nScene/backdrop: town fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "stonehill-inn",
+      "name": "石丘旅馆",
+      "chapter": "凡达林",
+      "kind": "inn",
+      "background": "pictures/Player/exploration/stonehill-inn.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "温暖灯光、旅人闲谈和紧张流言交织，适合收集线索。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 石丘旅馆\nScene/backdrop: inn fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "barthens-provisions",
+      "name": "巴森补给",
+      "chapter": "凡达林",
+      "kind": "shop",
+      "background": "pictures/Player/exploration/barthens-provisions.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "货架、矿工工具和补给账本构成实用的贸易场景。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 巴森补给\nScene/backdrop: shop fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "edermath-orchard",
+      "name": "埃德玛果园",
+      "chapter": "凡达林",
+      "kind": "orchard",
+      "background": "pictures/Player/exploration/edermath-orchard.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "老果树、篱笆和退役冒险者的小屋，适合交谈与任务钩子。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 埃德玛果园\nScene/backdrop: orchard fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "lionshield-coster",
+      "name": "狮盾小贩",
+      "chapter": "凡达林",
+      "kind": "shop",
+      "background": "pictures/Player/exploration/lionshield-coster.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "整齐货箱与蓝狮徽记暗示失货线索，适合询问地精活动。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 狮盾小贩\nScene/backdrop: shop fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "miners-exchange",
+      "name": "凡达林矿工兑换所",
+      "chapter": "凡达林",
+      "kind": "office",
+      "background": "pictures/Player/exploration/miners-exchange.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "尘土、秤盘和矿权记录让这里适合交易消息与灰色委托。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 凡达林矿工兑换所\nScene/backdrop: office fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "alderleaf-farm",
+      "name": "阿德里夫农场",
+      "chapter": "凡达林",
+      "kind": "farm",
+      "background": "pictures/Player/exploration/alderleaf-farm.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "菜畦、谷仓与孩子讲述的秘密入口线索，适合低压探索。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 阿德里夫农场\nScene/backdrop: farm fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "shrine-of-luck",
+      "name": "幸运圣坛",
+      "chapter": "凡达林",
+      "kind": "shrine",
+      "background": "pictures/Player/exploration/shrine-of-luck.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "路边小圣坛挂着彩带和献礼，适合宗教、传闻和远行任务。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 幸运圣坛\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "sleeping-giant",
+      "name": "沉睡的巨人",
+      "chapter": "凡达林",
+      "kind": "tavern",
+      "background": "pictures/Player/exploration/sleeping-giant.png",
+      "battleSceneId": "phandalin-redbrand-street",
+      "combatSceneId": "phandalin-redbrand-street",
+      "scenePrompt": "破旧酒馆外有红标帮游荡，气氛像火星落在干草上。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 沉睡的巨人\nScene/backdrop: tavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "townmasters-hall",
+      "name": "镇长大厅",
+      "chapter": "凡达林",
+      "kind": "hall",
+      "background": "pictures/Player/exploration/townmasters-hall.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "告示板、简陋办公桌和焦虑官员构成任务集散点。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 镇长大厅\nScene/backdrop: hall fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "tresendar-manor",
+      "name": "崔森德庄园",
+      "chapter": "凡达林",
+      "kind": "ruin",
+      "background": "pictures/Player/exploration/tresendar-manor.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "废弃庄园俯瞰小镇，残墙和地窖入口暗示地下巢穴。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 崔森德庄园\nScene/backdrop: ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-cellar",
+      "name": "红标帮窝点地窖",
+      "chapter": "凡达林",
+      "kind": "cellar",
+      "background": "pictures/Player/exploration/redbrand-hideout-cellar.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "石阶通向潮湿地窖，水声、酒桶和暗门适合潜入。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮窝点地窖\nScene/backdrop: cellar fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-barracks",
+      "name": "红标帮营房",
+      "chapter": "凡达林",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-barracks.png",
+      "battleSceneId": "redbrand-barracks",
+      "combatSceneId": "redbrand-barracks",
+      "scenePrompt": "简陋床铺、赌具和武器散落，守卫可能松懈但人数占优。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-trapped-hall",
+      "name": "陷阱走廊",
+      "chapter": "凡达林",
+      "kind": "dungeon",
+      "background": "pictures/Player/exploration/redbrand-hideout-trapped-hall.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "狭长走廊表面平静，地面结构和尘土痕迹暗藏危险。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 陷阱走廊\nScene/backdrop: dungeon fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-crypts",
+      "name": "崔森德墓室",
+      "chapter": "凡达林",
+      "kind": "crypt",
+      "background": "pictures/Player/exploration/redbrand-hideout-crypts.png",
+      "battleSceneId": "redbrand-crypts",
+      "combatSceneId": "redbrand-crypts",
+      "scenePrompt": "石棺和冷光之间有守墓亡者，适合谨慎推进。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 崔森德墓室\nScene/backdrop: crypt fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-slave-pens",
+      "name": "奴隶围栏",
+      "chapter": "凡达林",
+      "kind": "cell",
+      "background": "pictures/Player/exploration/redbrand-hideout-slave-pens.png",
+      "battleSceneId": "redbrand-slave-pen-guards",
+      "combatSceneId": "redbrand-slave-pen-guards",
+      "scenePrompt": "铁栏、哭声和守卫脚步把营救压力推到台前。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 奴隶围栏\nScene/backdrop: cell fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-armory",
+      "name": "军械库",
+      "chapter": "凡达林",
+      "kind": "armory",
+      "background": "pictures/Player/exploration/redbrand-hideout-armory.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "武器架和红斗篷装备堆放整齐，可补给或伪装。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 军械库\nScene/backdrop: armory fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-storage",
+      "name": "储藏室和工作间",
+      "chapter": "凡达林",
+      "kind": "workshop",
+      "background": "pictures/Player/exploration/redbrand-hideout-storage.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "木箱、工具台与灰尘覆盖的货物等待搜查。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 储藏室和工作间\nScene/backdrop: workshop fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-chasm",
+      "name": "红标帮窝点裂隙",
+      "chapter": "凡达林",
+      "kind": "chasm",
+      "background": "pictures/Player/exploration/redbrand-hideout-chasm.png",
+      "battleSceneId": "redbrand-nothic-chasm",
+      "combatSceneId": "redbrand-nothic-chasm",
+      "scenePrompt": "地下裂隙散发冷意，窄桥和窥视感让谈判或战斗都很危险。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮窝点裂隙\nScene/backdrop: chasm fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-guard-barracks",
+      "name": "警卫营房",
+      "chapter": "凡达林",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-guard-barracks.png",
+      "battleSceneId": "redbrand-bugbear-barracks",
+      "combatSceneId": "redbrand-bugbear-barracks",
+      "scenePrompt": "粗重脚步、粗糙床铺和被欺压的小帮手制造可变局势。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 警卫营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-common-room",
+      "name": "公共休息室",
+      "chapter": "凡达林",
+      "kind": "tavern",
+      "background": "pictures/Player/exploration/redbrand-hideout-common-room.png",
+      "battleSceneId": "redbrand-common-room",
+      "combatSceneId": "redbrand-common-room",
+      "scenePrompt": "牌桌、酒杯和松散警戒适合突袭或伪装混入。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 公共休息室\nScene/backdrop: tavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-workshop",
+      "name": "法师的工作坊",
+      "chapter": "凡达林",
+      "kind": "wizard-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-workshop.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "烧瓶、书卷和炼金气味提示幕后法师的研究。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 法师的工作坊\nScene/backdrop: wizard room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-glasstaff",
+      "name": "玻璃手杖的居所",
+      "chapter": "凡达林",
+      "kind": "wizard-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-glasstaff.png",
+      "battleSceneId": "redbrand-glasstaff-quarters",
+      "combatSceneId": "redbrand-glasstaff-quarters",
+      "scenePrompt": "私密房间中有书桌、法器和逃生路线，适合审问或追逐。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 玻璃手杖的居所\nScene/backdrop: wizard room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "triboar-wilderness",
+      "name": "三猪小径荒野",
+      "chapter": "蜘蛛网",
+      "kind": "wilderness",
+      "background": "pictures/Player/exploration/triboar-wilderness.png",
+      "battleSceneId": "wilderness-goblin-patrol",
+      "combatSceneId": "wilderness-goblin-patrol",
+      "scenePrompt": "开阔荒野适合旅行遭遇、迷路、天气和营地事件。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 三猪小径荒野\nScene/backdrop: wilderness fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "conyberry",
+      "name": "兔莓废村",
+      "chapter": "蜘蛛网",
+      "kind": "ruin",
+      "background": "pictures/Player/exploration/conyberry.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "废弃村落只剩残墙和风声，通向幽灵巢穴的路显得荒凉。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 兔莓废村\nScene/backdrop: ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "agathas-lair",
+      "name": "阿加莎的巢穴",
+      "chapter": "蜘蛛网",
+      "kind": "forest-spirit",
+      "background": "pictures/Player/exploration/agathas-lair.png",
+      "battleSceneId": "agatha-hostile-banshee",
+      "combatSceneId": "agatha-hostile-banshee",
+      "scenePrompt": "藤蔓遮住古老树屋，空气中有寒意；优先营造谨慎交涉。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 阿加莎的巢穴\nScene/backdrop: forest spirit fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "old-owl-well",
+      "name": "古枭井",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-camp",
+      "background": "pictures/Player/exploration/old-owl-well.png",
+      "battleSceneId": "old-owl-well-zombies",
+      "combatSceneId": "old-owl-well-zombies",
+      "scenePrompt": "荒废瞭望塔旁搭着营地，亡者在残石间游荡。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 古枭井\nScene/backdrop: ruin camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wyvern-tor",
+      "name": "飞龙突岩",
+      "chapter": "蜘蛛网",
+      "kind": "rocky-camp",
+      "background": "pictures/Player/exploration/wyvern-tor.png",
+      "battleSceneId": "wyvern-tor-orc-camp",
+      "combatSceneId": "wyvern-tor-orc-camp",
+      "scenePrompt": "荒石山脊下有兽人营火和岗哨，适合侦察、包抄或夜袭。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 飞龙突岩\nScene/backdrop: rocky camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-arrival",
+      "name": "雷树废墟入口",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-arrival.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "被灰烬与藤蔓吞没的废镇散发毒雾和龙影压迫。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树废墟入口\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-west-cottage",
+      "name": "雷树：最西边的小屋",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-west-cottage.png",
+      "battleSceneId": "thundertree-blighted-cottages",
+      "combatSceneId": "thundertree-blighted-cottages",
+      "scenePrompt": "雷树的最西边的小屋。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：最西边的小屋\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-blighted-cottage",
+      "name": "雷树：枯萎的小屋",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-blighted-cottage.png",
+      "battleSceneId": "thundertree-blighted-cottages",
+      "combatSceneId": "thundertree-blighted-cottages",
+      "scenePrompt": "雷树的枯萎的小屋。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：枯萎的小屋\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-brown-horse",
+      "name": "雷树：棕马酒馆",
+      "chapter": "蜘蛛网",
+      "kind": "tavern",
+      "background": "pictures/Player/exploration/thundertree-brown-horse.png",
+      "battleSceneId": "thundertree-ash-zombie-tavern",
+      "combatSceneId": "thundertree-ash-zombie-tavern",
+      "scenePrompt": "雷树的棕马酒馆。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：棕马酒馆\nScene/backdrop: tavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-druid-watch",
+      "name": "雷树：德鲁伊哨点",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-druid-watch.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "雷树的德鲁伊哨点。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：德鲁伊哨点\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-blighted-farmhouse",
+      "name": "雷树：枯萎的农舍",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-blighted-farmhouse.png",
+      "battleSceneId": "thundertree-blighted-cottages",
+      "combatSceneId": "thundertree-blighted-cottages",
+      "scenePrompt": "雷树的枯萎的农舍。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：枯萎的农舍\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-store-ruin",
+      "name": "雷树：商店废墟",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-store-ruin.png",
+      "battleSceneId": "thundertree-spider-store",
+      "combatSceneId": "thundertree-spider-store",
+      "scenePrompt": "雷树的商店废墟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：商店废墟\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-dragon-tower",
+      "name": "雷树：龙之塔",
+      "chapter": "蜘蛛网",
+      "kind": "tower",
+      "background": "pictures/Player/exploration/thundertree-dragon-tower.png",
+      "battleSceneId": "thundertree-dragon-tower",
+      "combatSceneId": "thundertree-dragon-tower",
+      "scenePrompt": "雷树的龙之塔。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：龙之塔\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-old-smithy",
+      "name": "雷树：旧铁匠铺",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-old-smithy.png",
+      "battleSceneId": "thundertree-blighted-cottages",
+      "combatSceneId": "thundertree-blighted-cottages",
+      "scenePrompt": "雷树的旧铁匠铺。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：旧铁匠铺\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-herbalist-shop",
+      "name": "雷树：草药店",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-herbalist-shop.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "雷树的草药店。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：草药店\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-town-square",
+      "name": "雷树：城镇广场",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-town-square.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "雷树的城镇广场。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：城镇广场\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-old-garrison",
+      "name": "雷树：旧卫戍营",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-old-garrison.png",
+      "battleSceneId": "thundertree-ash-zombie-garrison",
+      "combatSceneId": "thundertree-ash-zombie-garrison",
+      "scenePrompt": "雷树的旧卫戍营。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：旧卫戍营\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-weavers-cottage",
+      "name": "雷树：织布工小屋",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-weavers-cottage.png",
+      "battleSceneId": "thundertree-blighted-cottages",
+      "combatSceneId": "thundertree-blighted-cottages",
+      "scenePrompt": "雷树的织布工小屋。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：织布工小屋\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-cultist-house",
+      "name": "雷树：龙之邪教徒",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-cultist-house.png",
+      "battleSceneId": "thundertree-cultist-house",
+      "combatSceneId": "thundertree-cultist-house",
+      "scenePrompt": "雷树的龙之邪教徒。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：龙之邪教徒\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-approach",
+      "name": "克拉摩堡外缘",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-approach.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "林中废堡显露在树影后，破墙和箭孔提示强攻代价。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡外缘\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-entrance",
+      "name": "克拉摩堡：城堡入口",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-entrance.png",
+      "battleSceneId": "cragmaw-castle-entrance",
+      "combatSceneId": "cragmaw-castle-entrance",
+      "scenePrompt": "克拉摩堡的城堡入口。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：城堡入口\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-trapped-hall",
+      "name": "克拉摩堡：陷阱大厅",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-trapped-hall.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "克拉摩堡的陷阱大厅。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：陷阱大厅\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-archer-post",
+      "name": "克拉摩堡：弓箭手岗哨",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-archer-post.png",
+      "battleSceneId": "cragmaw-castle-archer-post",
+      "combatSceneId": "cragmaw-castle-archer-post",
+      "scenePrompt": "克拉摩堡的弓箭手岗哨。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：弓箭手岗哨\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-ruined-barracks",
+      "name": "克拉摩堡：营房废墟",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-ruined-barracks.png",
+      "battleSceneId": "cragmaw-castle-ruined-barracks",
+      "combatSceneId": "cragmaw-castle-ruined-barracks",
+      "scenePrompt": "克拉摩堡的营房废墟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：营房废墟\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-storeroom",
+      "name": "克拉摩堡：储藏室",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-storeroom.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "克拉摩堡的储藏室。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：储藏室\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-hobgoblin-barracks",
+      "name": "克拉摩堡：大地精营房",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-hobgoblin-barracks.png",
+      "battleSceneId": "cragmaw-castle-hobgoblin-barracks",
+      "combatSceneId": "cragmaw-castle-hobgoblin-barracks",
+      "scenePrompt": "克拉摩堡的大地精营房。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：大地精营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-banquet-hall",
+      "name": "克拉摩堡：宴会厅",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-banquet-hall.png",
+      "battleSceneId": "cragmaw-castle-banquet-hall",
+      "combatSceneId": "cragmaw-castle-banquet-hall",
+      "scenePrompt": "克拉摩堡的宴会厅。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：宴会厅\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-dark-hall",
+      "name": "克拉摩堡：黑暗大厅",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-dark-hall.png",
+      "battleSceneId": "cragmaw-castle-dark-hall",
+      "combatSceneId": "cragmaw-castle-dark-hall",
+      "scenePrompt": "克拉摩堡的黑暗大厅。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：黑暗大厅\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-shrine",
+      "name": "克拉摩堡：地精圣坛",
+      "chapter": "蜘蛛网",
+      "kind": "shrine",
+      "background": "pictures/Player/exploration/cragmaw-castle-shrine.png",
+      "battleSceneId": "cragmaw-castle-shrine",
+      "combatSceneId": "cragmaw-castle-shrine",
+      "scenePrompt": "克拉摩堡的地精圣坛。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：地精圣坛\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-back-door",
+      "name": "克拉摩堡：后门",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-back-door.png",
+      "battleSceneId": "cragmaw-castle-back-door",
+      "combatSceneId": "cragmaw-castle-back-door",
+      "scenePrompt": "克拉摩堡的后门。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：后门\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-ruined-tower",
+      "name": "克拉摩堡：塔楼废墟",
+      "chapter": "蜘蛛网",
+      "kind": "tower",
+      "background": "pictures/Player/exploration/cragmaw-castle-ruined-tower.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "克拉摩堡的塔楼废墟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：塔楼废墟\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-guard-barracks",
+      "name": "克拉摩堡：警卫营房",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-guard-barracks.png",
+      "battleSceneId": "cragmaw-castle-guard-barracks",
+      "combatSceneId": "cragmaw-castle-guard-barracks",
+      "scenePrompt": "克拉摩堡的警卫营房。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：警卫营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-owlbear-tower",
+      "name": "克拉摩堡：枭熊塔楼",
+      "chapter": "蜘蛛网",
+      "kind": "tower",
+      "background": "pictures/Player/exploration/cragmaw-castle-owlbear-tower.png",
+      "battleSceneId": "cragmaw-castle-owlbear-tower",
+      "combatSceneId": "cragmaw-castle-owlbear-tower",
+      "scenePrompt": "克拉摩堡的枭熊塔楼。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：枭熊塔楼\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-kings-quarters",
+      "name": "克拉摩堡：王之居所",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-kings-quarters.png",
+      "battleSceneId": "cragmaw-castle-king-quarters",
+      "combatSceneId": "cragmaw-castle-king-quarters",
+      "scenePrompt": "克拉摩堡的王之居所。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：王之居所\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-return-trail",
+      "name": "克拉摩堡返程小队",
+      "chapter": "蜘蛛网",
+      "kind": "forest-road",
+      "background": "pictures/Player/exploration/cragmaw-return-trail.png",
+      "battleSceneId": "cragmaw-castle-returning-warband",
+      "combatSceneId": "cragmaw-castle-returning-warband",
+      "scenePrompt": "离开废堡后仍可能撞上巡逻返程者，适合追击或伏击。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡返程小队\nScene/backdrop: forest road fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-cave-arrival",
+      "name": "回声洞入口",
+      "chapter": "回声洞",
+      "kind": "mine-mouth",
+      "background": "pictures/Player/exploration/wave-echo-cave-arrival.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "山坡裂口通向失落矿井，潮湿空气带着遥远轰鸣。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞入口\nScene/backdrop: mine mouth fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-cave-entrance",
+      "name": "回声洞：洞穴入口",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-cave-entrance.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "回声洞的洞穴入口。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：洞穴入口\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-mine-tunnels",
+      "name": "回声洞：矿道",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-mine-tunnels.png",
+      "battleSceneId": "wave-echo-mine-tunnels-stirges",
+      "combatSceneId": "wave-echo-mine-tunnels-stirges",
+      "scenePrompt": "回声洞的矿道。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：矿道\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-old-entrance",
+      "name": "回声洞：旧入口",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-old-entrance.png",
+      "battleSceneId": "wave-echo-old-entrance-ooze",
+      "combatSceneId": "wave-echo-old-entrance-ooze",
+      "scenePrompt": "回声洞的旧入口。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：旧入口\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-old-guardroom",
+      "name": "回声洞：旧警卫室",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-old-guardroom.png",
+      "battleSceneId": "wave-echo-guardroom-undead",
+      "combatSceneId": "wave-echo-guardroom-undead",
+      "scenePrompt": "回声洞的旧警卫室。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：旧警卫室\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-assayers-office",
+      "name": "回声洞：试金师办公室",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-assayers-office.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "回声洞的试金师办公室。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：试金师办公室\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-south-barracks",
+      "name": "回声洞：南部营房",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-south-barracks.png",
+      "battleSceneId": "wave-echo-south-barracks-ghouls",
+      "combatSceneId": "wave-echo-south-barracks-ghouls",
+      "scenePrompt": "回声洞的南部营房。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：南部营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-ruined-storeroom",
+      "name": "回声洞：储物间废墟",
+      "chapter": "回声洞",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/wave-echo-ruined-storeroom.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "回声洞的储物间废墟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：储物间废墟\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-fungi-cavern",
+      "name": "回声洞：真菌洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-fungi-cavern.png",
+      "battleSceneId": "wave-echo-fungi-cavern",
+      "combatSceneId": "wave-echo-fungi-cavern",
+      "scenePrompt": "回声洞的真菌洞窟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：真菌洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-great-cavern",
+      "name": "回声洞：大洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-great-cavern.png",
+      "battleSceneId": "wave-echo-great-cavern-bugbears",
+      "combatSceneId": "wave-echo-great-cavern-bugbears",
+      "scenePrompt": "回声洞的大洞窟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：大洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-dark-pool",
+      "name": "回声洞：黑水池",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-dark-pool.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "回声洞的黑水池。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：黑水池\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-north-barracks",
+      "name": "回声洞：北部营房",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-north-barracks.png",
+      "battleSceneId": "wave-echo-north-barracks",
+      "combatSceneId": "wave-echo-north-barracks",
+      "scenePrompt": "回声洞的北部营房。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：北部营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-smelter-cavern",
+      "name": "回声洞：冶炼洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-smelter-cavern.png",
+      "battleSceneId": "wave-echo-smelter-cavern",
+      "combatSceneId": "wave-echo-smelter-cavern",
+      "scenePrompt": "回声洞的冶炼洞窟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：冶炼洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-glittering-cavern",
+      "name": "回声洞：明亮的洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-glittering-cavern.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "回声洞的明亮的洞窟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：明亮的洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-wizards-quarters",
+      "name": "回声洞：法师的居所",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-wizards-quarters.png",
+      "battleSceneId": "wave-echo-wizards-quarters",
+      "combatSceneId": "wave-echo-wizards-quarters",
+      "scenePrompt": "回声洞的法师的居所。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：法师的居所\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-spell-forge",
+      "name": "回声洞：法术工厂",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-spell-forge.png",
+      "battleSceneId": "wave-echo-spell-forge-guardian",
+      "combatSceneId": "wave-echo-spell-forge-guardian",
+      "scenePrompt": "回声洞的法术工厂。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：法术工厂\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-booming-cavern",
+      "name": "回声洞：轰鸣洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-booming-cavern.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "回声洞的轰鸣洞窟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：轰鸣洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-old-streambed",
+      "name": "回声洞：古老河床",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-old-streambed.png",
+      "battleSceneId": "",
+      "combatSceneId": "",
+      "scenePrompt": "回声洞的古老河床。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：古老河床\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-collapsed-cavern",
+      "name": "回声洞：崩塌的洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-collapsed-cavern.png",
+      "battleSceneId": "wave-echo-collapsed-cavern",
+      "combatSceneId": "wave-echo-collapsed-cavern",
+      "scenePrompt": "回声洞的崩塌的洞窟。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：崩塌的洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-temple",
+      "name": "回声洞：杜马松的神庙",
+      "chapter": "回声洞",
+      "kind": "shrine",
+      "background": "pictures/Player/exploration/wave-echo-temple.png",
+      "battleSceneId": "wave-echo-temple-final",
+      "combatSceneId": "wave-echo-temple-final",
+      "scenePrompt": "回声洞的杜马松的神庙。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：杜马松的神庙\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-priests-quarters",
+      "name": "回声洞：祭司的居所",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-priests-quarters.png",
+      "battleSceneId": "wave-echo-priests-quarters",
+      "combatSceneId": "wave-echo-priests-quarters",
+      "scenePrompt": "回声洞的祭司的居所。用原创描述呈现环境、可疑细节和玩家可行动点，不复述官方房间文本。",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：祭司的居所\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    }
+  ],
+  "combatScenes": [
+    {
+      "id": "triboar-trail-ambush",
+      "name": "三猪小径伏击",
+      "chapter": "地精箭矢",
+      "map": "maps/triboar-trail-ambush.json",
+      "trigger": "角色接近路障、调查遗留物或未能发现埋伏时。",
+      "monsters": [
+        {
+          "id": "triboar-trail-ambush-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "triboar-trail-ambush-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "triboar-trail-ambush-m3",
+          "name": "地精",
+          "x": 14,
+          "y": 1
+        },
+        {
+          "id": "triboar-trail-ambush-m4",
+          "name": "地精",
+          "x": 5,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-goblin-blind",
+      "name": "洞口暗哨",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-goblin-blind.json",
+      "trigger": "角色靠近洞口灌木或惊动暗哨。",
+      "monsters": [
+        {
+          "id": "cragmaw-hideout-goblin-blind-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-goblin-blind-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-kennel",
+      "name": "狼群犬舍",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-kennel.json",
+      "trigger": "角色进入犬舍、激怒或未能安抚被拴住的狼。",
+      "monsters": [
+        {
+          "id": "cragmaw-hideout-kennel-m1",
+          "name": "狼",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-kennel-m2",
+          "name": "狼",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-kennel-m3",
+          "name": "狼",
+          "x": 4,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-overpass",
+      "name": "天桥哨兵",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-overpass.json",
+      "trigger": "天桥哨兵发现入侵者或警报扩散。",
+      "monsters": [
+        {
+          "id": "cragmaw-hideout-overpass-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-goblin-den",
+      "name": "地精休息室",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-goblin-den.json",
+      "trigger": "谈判失败、俘虏局势恶化或角色突袭。",
+      "monsters": [
+        {
+          "id": "cragmaw-hideout-goblin-den-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-goblin-den-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-goblin-den-m3",
+          "name": "地精",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-hideout-goblin-den-m4",
+          "name": "地精",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-hideout-goblin-den-m5",
+          "name": "地精",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "cragmaw-hideout-goblin-den-m6",
+          "name": "地精",
+          "x": 9,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-twin-pools",
+      "name": "双子池守卫",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-twin-pools.json",
+      "trigger": "守卫发现角色或试图释放洪水。",
+      "monsters": [
+        {
+          "id": "cragmaw-hideout-twin-pools-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-twin-pools-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-twin-pools-m3",
+          "name": "地精",
+          "x": 4,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-klarg-cave",
+      "name": "首领洞穴",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-klarg-cave.json",
+      "trigger": "角色进入首领洞穴或从其他区域引来首领。",
+      "monsters": [
+        {
+          "id": "cragmaw-hideout-klarg-cave-m1",
+          "name": "熊地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-klarg-cave-m2",
+          "name": "狼",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-hideout-klarg-cave-m3",
+          "name": "地精",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-hideout-klarg-cave-m4",
+          "name": "地精",
+          "x": 9,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "phandalin-redbrand-street",
+      "name": "红标帮街头冲突",
+      "chapter": "凡达林",
+      "map": "maps/phandalin-redbrand-street.json",
+      "trigger": "角色在镇中公开挑战红标帮或被其威胁。",
+      "monsters": [
+        {
+          "id": "phandalin-redbrand-street-m1",
+          "name": "红标恶霸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "phandalin-redbrand-street-m2",
+          "name": "红标恶霸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "phandalin-redbrand-street-m3",
+          "name": "红标恶霸",
+          "x": 14,
+          "y": 1
+        },
+        {
+          "id": "phandalin-redbrand-street-m4",
+          "name": "红标恶霸",
+          "x": 5,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "redbrand-barracks",
+      "name": "红标帮营房",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-barracks.json",
+      "trigger": "角色闯入营房、潜入失败或守卫听见动静。",
+      "monsters": [
+        {
+          "id": "redbrand-barracks-m1",
+          "name": "红标恶霸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "redbrand-barracks-m2",
+          "name": "红标恶霸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "redbrand-barracks-m3",
+          "name": "红标恶霸",
+          "x": 4,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "redbrand-crypts",
+      "name": "墓室守卫",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-crypts.json",
+      "trigger": "角色穿过墓室或触发亡者守卫。",
+      "monsters": [
+        {
+          "id": "redbrand-crypts-m1",
+          "name": "骷髅",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "redbrand-crypts-m2",
+          "name": "骷髅",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "redbrand-crypts-m3",
+          "name": "骷髅",
+          "x": 4,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "redbrand-slave-pen-guards",
+      "name": "奴隶围栏守卫",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-slave-pen-guards.json",
+      "trigger": "角色营救俘虏、开锁或惊动看守。",
+      "monsters": [
+        {
+          "id": "redbrand-slave-pen-guards-m1",
+          "name": "红标恶霸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "redbrand-slave-pen-guards-m2",
+          "name": "红标恶霸",
+          "x": 9,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "redbrand-nothic-chasm",
+      "name": "裂隙窥视者",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-nothic-chasm.json",
+      "trigger": "角色拒绝交易、靠近藏匿物或被其袭击。",
+      "monsters": [
+        {
+          "id": "redbrand-nothic-chasm-m1",
+          "name": "独眼异怪",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "redbrand-bugbear-barracks",
+      "name": "大地精警卫营房",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-bugbear-barracks.json",
+      "trigger": "角色进入警卫营房或从附近引发警报。",
+      "monsters": [
+        {
+          "id": "redbrand-bugbear-barracks-m1",
+          "name": "熊地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "redbrand-bugbear-barracks-m2",
+          "name": "熊地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "redbrand-bugbear-barracks-m3",
+          "name": "熊地精",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "redbrand-bugbear-barracks-m4",
+          "name": "地精仆从",
+          "x": 9,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "redbrand-common-room",
+      "name": "公共休息室混战",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-common-room.json",
+      "trigger": "角色撞见休息中的帮众或伪装被识破。",
+      "monsters": [
+        {
+          "id": "redbrand-common-room-m1",
+          "name": "红标恶霸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "redbrand-common-room-m2",
+          "name": "红标恶霸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "redbrand-common-room-m3",
+          "name": "红标恶霸",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "redbrand-common-room-m4",
+          "name": "红标恶霸",
+          "x": 9,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "redbrand-glasstaff-quarters",
+      "name": "玻璃手杖的居所",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-glasstaff-quarters.json",
+      "trigger": "角色堵住幕后法师、追击或阻止其逃脱。",
+      "monsters": [
+        {
+          "id": "redbrand-glasstaff-quarters-m1",
+          "name": "法师头目",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "wilderness-goblin-patrol",
+      "name": "荒野地精巡逻",
+      "chapter": "蜘蛛网",
+      "map": "maps/wilderness-goblin-patrol.json",
+      "trigger": "旅行中遇到克拉摩巡逻队或追踪者。",
+      "monsters": [
+        {
+          "id": "wilderness-goblin-patrol-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wilderness-goblin-patrol-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wilderness-goblin-patrol-m3",
+          "name": "地精",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wilderness-goblin-patrol-m4",
+          "name": "地精",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "wilderness-goblin-patrol-m5",
+          "name": "地精",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "wilderness-goblin-patrol-m6",
+          "name": "地精",
+          "x": 9,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "wilderness-orc-raiders",
+      "name": "荒野兽人劫掠者",
+      "chapter": "蜘蛛网",
+      "map": "maps/wilderness-orc-raiders.json",
+      "trigger": "队伍在野外扎营或穿越偏僻山路时。",
+      "monsters": [
+        {
+          "id": "wilderness-orc-raiders-m1",
+          "name": "兽人",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wilderness-orc-raiders-m2",
+          "name": "兽人",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wilderness-orc-raiders-m3",
+          "name": "兽人",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wilderness-orc-raiders-m4",
+          "name": "兽人",
+          "x": 9,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "wilderness-owlbear",
+      "name": "荒野枭熊",
+      "chapter": "蜘蛛网",
+      "map": "maps/wilderness-owlbear.json",
+      "trigger": "队伍误入猛兽领地或夜间遭袭。",
+      "monsters": [
+        {
+          "id": "wilderness-owlbear-m1",
+          "name": "枭熊",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "agatha-hostile-banshee",
+      "name": "幽灵怒意",
+      "chapter": "蜘蛛网",
+      "map": "maps/agatha-hostile-banshee.json",
+      "trigger": "角色攻击、侮辱或破坏巢穴导致交涉破裂。",
+      "monsters": [
+        {
+          "id": "agatha-hostile-banshee-m1",
+          "name": "报丧妖",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "old-owl-well-zombies",
+      "name": "古枭井亡者",
+      "chapter": "蜘蛛网",
+      "map": "maps/old-owl-well-zombies.json",
+      "trigger": "角色靠近营地或亡者被命令阻拦。",
+      "monsters": [
+        {
+          "id": "old-owl-well-zombies-m1",
+          "name": "僵尸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "old-owl-well-zombies-m2",
+          "name": "僵尸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "old-owl-well-zombies-m3",
+          "name": "僵尸",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "old-owl-well-zombies-m4",
+          "name": "僵尸",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "old-owl-well-zombies-m5",
+          "name": "僵尸",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "old-owl-well-zombies-m6",
+          "name": "僵尸",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "id": "old-owl-well-zombies-m7",
+          "name": "僵尸",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "id": "old-owl-well-zombies-m8",
+          "name": "僵尸",
+          "x": 9,
+          "y": 4
+        },
+        {
+          "id": "old-owl-well-zombies-m9",
+          "name": "僵尸",
+          "x": 4,
+          "y": 5
+        },
+        {
+          "id": "old-owl-well-zombies-m10",
+          "name": "僵尸",
+          "x": 9,
+          "y": 5
+        },
+        {
+          "id": "old-owl-well-zombies-m11",
+          "name": "僵尸",
+          "x": 4,
+          "y": 6
+        },
+        {
+          "id": "old-owl-well-zombies-m12",
+          "name": "僵尸",
+          "x": 9,
+          "y": 6
+        }
+      ]
+    },
+    {
+      "id": "wyvern-tor-orc-camp",
+      "name": "飞龙突岩兽人营地",
+      "chapter": "蜘蛛网",
+      "map": "maps/wyvern-tor-orc-camp.json",
+      "trigger": "角色突袭兽人营地或被岗哨发现。",
+      "monsters": [
+        {
+          "id": "wyvern-tor-orc-camp-m1",
+          "name": "兽人",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wyvern-tor-orc-camp-m2",
+          "name": "兽人",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wyvern-tor-orc-camp-m3",
+          "name": "兽人",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wyvern-tor-orc-camp-m4",
+          "name": "兽人",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "wyvern-tor-orc-camp-m5",
+          "name": "兽人",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "wyvern-tor-orc-camp-m6",
+          "name": "兽人",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "id": "wyvern-tor-orc-camp-m7",
+          "name": "食人魔",
+          "x": 4,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "id": "thundertree-blighted-cottages",
+      "name": "雷树枯枝怪袭击",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-blighted-cottages.json",
+      "trigger": "角色探索被植物占据的小屋或废墟。",
+      "monsters": [
+        {
+          "id": "thundertree-blighted-cottages-m1",
+          "name": "枯枝怪",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "thundertree-blighted-cottages-m2",
+          "name": "枯枝怪",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "thundertree-blighted-cottages-m3",
+          "name": "枯枝怪",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "thundertree-blighted-cottages-m4",
+          "name": "枯枝怪",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "thundertree-blighted-cottages-m5",
+          "name": "枯枝怪",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "thundertree-blighted-cottages-m6",
+          "name": "枯枝怪",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "id": "thundertree-blighted-cottages-m7",
+          "name": "枯枝怪",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "id": "thundertree-blighted-cottages-m8",
+          "name": "枯枝怪",
+          "x": 9,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "id": "thundertree-ash-zombie-tavern",
+      "name": "棕马酒馆灰烬僵尸",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-ash-zombie-tavern.json",
+      "trigger": "角色进入旧酒馆或制造响动。",
+      "monsters": [
+        {
+          "id": "thundertree-ash-zombie-tavern-m1",
+          "name": "灰烬僵尸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "thundertree-ash-zombie-tavern-m2",
+          "name": "灰烬僵尸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "thundertree-ash-zombie-tavern-m3",
+          "name": "灰烬僵尸",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "thundertree-ash-zombie-tavern-m4",
+          "name": "灰烬僵尸",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "thundertree-ash-zombie-tavern-m5",
+          "name": "灰烬僵尸",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "thundertree-ash-zombie-tavern-m6",
+          "name": "灰烬僵尸",
+          "x": 9,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "thundertree-spider-store",
+      "name": "蛛网商店",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-spider-store.json",
+      "trigger": "角色触碰蛛网、搜查货物或惊动巢穴。",
+      "monsters": [
+        {
+          "id": "thundertree-spider-store-m1",
+          "name": "巨蛛",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "thundertree-spider-store-m2",
+          "name": "巨蛛",
+          "x": 9,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "thundertree-dragon-tower",
+      "name": "龙之塔",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-dragon-tower.json",
+      "trigger": "角色与幼龙谈判破裂、偷窃或挑战其领地。",
+      "monsters": [
+        {
+          "id": "thundertree-dragon-tower-m1",
+          "name": "绿龙",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "thundertree-ash-zombie-garrison",
+      "name": "旧卫戍营灰烬僵尸",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-ash-zombie-garrison.json",
+      "trigger": "角色进入卫戍营废墟。",
+      "monsters": [
+        {
+          "id": "thundertree-ash-zombie-garrison-m1",
+          "name": "灰烬僵尸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "thundertree-ash-zombie-garrison-m2",
+          "name": "灰烬僵尸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "thundertree-ash-zombie-garrison-m3",
+          "name": "灰烬僵尸",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "thundertree-ash-zombie-garrison-m4",
+          "name": "灰烬僵尸",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "thundertree-ash-zombie-garrison-m5",
+          "name": "灰烬僵尸",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "thundertree-ash-zombie-garrison-m6",
+          "name": "灰烬僵尸",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "id": "thundertree-ash-zombie-garrison-m7",
+          "name": "灰烬僵尸",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "id": "thundertree-ash-zombie-garrison-m8",
+          "name": "灰烬僵尸",
+          "x": 9,
+          "y": 4
+        }
+      ]
+    },
+    {
+      "id": "thundertree-cultist-house",
+      "name": "龙之邪教徒",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-cultist-house.json",
+      "trigger": "角色攻击邪教徒、揭穿其目的或与龙事件牵连。",
+      "monsters": [
+        {
+          "id": "thundertree-cultist-house-m1",
+          "name": "邪教徒",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "thundertree-cultist-house-m2",
+          "name": "邪教徒",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "thundertree-cultist-house-m3",
+          "name": "邪教徒",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "thundertree-cultist-house-m4",
+          "name": "邪教徒",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "thundertree-cultist-house-m5",
+          "name": "邪教徒",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "thundertree-cultist-house-m6",
+          "name": "邪教徒",
+          "x": 9,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-entrance",
+      "name": "城堡入口守卫",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-entrance.json",
+      "trigger": "角色从正门接近或被门口守卫发现。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-entrance-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-entrance-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-entrance-m3",
+          "name": "地精",
+          "x": 2,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-castle-entrance-m4",
+          "name": "地精",
+          "x": 7,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-archer-post",
+      "name": "弓箭手岗哨",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-archer-post.json",
+      "trigger": "角色穿过大厅或进入箭孔控制区。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-archer-post-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-archer-post-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-ruined-barracks",
+      "name": "营房废墟",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-ruined-barracks.json",
+      "trigger": "角色撞上休息或巡逻的地精。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-ruined-barracks-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-ruined-barracks-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-ruined-barracks-m3",
+          "name": "地精",
+          "x": 2,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-hobgoblin-barracks",
+      "name": "大地精营房",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-hobgoblin-barracks.json",
+      "trigger": "角色进入营房或警报召集守卫。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-hobgoblin-barracks-m1",
+          "name": "大地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-hobgoblin-barracks-m2",
+          "name": "大地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-hobgoblin-barracks-m3",
+          "name": "大地精",
+          "x": 2,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-castle-hobgoblin-barracks-m4",
+          "name": "大地精",
+          "x": 7,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-banquet-hall",
+      "name": "宴会厅",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-banquet-hall.json",
+      "trigger": "角色闯入嘈杂宴会厅或谈判失败。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-banquet-hall-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-banquet-hall-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-banquet-hall-m3",
+          "name": "地精",
+          "x": 2,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-castle-banquet-hall-m4",
+          "name": "地精",
+          "x": 7,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-castle-banquet-hall-m5",
+          "name": "地精",
+          "x": 12,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-castle-banquet-hall-m6",
+          "name": "地精",
+          "x": 5,
+          "y": 3
+        },
+        {
+          "id": "cragmaw-castle-banquet-hall-m7",
+          "name": "地精",
+          "x": 10,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-dark-hall",
+      "name": "黑暗大厅",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-dark-hall.json",
+      "trigger": "角色深入黑暗大厅、靠近潜伏怪物。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-dark-hall-m1",
+          "name": "格里克",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-shrine",
+      "name": "地精圣坛",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-shrine.json",
+      "trigger": "角色打扰仪式或从侧门突入。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-shrine-m1",
+          "name": "地精祭司",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-shrine-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-shrine-m3",
+          "name": "地精",
+          "x": 4,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-back-door",
+      "name": "后门箭孔",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-back-door.json",
+      "trigger": "角色从后门潜入或被箭孔守卫发现。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-back-door-m1",
+          "name": "地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-back-door-m2",
+          "name": "地精",
+          "x": 9,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-guard-barracks",
+      "name": "警卫营房",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-guard-barracks.json",
+      "trigger": "角色进入警卫区或战斗声引来守卫。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-guard-barracks-m1",
+          "name": "大地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-guard-barracks-m2",
+          "name": "大地精",
+          "x": 9,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-owlbear-tower",
+      "name": "枭熊塔楼",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-owlbear-tower.json",
+      "trigger": "角色打开封闭塔楼或激怒被困猛兽。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-owlbear-tower-m1",
+          "name": "枭熊",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-king-quarters",
+      "name": "王之居所",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-king-quarters.json",
+      "trigger": "角色找到被俘矮人、谈判破裂或首领设伏。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-king-quarters-m1",
+          "name": "熊地精首领",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-king-quarters-m2",
+          "name": "狼",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-king-quarters-m3",
+          "name": "变形怪",
+          "x": 2,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "cragmaw-castle-returning-warband",
+      "name": "返程小队",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-returning-warband.json",
+      "trigger": "角色离堡后遭遇返程巡逻或尾随。",
+      "monsters": [
+        {
+          "id": "cragmaw-castle-returning-warband-m1",
+          "name": "大地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-returning-warband-m2",
+          "name": "大地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-returning-warband-m3",
+          "name": "大地精",
+          "x": 14,
+          "y": 1
+        },
+        {
+          "id": "cragmaw-castle-returning-warband-m4",
+          "name": "地精",
+          "x": 5,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-castle-returning-warband-m5",
+          "name": "地精",
+          "x": 10,
+          "y": 2
+        },
+        {
+          "id": "cragmaw-castle-returning-warband-m6",
+          "name": "地精",
+          "x": 1,
+          "y": 3
+        },
+        {
+          "id": "cragmaw-castle-returning-warband-m7",
+          "name": "地精",
+          "x": 6,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-mine-tunnels-stirges",
+      "name": "矿道蝙蝠群",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-mine-tunnels-stirges.json",
+      "trigger": "角色穿过旧矿道惊动巢群。",
+      "monsters": [
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m1",
+          "name": "吸血蝙蝠",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m2",
+          "name": "吸血蝙蝠",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m3",
+          "name": "吸血蝙蝠",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m4",
+          "name": "吸血蝙蝠",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m5",
+          "name": "吸血蝙蝠",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m6",
+          "name": "吸血蝙蝠",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m7",
+          "name": "吸血蝙蝠",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m8",
+          "name": "吸血蝙蝠",
+          "x": 9,
+          "y": 4
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m9",
+          "name": "吸血蝙蝠",
+          "x": 4,
+          "y": 5
+        },
+        {
+          "id": "wave-echo-mine-tunnels-stirges-m10",
+          "name": "吸血蝙蝠",
+          "x": 9,
+          "y": 5
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-old-entrance-ooze",
+      "name": "旧入口黏液怪",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-old-entrance-ooze.json",
+      "trigger": "角色靠近坍塌旧入口或搜查尸骸。",
+      "monsters": [
+        {
+          "id": "wave-echo-old-entrance-ooze-m1",
+          "name": "赭冻怪",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-guardroom-undead",
+      "name": "旧警卫室亡者",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-guardroom-undead.json",
+      "trigger": "角色进入旧警卫室或制造响动。",
+      "monsters": [
+        {
+          "id": "wave-echo-guardroom-undead-m1",
+          "name": "僵尸",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m2",
+          "name": "僵尸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m3",
+          "name": "僵尸",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m4",
+          "name": "僵尸",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m5",
+          "name": "僵尸",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m6",
+          "name": "僵尸",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m7",
+          "name": "僵尸",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m8",
+          "name": "僵尸",
+          "x": 9,
+          "y": 4
+        },
+        {
+          "id": "wave-echo-guardroom-undead-m9",
+          "name": "僵尸",
+          "x": 4,
+          "y": 5
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-south-barracks-ghouls",
+      "name": "南部营房食尸鬼",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-south-barracks-ghouls.json",
+      "trigger": "角色搜查营房废墟。",
+      "monsters": [
+        {
+          "id": "wave-echo-south-barracks-ghouls-m1",
+          "name": "食尸鬼",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-south-barracks-ghouls-m2",
+          "name": "食尸鬼",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-south-barracks-ghouls-m3",
+          "name": "食尸鬼",
+          "x": 4,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-fungi-cavern",
+      "name": "真菌洞窟",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-fungi-cavern.json",
+      "trigger": "角色靠近真菌丛或误判其威胁。",
+      "monsters": [
+        {
+          "id": "wave-echo-fungi-cavern-m1",
+          "name": "紫色真菌",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-fungi-cavern-m2",
+          "name": "紫色真菌",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-fungi-cavern-m3",
+          "name": "紫色真菌",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-fungi-cavern-m4",
+          "name": "紫色真菌",
+          "x": 9,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-great-cavern-bugbears",
+      "name": "大洞窟巡逻",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-great-cavern-bugbears.json",
+      "trigger": "角色穿越大洞窟或被敌方巡逻撞见。",
+      "monsters": [
+        {
+          "id": "wave-echo-great-cavern-bugbears-m1",
+          "name": "熊地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-great-cavern-bugbears-m2",
+          "name": "熊地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-great-cavern-bugbears-m3",
+          "name": "熊地精",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-great-cavern-bugbears-m4",
+          "name": "熊地精",
+          "x": 9,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-north-barracks",
+      "name": "北部营房",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-north-barracks.json",
+      "trigger": "角色突入敌方驻扎区。",
+      "monsters": [
+        {
+          "id": "wave-echo-north-barracks-m1",
+          "name": "熊地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-north-barracks-m2",
+          "name": "熊地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-north-barracks-m3",
+          "name": "熊地精",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-north-barracks-m4",
+          "name": "熊地精",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-north-barracks-m5",
+          "name": "熊地精",
+          "x": 4,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-smelter-cavern",
+      "name": "冶炼洞窟",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-smelter-cavern.json",
+      "trigger": "角色靠近旧熔炉区或惊动守卫亡灵。",
+      "monsters": [
+        {
+          "id": "wave-echo-smelter-cavern-m1",
+          "name": "火焰骷髅",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m2",
+          "name": "僵尸",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m3",
+          "name": "僵尸",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m4",
+          "name": "僵尸",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m5",
+          "name": "僵尸",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m6",
+          "name": "僵尸",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m7",
+          "name": "僵尸",
+          "x": 4,
+          "y": 4
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m8",
+          "name": "僵尸",
+          "x": 9,
+          "y": 4
+        },
+        {
+          "id": "wave-echo-smelter-cavern-m9",
+          "name": "僵尸",
+          "x": 4,
+          "y": 5
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-wizards-quarters",
+      "name": "法师的居所",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-wizards-quarters.json",
+      "trigger": "角色进入法师居所、交涉失败或冒犯其执念。",
+      "monsters": [
+        {
+          "id": "wave-echo-wizards-quarters-m1",
+          "name": "怨魂",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-spell-forge-guardian",
+      "name": "法术工厂守卫",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-spell-forge-guardian.json",
+      "trigger": "角色进入法术工厂并触发守卫反应。",
+      "monsters": [
+        {
+          "id": "wave-echo-spell-forge-guardian-m1",
+          "name": "观者守卫",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-collapsed-cavern",
+      "name": "崩塌洞窟伏兵",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-collapsed-cavern.json",
+      "trigger": "角色穿过崩塌洞窟、跨越裂谷或被伏击。",
+      "monsters": [
+        {
+          "id": "wave-echo-collapsed-cavern-m1",
+          "name": "熊地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-collapsed-cavern-m2",
+          "name": "熊地精",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-collapsed-cavern-m3",
+          "name": "熊地精",
+          "x": 4,
+          "y": 2
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-temple-final",
+      "name": "最终神庙",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-temple-final.json",
+      "trigger": "角色抵达神庙并与幕后敌人决战。",
+      "monsters": [
+        {
+          "id": "wave-echo-temple-final-m1",
+          "name": "黑蜘蛛",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-temple-final-m2",
+          "name": "巨蛛",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-temple-final-m3",
+          "name": "巨蛛",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-temple-final-m4",
+          "name": "巨蛛",
+          "x": 9,
+          "y": 2
+        },
+        {
+          "id": "wave-echo-temple-final-m5",
+          "name": "巨蛛",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "id": "wave-echo-temple-final-m6",
+          "name": "变形怪",
+          "x": 9,
+          "y": 3
+        }
+      ]
+    },
+    {
+      "id": "wave-echo-priests-quarters",
+      "name": "祭司居所伏兵",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-priests-quarters.json",
+      "trigger": "角色搜查祭司居所或敌人从侧翼包抄。",
+      "monsters": [
+        {
+          "id": "wave-echo-priests-quarters-m1",
+          "name": "熊地精",
+          "x": 4,
+          "y": 1
+        },
+        {
+          "id": "wave-echo-priests-quarters-m2",
+          "name": "熊地精",
+          "x": 9,
+          "y": 1
+        }
+      ]
+    }
+  ]
+}

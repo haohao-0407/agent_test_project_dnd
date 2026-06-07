@@ -206,7 +206,7 @@ export function CharacterCardsPage({
   onStateChange,
   onCharactersChange
 }: CharacterCardsPageProps) {
-  const characters = state?.characters || libraryCharacters || [];
+  const characters = (state?.characters || libraryCharacters || []).filter((character) => character.class !== "Monster");
   const [selectedId, setSelectedId] = useState(characters[0]?.id || "");
   const selectedCharacter = useMemo(
     () => characters.find((character) => character.id === selectedId) || characters[0],

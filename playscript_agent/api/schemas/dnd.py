@@ -35,6 +35,7 @@ class MapBackgroundUpdateRequest(BaseModel):
 
 class CombatStartRequest(BaseModel):
     participantIds: list[str] | None = None
+    sceneId: str | None = None
 
 
 class CombatTurnRequest(BaseModel):
@@ -109,12 +110,25 @@ class AdventureStartRequest(BaseModel):
     moduleName: str = "凡戴尔的失落矿坑"
 
 
+class AdventureSceneJumpRequest(BaseModel):
+    moduleName: str = "凡戴尔的失落矿坑"
+    sceneId: str
+
+
 class CharacterUpdateRequest(BaseModel):
     updates: dict = Field(default_factory=dict)
 
 
 class CharacterCreateRequest(BaseModel):
     character: dict = Field(default_factory=dict)
+
+
+class MonsterUpdateRequest(BaseModel):
+    updates: dict = Field(default_factory=dict)
+
+
+class MonsterCreateRequest(BaseModel):
+    monster: dict = Field(default_factory=dict)
 
 
 class RagQueryRequest(BaseModel):

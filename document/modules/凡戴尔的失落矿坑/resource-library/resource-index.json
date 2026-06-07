@@ -1,0 +1,1302 @@
+{
+  "moduleName": "凡戴尔的失落矿坑",
+  "counts": {
+    "explorationScenes": 88,
+    "combatScenes": 52,
+    "explorationBackgrounds": 88,
+    "battleBackgrounds": 52,
+    "maps": 52
+  },
+  "explorationScenes": [
+    {
+      "id": "triboar-trail-road",
+      "name": "三猪小径",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/triboar-trail-exploration-manual.png",
+      "battleSceneId": "triboar-trail-ambush"
+    },
+    {
+      "id": "goblin-trail",
+      "name": "地精踪迹",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/goblin-trail.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "cragmaw-hideout-entrance",
+      "name": "克拉摩窝点洞口",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/cragmaw-hideout-entrance.png",
+      "battleSceneId": "cragmaw-hideout-goblin-blind"
+    },
+    {
+      "id": "cragmaw-hideout-kennel",
+      "name": "克拉摩窝点犬舍",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/cragmaw-hideout-kennel.png",
+      "battleSceneId": "cragmaw-hideout-kennel"
+    },
+    {
+      "id": "cragmaw-hideout-steep-passage",
+      "name": "克拉摩窝点陡峭通道",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/cragmaw-hideout-steep-passage.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "cragmaw-hideout-overpass",
+      "name": "克拉摩窝点天桥",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/cragmaw-hideout-overpass.png",
+      "battleSceneId": "cragmaw-hideout-overpass"
+    },
+    {
+      "id": "cragmaw-hideout-goblin-den",
+      "name": "克拉摩窝点地精休息室",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/cragmaw-hideout-goblin-den.png",
+      "battleSceneId": "cragmaw-hideout-goblin-den"
+    },
+    {
+      "id": "cragmaw-hideout-twin-pools",
+      "name": "克拉摩窝点双子池",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/cragmaw-hideout-twin-pools.png",
+      "battleSceneId": "cragmaw-hideout-twin-pools"
+    },
+    {
+      "id": "cragmaw-hideout-klarg-cave",
+      "name": "克拉摩窝点首领洞穴",
+      "chapter": "地精箭矢",
+      "background": "pictures/Player/exploration/cragmaw-hideout-klarg-cave.png",
+      "battleSceneId": "cragmaw-hideout-klarg-cave"
+    },
+    {
+      "id": "phandalin-arrival",
+      "name": "凡达林镇口",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/phandalin-arrival-manual.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "stonehill-inn",
+      "name": "石丘旅馆",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/stonehill-inn.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "barthens-provisions",
+      "name": "巴森补给",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/barthens-provisions.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "edermath-orchard",
+      "name": "埃德玛果园",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/edermath-orchard.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "lionshield-coster",
+      "name": "狮盾小贩",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/lionshield-coster.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "miners-exchange",
+      "name": "凡达林矿工兑换所",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/miners-exchange.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "alderleaf-farm",
+      "name": "阿德里夫农场",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/alderleaf-farm.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "shrine-of-luck",
+      "name": "幸运圣坛",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/shrine-of-luck.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "sleeping-giant",
+      "name": "沉睡的巨人",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/sleeping-giant.png",
+      "battleSceneId": "phandalin-redbrand-street"
+    },
+    {
+      "id": "townmasters-hall",
+      "name": "镇长大厅",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/townmasters-hall.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "tresendar-manor",
+      "name": "崔森德庄园",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/tresendar-manor.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "redbrand-hideout-cellar",
+      "name": "红标帮窝点地窖",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-cellar.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "redbrand-hideout-barracks",
+      "name": "红标帮营房",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-barracks.png",
+      "battleSceneId": "redbrand-barracks"
+    },
+    {
+      "id": "redbrand-hideout-trapped-hall",
+      "name": "陷阱走廊",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-trapped-hall.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "redbrand-hideout-crypts",
+      "name": "崔森德墓室",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-crypts.png",
+      "battleSceneId": "redbrand-crypts"
+    },
+    {
+      "id": "redbrand-hideout-slave-pens",
+      "name": "奴隶围栏",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-slave-pens.png",
+      "battleSceneId": "redbrand-slave-pen-guards"
+    },
+    {
+      "id": "redbrand-hideout-armory",
+      "name": "军械库",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-armory.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "redbrand-hideout-storage",
+      "name": "储藏室和工作间",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-storage.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "redbrand-hideout-chasm",
+      "name": "红标帮窝点裂隙",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-chasm.png",
+      "battleSceneId": "redbrand-nothic-chasm"
+    },
+    {
+      "id": "redbrand-hideout-guard-barracks",
+      "name": "警卫营房",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-guard-barracks.png",
+      "battleSceneId": "redbrand-bugbear-barracks"
+    },
+    {
+      "id": "redbrand-hideout-common-room",
+      "name": "公共休息室",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-common-room.png",
+      "battleSceneId": "redbrand-common-room"
+    },
+    {
+      "id": "redbrand-hideout-workshop",
+      "name": "法师的工作坊",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-workshop.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "redbrand-hideout-glasstaff",
+      "name": "玻璃手杖的居所",
+      "chapter": "凡达林",
+      "background": "pictures/Player/exploration/redbrand-hideout-glasstaff.png",
+      "battleSceneId": "redbrand-glasstaff-quarters"
+    },
+    {
+      "id": "triboar-wilderness",
+      "name": "三猪小径荒野",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/triboar-wilderness.png",
+      "battleSceneId": "wilderness-goblin-patrol"
+    },
+    {
+      "id": "conyberry",
+      "name": "兔莓废村",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/conyberry.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "agathas-lair",
+      "name": "阿加莎的巢穴",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/agathas-lair.png",
+      "battleSceneId": "agatha-hostile-banshee"
+    },
+    {
+      "id": "old-owl-well",
+      "name": "古枭井",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/old-owl-well.png",
+      "battleSceneId": "old-owl-well-zombies"
+    },
+    {
+      "id": "wyvern-tor",
+      "name": "飞龙突岩",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/wyvern-tor.png",
+      "battleSceneId": "wyvern-tor-orc-camp"
+    },
+    {
+      "id": "thundertree-arrival",
+      "name": "雷树废墟入口",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-arrival.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "thundertree-west-cottage",
+      "name": "雷树：最西边的小屋",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-west-cottage.png",
+      "battleSceneId": "thundertree-blighted-cottages"
+    },
+    {
+      "id": "thundertree-blighted-cottage",
+      "name": "雷树：枯萎的小屋",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-blighted-cottage.png",
+      "battleSceneId": "thundertree-blighted-cottages"
+    },
+    {
+      "id": "thundertree-brown-horse",
+      "name": "雷树：棕马酒馆",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-brown-horse.png",
+      "battleSceneId": "thundertree-ash-zombie-tavern"
+    },
+    {
+      "id": "thundertree-druid-watch",
+      "name": "雷树：德鲁伊哨点",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-druid-watch.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "thundertree-blighted-farmhouse",
+      "name": "雷树：枯萎的农舍",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-blighted-farmhouse.png",
+      "battleSceneId": "thundertree-blighted-cottages"
+    },
+    {
+      "id": "thundertree-store-ruin",
+      "name": "雷树：商店废墟",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-store-ruin.png",
+      "battleSceneId": "thundertree-spider-store"
+    },
+    {
+      "id": "thundertree-dragon-tower",
+      "name": "雷树：龙之塔",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-dragon-tower.png",
+      "battleSceneId": "thundertree-dragon-tower"
+    },
+    {
+      "id": "thundertree-old-smithy",
+      "name": "雷树：旧铁匠铺",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-old-smithy.png",
+      "battleSceneId": "thundertree-blighted-cottages"
+    },
+    {
+      "id": "thundertree-herbalist-shop",
+      "name": "雷树：草药店",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-herbalist-shop.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "thundertree-town-square",
+      "name": "雷树：城镇广场",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-town-square.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "thundertree-old-garrison",
+      "name": "雷树：旧卫戍营",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-old-garrison.png",
+      "battleSceneId": "thundertree-ash-zombie-garrison"
+    },
+    {
+      "id": "thundertree-weavers-cottage",
+      "name": "雷树：织布工小屋",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-weavers-cottage.png",
+      "battleSceneId": "thundertree-blighted-cottages"
+    },
+    {
+      "id": "thundertree-cultist-house",
+      "name": "雷树：龙之邪教徒",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/thundertree-cultist-house.png",
+      "battleSceneId": "thundertree-cultist-house"
+    },
+    {
+      "id": "cragmaw-castle-approach",
+      "name": "克拉摩堡外缘",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-approach.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "cragmaw-castle-entrance",
+      "name": "克拉摩堡：城堡入口",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-entrance.png",
+      "battleSceneId": "cragmaw-castle-entrance"
+    },
+    {
+      "id": "cragmaw-castle-trapped-hall",
+      "name": "克拉摩堡：陷阱大厅",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-trapped-hall.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "cragmaw-castle-archer-post",
+      "name": "克拉摩堡：弓箭手岗哨",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-archer-post.png",
+      "battleSceneId": "cragmaw-castle-archer-post"
+    },
+    {
+      "id": "cragmaw-castle-ruined-barracks",
+      "name": "克拉摩堡：营房废墟",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-ruined-barracks.png",
+      "battleSceneId": "cragmaw-castle-ruined-barracks"
+    },
+    {
+      "id": "cragmaw-castle-storeroom",
+      "name": "克拉摩堡：储藏室",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-storeroom.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "cragmaw-castle-hobgoblin-barracks",
+      "name": "克拉摩堡：大地精营房",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-hobgoblin-barracks.png",
+      "battleSceneId": "cragmaw-castle-hobgoblin-barracks"
+    },
+    {
+      "id": "cragmaw-castle-banquet-hall",
+      "name": "克拉摩堡：宴会厅",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-banquet-hall.png",
+      "battleSceneId": "cragmaw-castle-banquet-hall"
+    },
+    {
+      "id": "cragmaw-castle-dark-hall",
+      "name": "克拉摩堡：黑暗大厅",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-dark-hall.png",
+      "battleSceneId": "cragmaw-castle-dark-hall"
+    },
+    {
+      "id": "cragmaw-castle-shrine",
+      "name": "克拉摩堡：地精圣坛",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-shrine.png",
+      "battleSceneId": "cragmaw-castle-shrine"
+    },
+    {
+      "id": "cragmaw-castle-back-door",
+      "name": "克拉摩堡：后门",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-back-door.png",
+      "battleSceneId": "cragmaw-castle-back-door"
+    },
+    {
+      "id": "cragmaw-castle-ruined-tower",
+      "name": "克拉摩堡：塔楼废墟",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-ruined-tower.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "cragmaw-castle-guard-barracks",
+      "name": "克拉摩堡：警卫营房",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-guard-barracks.png",
+      "battleSceneId": "cragmaw-castle-guard-barracks"
+    },
+    {
+      "id": "cragmaw-castle-owlbear-tower",
+      "name": "克拉摩堡：枭熊塔楼",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-owlbear-tower.png",
+      "battleSceneId": "cragmaw-castle-owlbear-tower"
+    },
+    {
+      "id": "cragmaw-castle-kings-quarters",
+      "name": "克拉摩堡：王之居所",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-castle-kings-quarters.png",
+      "battleSceneId": "cragmaw-castle-king-quarters"
+    },
+    {
+      "id": "cragmaw-return-trail",
+      "name": "克拉摩堡返程小队",
+      "chapter": "蜘蛛网",
+      "background": "pictures/Player/exploration/cragmaw-return-trail.png",
+      "battleSceneId": "cragmaw-castle-returning-warband"
+    },
+    {
+      "id": "wave-echo-cave-arrival",
+      "name": "回声洞入口",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-cave-arrival.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-cave-entrance",
+      "name": "回声洞：洞穴入口",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-cave-entrance.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-mine-tunnels",
+      "name": "回声洞：矿道",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-mine-tunnels.png",
+      "battleSceneId": "wave-echo-mine-tunnels-stirges"
+    },
+    {
+      "id": "wave-echo-old-entrance",
+      "name": "回声洞：旧入口",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-old-entrance.png",
+      "battleSceneId": "wave-echo-old-entrance-ooze"
+    },
+    {
+      "id": "wave-echo-old-guardroom",
+      "name": "回声洞：旧警卫室",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-old-guardroom.png",
+      "battleSceneId": "wave-echo-guardroom-undead"
+    },
+    {
+      "id": "wave-echo-assayers-office",
+      "name": "回声洞：试金师办公室",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-assayers-office.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-south-barracks",
+      "name": "回声洞：南部营房",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-south-barracks.png",
+      "battleSceneId": "wave-echo-south-barracks-ghouls"
+    },
+    {
+      "id": "wave-echo-ruined-storeroom",
+      "name": "回声洞：储物间废墟",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-ruined-storeroom.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-fungi-cavern",
+      "name": "回声洞：真菌洞窟",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-fungi-cavern.png",
+      "battleSceneId": "wave-echo-fungi-cavern"
+    },
+    {
+      "id": "wave-echo-great-cavern",
+      "name": "回声洞：大洞窟",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-great-cavern.png",
+      "battleSceneId": "wave-echo-great-cavern-bugbears"
+    },
+    {
+      "id": "wave-echo-dark-pool",
+      "name": "回声洞：黑水池",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-dark-pool.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-north-barracks",
+      "name": "回声洞：北部营房",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-north-barracks.png",
+      "battleSceneId": "wave-echo-north-barracks"
+    },
+    {
+      "id": "wave-echo-smelter-cavern",
+      "name": "回声洞：冶炼洞窟",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-smelter-cavern.png",
+      "battleSceneId": "wave-echo-smelter-cavern"
+    },
+    {
+      "id": "wave-echo-glittering-cavern",
+      "name": "回声洞：明亮的洞窟",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-glittering-cavern.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-wizards-quarters",
+      "name": "回声洞：法师的居所",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-wizards-quarters.png",
+      "battleSceneId": "wave-echo-wizards-quarters"
+    },
+    {
+      "id": "wave-echo-spell-forge",
+      "name": "回声洞：法术工厂",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-spell-forge.png",
+      "battleSceneId": "wave-echo-spell-forge-guardian"
+    },
+    {
+      "id": "wave-echo-booming-cavern",
+      "name": "回声洞：轰鸣洞窟",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-booming-cavern.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-old-streambed",
+      "name": "回声洞：古老河床",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-old-streambed.png",
+      "battleSceneId": ""
+    },
+    {
+      "id": "wave-echo-collapsed-cavern",
+      "name": "回声洞：崩塌的洞窟",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-collapsed-cavern.png",
+      "battleSceneId": "wave-echo-collapsed-cavern"
+    },
+    {
+      "id": "wave-echo-temple",
+      "name": "回声洞：杜马松的神庙",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-temple.png",
+      "battleSceneId": "wave-echo-temple-final"
+    },
+    {
+      "id": "wave-echo-priests-quarters",
+      "name": "回声洞：祭司的居所",
+      "chapter": "回声洞",
+      "background": "pictures/Player/exploration/wave-echo-priests-quarters.png",
+      "battleSceneId": "wave-echo-priests-quarters"
+    }
+  ],
+  "combatScenes": [
+    {
+      "id": "triboar-trail-ambush",
+      "name": "三猪小径伏击",
+      "chapter": "地精箭矢",
+      "map": "maps/triboar-trail-ambush.json",
+      "trigger": "角色接近路障、调查遗留物或未能发现埋伏时。",
+      "monsters": [
+        "地精",
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-goblin-blind",
+      "name": "洞口暗哨",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-goblin-blind.json",
+      "trigger": "角色靠近洞口灌木或惊动暗哨。",
+      "monsters": [
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-kennel",
+      "name": "狼群犬舍",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-kennel.json",
+      "trigger": "角色进入犬舍、激怒或未能安抚被拴住的狼。",
+      "monsters": [
+        "狼",
+        "狼",
+        "狼"
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-overpass",
+      "name": "天桥哨兵",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-overpass.json",
+      "trigger": "天桥哨兵发现入侵者或警报扩散。",
+      "monsters": [
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-goblin-den",
+      "name": "地精休息室",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-goblin-den.json",
+      "trigger": "谈判失败、俘虏局势恶化或角色突袭。",
+      "monsters": [
+        "地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-twin-pools",
+      "name": "双子池守卫",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-twin-pools.json",
+      "trigger": "守卫发现角色或试图释放洪水。",
+      "monsters": [
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-hideout-klarg-cave",
+      "name": "首领洞穴",
+      "chapter": "地精箭矢",
+      "map": "maps/cragmaw-hideout-klarg-cave.json",
+      "trigger": "角色进入首领洞穴或从其他区域引来首领。",
+      "monsters": [
+        "熊地精",
+        "狼",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "phandalin-redbrand-street",
+      "name": "红标帮街头冲突",
+      "chapter": "凡达林",
+      "map": "maps/phandalin-redbrand-street.json",
+      "trigger": "角色在镇中公开挑战红标帮或被其威胁。",
+      "monsters": [
+        "红标恶霸",
+        "红标恶霸",
+        "红标恶霸",
+        "红标恶霸"
+      ]
+    },
+    {
+      "id": "redbrand-barracks",
+      "name": "红标帮营房",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-barracks.json",
+      "trigger": "角色闯入营房、潜入失败或守卫听见动静。",
+      "monsters": [
+        "红标恶霸",
+        "红标恶霸",
+        "红标恶霸"
+      ]
+    },
+    {
+      "id": "redbrand-crypts",
+      "name": "墓室守卫",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-crypts.json",
+      "trigger": "角色穿过墓室或触发亡者守卫。",
+      "monsters": [
+        "骷髅",
+        "骷髅",
+        "骷髅"
+      ]
+    },
+    {
+      "id": "redbrand-slave-pen-guards",
+      "name": "奴隶围栏守卫",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-slave-pen-guards.json",
+      "trigger": "角色营救俘虏、开锁或惊动看守。",
+      "monsters": [
+        "红标恶霸",
+        "红标恶霸"
+      ]
+    },
+    {
+      "id": "redbrand-nothic-chasm",
+      "name": "裂隙窥视者",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-nothic-chasm.json",
+      "trigger": "角色拒绝交易、靠近藏匿物或被其袭击。",
+      "monsters": [
+        "独眼异怪"
+      ]
+    },
+    {
+      "id": "redbrand-bugbear-barracks",
+      "name": "大地精警卫营房",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-bugbear-barracks.json",
+      "trigger": "角色进入警卫营房或从附近引发警报。",
+      "monsters": [
+        "熊地精",
+        "熊地精",
+        "熊地精",
+        "地精仆从"
+      ]
+    },
+    {
+      "id": "redbrand-common-room",
+      "name": "公共休息室混战",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-common-room.json",
+      "trigger": "角色撞见休息中的帮众或伪装被识破。",
+      "monsters": [
+        "红标恶霸",
+        "红标恶霸",
+        "红标恶霸",
+        "红标恶霸"
+      ]
+    },
+    {
+      "id": "redbrand-glasstaff-quarters",
+      "name": "玻璃手杖的居所",
+      "chapter": "凡达林",
+      "map": "maps/redbrand-glasstaff-quarters.json",
+      "trigger": "角色堵住幕后法师、追击或阻止其逃脱。",
+      "monsters": [
+        "法师头目"
+      ]
+    },
+    {
+      "id": "wilderness-goblin-patrol",
+      "name": "荒野地精巡逻",
+      "chapter": "蜘蛛网",
+      "map": "maps/wilderness-goblin-patrol.json",
+      "trigger": "旅行中遇到克拉摩巡逻队或追踪者。",
+      "monsters": [
+        "地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "wilderness-orc-raiders",
+      "name": "荒野兽人劫掠者",
+      "chapter": "蜘蛛网",
+      "map": "maps/wilderness-orc-raiders.json",
+      "trigger": "队伍在野外扎营或穿越偏僻山路时。",
+      "monsters": [
+        "兽人",
+        "兽人",
+        "兽人",
+        "兽人"
+      ]
+    },
+    {
+      "id": "wilderness-owlbear",
+      "name": "荒野枭熊",
+      "chapter": "蜘蛛网",
+      "map": "maps/wilderness-owlbear.json",
+      "trigger": "队伍误入猛兽领地或夜间遭袭。",
+      "monsters": [
+        "枭熊"
+      ]
+    },
+    {
+      "id": "agatha-hostile-banshee",
+      "name": "幽灵怒意",
+      "chapter": "蜘蛛网",
+      "map": "maps/agatha-hostile-banshee.json",
+      "trigger": "角色攻击、侮辱或破坏巢穴导致交涉破裂。",
+      "monsters": [
+        "报丧妖"
+      ]
+    },
+    {
+      "id": "old-owl-well-zombies",
+      "name": "古枭井亡者",
+      "chapter": "蜘蛛网",
+      "map": "maps/old-owl-well-zombies.json",
+      "trigger": "角色靠近营地或亡者被命令阻拦。",
+      "monsters": [
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸"
+      ]
+    },
+    {
+      "id": "wyvern-tor-orc-camp",
+      "name": "飞龙突岩兽人营地",
+      "chapter": "蜘蛛网",
+      "map": "maps/wyvern-tor-orc-camp.json",
+      "trigger": "角色突袭兽人营地或被岗哨发现。",
+      "monsters": [
+        "兽人",
+        "兽人",
+        "兽人",
+        "兽人",
+        "兽人",
+        "兽人",
+        "食人魔"
+      ]
+    },
+    {
+      "id": "thundertree-blighted-cottages",
+      "name": "雷树枯枝怪袭击",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-blighted-cottages.json",
+      "trigger": "角色探索被植物占据的小屋或废墟。",
+      "monsters": [
+        "枯枝怪",
+        "枯枝怪",
+        "枯枝怪",
+        "枯枝怪",
+        "枯枝怪",
+        "枯枝怪",
+        "枯枝怪",
+        "枯枝怪"
+      ]
+    },
+    {
+      "id": "thundertree-ash-zombie-tavern",
+      "name": "棕马酒馆灰烬僵尸",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-ash-zombie-tavern.json",
+      "trigger": "角色进入旧酒馆或制造响动。",
+      "monsters": [
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸"
+      ]
+    },
+    {
+      "id": "thundertree-spider-store",
+      "name": "蛛网商店",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-spider-store.json",
+      "trigger": "角色触碰蛛网、搜查货物或惊动巢穴。",
+      "monsters": [
+        "巨蛛",
+        "巨蛛"
+      ]
+    },
+    {
+      "id": "thundertree-dragon-tower",
+      "name": "龙之塔",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-dragon-tower.json",
+      "trigger": "角色与幼龙谈判破裂、偷窃或挑战其领地。",
+      "monsters": [
+        "绿龙"
+      ]
+    },
+    {
+      "id": "thundertree-ash-zombie-garrison",
+      "name": "旧卫戍营灰烬僵尸",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-ash-zombie-garrison.json",
+      "trigger": "角色进入卫戍营废墟。",
+      "monsters": [
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸",
+        "灰烬僵尸"
+      ]
+    },
+    {
+      "id": "thundertree-cultist-house",
+      "name": "龙之邪教徒",
+      "chapter": "蜘蛛网",
+      "map": "maps/thundertree-cultist-house.json",
+      "trigger": "角色攻击邪教徒、揭穿其目的或与龙事件牵连。",
+      "monsters": [
+        "邪教徒",
+        "邪教徒",
+        "邪教徒",
+        "邪教徒",
+        "邪教徒",
+        "邪教徒"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-entrance",
+      "name": "城堡入口守卫",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-entrance.json",
+      "trigger": "角色从正门接近或被门口守卫发现。",
+      "monsters": [
+        "地精",
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-archer-post",
+      "name": "弓箭手岗哨",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-archer-post.json",
+      "trigger": "角色穿过大厅或进入箭孔控制区。",
+      "monsters": [
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-ruined-barracks",
+      "name": "营房废墟",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-ruined-barracks.json",
+      "trigger": "角色撞上休息或巡逻的地精。",
+      "monsters": [
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-hobgoblin-barracks",
+      "name": "大地精营房",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-hobgoblin-barracks.json",
+      "trigger": "角色进入营房或警报召集守卫。",
+      "monsters": [
+        "大地精",
+        "大地精",
+        "大地精",
+        "大地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-banquet-hall",
+      "name": "宴会厅",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-banquet-hall.json",
+      "trigger": "角色闯入嘈杂宴会厅或谈判失败。",
+      "monsters": [
+        "地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-dark-hall",
+      "name": "黑暗大厅",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-dark-hall.json",
+      "trigger": "角色深入黑暗大厅、靠近潜伏怪物。",
+      "monsters": [
+        "格里克"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-shrine",
+      "name": "地精圣坛",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-shrine.json",
+      "trigger": "角色打扰仪式或从侧门突入。",
+      "monsters": [
+        "地精祭司",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-back-door",
+      "name": "后门箭孔",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-back-door.json",
+      "trigger": "角色从后门潜入或被箭孔守卫发现。",
+      "monsters": [
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-guard-barracks",
+      "name": "警卫营房",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-guard-barracks.json",
+      "trigger": "角色进入警卫区或战斗声引来守卫。",
+      "monsters": [
+        "大地精",
+        "大地精"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-owlbear-tower",
+      "name": "枭熊塔楼",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-owlbear-tower.json",
+      "trigger": "角色打开封闭塔楼或激怒被困猛兽。",
+      "monsters": [
+        "枭熊"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-king-quarters",
+      "name": "王之居所",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-king-quarters.json",
+      "trigger": "角色找到被俘矮人、谈判破裂或首领设伏。",
+      "monsters": [
+        "熊地精首领",
+        "狼",
+        "变形怪"
+      ]
+    },
+    {
+      "id": "cragmaw-castle-returning-warband",
+      "name": "返程小队",
+      "chapter": "蜘蛛网",
+      "map": "maps/cragmaw-castle-returning-warband.json",
+      "trigger": "角色离堡后遭遇返程巡逻或尾随。",
+      "monsters": [
+        "大地精",
+        "大地精",
+        "大地精",
+        "地精",
+        "地精",
+        "地精",
+        "地精"
+      ]
+    },
+    {
+      "id": "wave-echo-mine-tunnels-stirges",
+      "name": "矿道蝙蝠群",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-mine-tunnels-stirges.json",
+      "trigger": "角色穿过旧矿道惊动巢群。",
+      "monsters": [
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠",
+        "吸血蝙蝠"
+      ]
+    },
+    {
+      "id": "wave-echo-old-entrance-ooze",
+      "name": "旧入口黏液怪",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-old-entrance-ooze.json",
+      "trigger": "角色靠近坍塌旧入口或搜查尸骸。",
+      "monsters": [
+        "赭冻怪"
+      ]
+    },
+    {
+      "id": "wave-echo-guardroom-undead",
+      "name": "旧警卫室亡者",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-guardroom-undead.json",
+      "trigger": "角色进入旧警卫室或制造响动。",
+      "monsters": [
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸"
+      ]
+    },
+    {
+      "id": "wave-echo-south-barracks-ghouls",
+      "name": "南部营房食尸鬼",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-south-barracks-ghouls.json",
+      "trigger": "角色搜查营房废墟。",
+      "monsters": [
+        "食尸鬼",
+        "食尸鬼",
+        "食尸鬼"
+      ]
+    },
+    {
+      "id": "wave-echo-fungi-cavern",
+      "name": "真菌洞窟",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-fungi-cavern.json",
+      "trigger": "角色靠近真菌丛或误判其威胁。",
+      "monsters": [
+        "紫色真菌",
+        "紫色真菌",
+        "紫色真菌",
+        "紫色真菌"
+      ]
+    },
+    {
+      "id": "wave-echo-great-cavern-bugbears",
+      "name": "大洞窟巡逻",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-great-cavern-bugbears.json",
+      "trigger": "角色穿越大洞窟或被敌方巡逻撞见。",
+      "monsters": [
+        "熊地精",
+        "熊地精",
+        "熊地精",
+        "熊地精"
+      ]
+    },
+    {
+      "id": "wave-echo-north-barracks",
+      "name": "北部营房",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-north-barracks.json",
+      "trigger": "角色突入敌方驻扎区。",
+      "monsters": [
+        "熊地精",
+        "熊地精",
+        "熊地精",
+        "熊地精",
+        "熊地精"
+      ]
+    },
+    {
+      "id": "wave-echo-smelter-cavern",
+      "name": "冶炼洞窟",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-smelter-cavern.json",
+      "trigger": "角色靠近旧熔炉区或惊动守卫亡灵。",
+      "monsters": [
+        "火焰骷髅",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸",
+        "僵尸"
+      ]
+    },
+    {
+      "id": "wave-echo-wizards-quarters",
+      "name": "法师的居所",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-wizards-quarters.json",
+      "trigger": "角色进入法师居所、交涉失败或冒犯其执念。",
+      "monsters": [
+        "怨魂"
+      ]
+    },
+    {
+      "id": "wave-echo-spell-forge-guardian",
+      "name": "法术工厂守卫",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-spell-forge-guardian.json",
+      "trigger": "角色进入法术工厂并触发守卫反应。",
+      "monsters": [
+        "观者守卫"
+      ]
+    },
+    {
+      "id": "wave-echo-collapsed-cavern",
+      "name": "崩塌洞窟伏兵",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-collapsed-cavern.json",
+      "trigger": "角色穿过崩塌洞窟、跨越裂谷或被伏击。",
+      "monsters": [
+        "熊地精",
+        "熊地精",
+        "熊地精"
+      ]
+    },
+    {
+      "id": "wave-echo-temple-final",
+      "name": "最终神庙",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-temple-final.json",
+      "trigger": "角色抵达神庙并与幕后敌人决战。",
+      "monsters": [
+        "黑蜘蛛",
+        "巨蛛",
+        "巨蛛",
+        "巨蛛",
+        "巨蛛",
+        "变形怪"
+      ]
+    },
+    {
+      "id": "wave-echo-priests-quarters",
+      "name": "祭司居所伏兵",
+      "chapter": "回声洞",
+      "map": "maps/wave-echo-priests-quarters.json",
+      "trigger": "角色搜查祭司居所或敌人从侧翼包抄。",
+      "monsters": [
+        "熊地精",
+        "熊地精"
+      ]
+    }
+  ]
+}

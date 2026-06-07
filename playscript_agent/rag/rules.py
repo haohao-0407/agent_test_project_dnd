@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-import re
+import csv
 import hashlib
+import re
 from dataclasses import dataclass
+from io import StringIO
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
@@ -23,7 +25,9 @@ from playscript_agent.rag.ingest import (
 DEFAULT_RULE_COLLECTION_NAME = "dnd_rule_chunks"
 DEFAULT_DOCUMENT_DIR = Path(__file__).resolve().parents[2] / "document"
 DEFAULT_MODULE_DIR = DEFAULT_DOCUMENT_DIR / "modules"
-SUPPORTED_RULEBOOK_EXTENSIONS = {".md", ".txt", ".pdf"}
+SUPPORTED_RULEBOOK_EXTENSIONS = {".csv", ".md", ".pdf", ".txt"}
+ENTRY_CHUNK_EXTENSIONS = {".csv"}
+SOURCE_SIGNATURE_METADATA_KEY = "source_signature"
 
 
 @dataclass(frozen=True, slots=True)
@@ -172,10 +176,16 @@ def chunk_rule_document(
     chunks: list[RuleChunk] = []
     for page in document.pages:
         section = _infer_section_title(page.text, fallback=document.title)
-        for page_chunk_index, content in enumerate(
-            _split_text(page.text, chunk_size=chunk_size, chunk_overlap=chunk_overlap),
-            start=1,
-        ):
+        page_chunks = (
+            (page.text,)
+            if document.source_path.suffix.lower() in ENTRY_CHUNK_EXTENSIONS
+            else _split_text(
+                page.text,
+                chunk_size=chunk_size,
+                chunk_overlap=chunk_overlap,
+            )
+        )
+        for page_chunk_index, content in enumerate(page_chunks, start=1):
             title = f"{document.title} p.{page.page_number}"
             if section and section != document.title:
                 title = f"{title} - {section}"
@@ -213,6 +223,7 @@ def ingest_rulebooks(
     chunk_size: int = 1200,
     chunk_overlap: int = 160,
 ) -> tuple[Collection, IngestResult]:
+    source_signature = build_rule_source_signature(paths)
     documents = load_rule_documents(
         paths,
         ruleset=ruleset,
@@ -225,10 +236,20 @@ def ingest_rulebooks(
         chunk_overlap=chunk_overlap,
     )
     chroma_client = client or create_chroma_client(persist_directory=persist_directory)
+    collection_metadata = {
+        "domain": "dnd_rules",
+        "ruleset": ruleset,
+        SOURCE_SIGNATURE_METADATA_KEY: source_signature,
+    }
+    _delete_collection_if_signature_changed(
+        chroma_client,
+        collection_name=collection_name,
+        source_signature=source_signature,
+    )
     collection = chroma_client.get_or_create_collection(
         name=collection_name,
         embedding_function=None,
-        metadata={"domain": "dnd_rules", "ruleset": ruleset},
+        metadata=collection_metadata,
     )
     embedder = embedding_model or SentenceTransformerEmbeddingModel()
     upsert_rule_chunks(collection, chunks, embedder)
@@ -237,6 +258,19 @@ def ingest_rulebooks(
         chunk_count=len(chunks),
         persist_directory=str(persist_directory) if persist_directory is not None else None,
     )
+
+
+def build_rule_source_signature(
+    paths: str | Path | Sequence[str | Path] = DEFAULT_DOCUMENT_DIR,
+) -> str:
+    digest = hashlib.sha1()
+    digest.update(b"dnd-rule-sources-v2")
+    for path in _iter_rulebook_files(paths):
+        stat = path.stat()
+        digest.update(str(path.resolve()).encode("utf-8"))
+        digest.update(str(stat.st_size).encode("ascii"))
+        digest.update(str(stat.st_mtime_ns).encode("ascii"))
+    return digest.hexdigest()
 
 
 def upsert_rule_chunks(
@@ -255,6 +289,27 @@ def upsert_rule_chunks(
         metadatas=[chunk.chroma_metadata() for chunk in chunks],
         embeddings=embeddings,
     )
+
+
+def _delete_collection_if_signature_changed(
+    client: ClientAPI,
+    *,
+    collection_name: str,
+    source_signature: str,
+) -> None:
+    try:
+        existing_collection = client.get_collection(
+            name=collection_name,
+            embedding_function=None,
+        )
+    except Exception:
+        return
+
+    metadata = getattr(existing_collection, "metadata", None) or {}
+    if metadata.get(SOURCE_SIGNATURE_METADATA_KEY) == source_signature:
+        return
+
+    client.delete_collection(name=collection_name)
 
 
 def _iter_rulebook_files(
@@ -287,9 +342,18 @@ def _infer_document_scope(
     visibility: str | None,
 ) -> tuple[str, str]:
     is_module = _is_module_document(path)
+    if is_module:
+        inferred_document_type = "module_dm_only"
+        inferred_visibility = "dm_only"
+    elif path.suffix.lower() == ".csv":
+        inferred_document_type = "rules_reference_table"
+        inferred_visibility = "public"
+    else:
+        inferred_document_type = "rules_core"
+        inferred_visibility = "public"
     return (
-        document_type or ("module_dm_only" if is_module else "rules_core"),
-        visibility or ("dm_only" if is_module else "public"),
+        document_type or inferred_document_type,
+        visibility or inferred_visibility,
     )
 
 
@@ -301,7 +365,35 @@ def _read_rulebook_pages(path: Path) -> tuple[RulePage, ...]:
     suffix = path.suffix.lower()
     if suffix == ".pdf":
         return _read_pdf_pages(path)
+    if suffix == ".csv":
+        return _read_csv_entries(path)
     return (RulePage(page_number=0, text=_read_text_file(path)),)
+
+
+def _read_csv_entries(path: Path) -> tuple[RulePage, ...]:
+    text = _read_text_file(path)
+    reader = csv.DictReader(StringIO(text))
+    if not reader.fieldnames:
+        return tuple()
+
+    pages: list[RulePage] = []
+    for row_number, row in enumerate(reader, start=1):
+        normalized = {
+            (key or "").strip(): _normalize_cell(value)
+            for key, value in row.items()
+            if (key or "").strip() and _normalize_cell(value)
+        }
+        if not normalized:
+            continue
+
+        entry_title = _infer_csv_entry_title(normalized, fallback=f"entry {row_number}")
+        lines = [f"# {entry_title}"]
+        for key, value in normalized.items():
+            if key in CSV_ENTRY_TITLE_COLUMNS:
+                continue
+            lines.append(f"{key}: {value}")
+        pages.append(RulePage(page_number=row_number, text="\n".join(lines)))
+    return tuple(pages)
 
 
 def _read_pdf_pages(path: Path) -> tuple[RulePage, ...]:
@@ -337,6 +429,26 @@ def _normalize_text(text: str) -> str:
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
+
+
+def _normalize_cell(value: str | None) -> str:
+    if value is None:
+        return ""
+    return _normalize_text(value)
+
+
+CSV_ENTRY_TITLE_COLUMNS = ("名称", "Name", "name", "标题", "Title", "title")
+
+
+def _infer_csv_entry_title(row: dict[str, str], *, fallback: str) -> str:
+    for key in CSV_ENTRY_TITLE_COLUMNS:
+        value = row.get(key, "").strip()
+        if value:
+            return value
+    for value in row.values():
+        if value.strip():
+            return value.strip()
+    return fallback
 
 
 def _split_text(
@@ -387,9 +499,12 @@ def _split_long_text(text: str, chunk_size: int, chunk_overlap: int) -> list[str
 
 def _infer_section_title(text: str, *, fallback: str) -> str:
     for line in text.splitlines():
-        candidate = line.strip().strip("#").strip()
+        raw_candidate = line.strip()
+        candidate = raw_candidate.strip("#").strip()
         if not candidate:
             continue
+        if raw_candidate.startswith("#"):
+            return candidate
         if len(candidate) > 96:
             continue
         if _looks_like_heading(candidate):

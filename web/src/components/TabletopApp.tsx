@@ -4,6 +4,7 @@ import {
   ApiError,
   confirmPendingAction,
   declinePendingAction,
+  endCombat,
   endTurn,
   logout,
   me,
@@ -19,6 +20,8 @@ import { CharacterCardsPage } from "./CharacterCardsPage";
 import { CharacterSheet } from "./CharacterSheet";
 import { ChatPanel } from "./ChatPanel";
 import { CombatPanel } from "./CombatPanel";
+import { DmSceneBrowser } from "./DmSceneBrowser";
+import { ExplorationScene } from "./ExplorationScene";
 import { JoinScreen } from "./JoinScreen";
 import { MapBackgroundEditor } from "./MapBackgroundEditor";
 import { MapView } from "./MapView";
@@ -133,6 +136,12 @@ export function TabletopApp() {
     setState(response.state);
   }
 
+  async function handleEndCombat() {
+    const response = await endCombat();
+    setState(response.state);
+    setSelectedTokenId(null);
+  }
+
   async function handleConfirmPending(actionId: string) {
     const response = await confirmPendingAction({ actionId });
     setState(response.state);
@@ -206,13 +215,17 @@ export function TabletopApp() {
         <div className="session-strip" aria-label="session status">
           <span>{state.session.mode}</span>
           <span>Round {state.session.round}</span>
-          <span>Turn {current?.name || state.session.currentTurn}</span>
+          {state.session.mode === "combat" ? (
+            <span>Turn {current?.name || state.session.currentTurn}</span>
+          ) : (
+            <span>{state.adventure?.scene || "探索"}</span>
+          )}
           <button
             type="button"
             className={activePage === "tabletop" ? "active" : ""}
             onClick={() => setActivePage("tabletop")}
           >
-            战棋
+            {state.session.mode === "combat" ? "战斗" : "探索"}
           </button>
           <button
             type="button"
@@ -223,6 +236,9 @@ export function TabletopApp() {
           </button>
           <a className="nav-link" href="/characters/permanent">
             永久库
+          </a>
+          <a className="nav-link" href="/monsters">
+            怪物库
           </a>
           <a className="nav-link" href="/rules">
             Rules
@@ -244,6 +260,13 @@ export function TabletopApp() {
           currentUser={currentUser}
           onStateChange={setState}
         />
+      ) : state.session.mode !== "combat" ? (
+        <ExplorationScene
+          state={state}
+          currentUser={currentUser}
+          onStateChange={setState}
+          onSend={handleSend}
+        />
       ) : (
         <section className="workspace">
           <MapView
@@ -261,7 +284,10 @@ export function TabletopApp() {
           <div className="sheet-stack">
             <div className="dm-panel-stack">
               {currentUser?.role === "dm" ? (
-                <MapBackgroundEditor map={state.map} onStateChange={setState} />
+                <>
+                  <DmSceneBrowser state={state} currentUser={currentUser} onStateChange={setState} />
+                  <MapBackgroundEditor map={state.map} onStateChange={setState} />
+                </>
               ) : null}
               <CombatPanel
                 combat={state.combat}
@@ -269,6 +295,7 @@ export function TabletopApp() {
                 tokens={state.tokens}
                 currentUser={currentUser}
                 onStartCombat={handleStartCombat}
+                onEndCombat={handleEndCombat}
                 onEndTurn={handleEndTurn}
                 onConfirmPending={handleConfirmPending}
                 onDeclinePending={handleDeclinePending}

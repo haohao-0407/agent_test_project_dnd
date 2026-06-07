@@ -10,8 +10,42 @@ export type Adventure = {
   moduleName: string;
   chapter: string;
   scene: string;
+  explorationSceneId?: string;
+  backgroundUrl?: string;
+  combatSceneId?: string;
+  combatSceneName?: string;
   source: string;
   startedAt: string;
+};
+
+export type CombatSceneResource = {
+  id: string;
+  name: string;
+  chapter: string;
+  map: string;
+  trigger: string;
+  monsterCount: number;
+  linkedExplorationSceneIds: string[];
+};
+
+export type ExplorationSceneResource = {
+  id: string;
+  name: string;
+  chapter: string;
+  kind: string;
+  background: string;
+  backgroundUrl: string;
+  scenePrompt: string;
+  combatSceneId: string;
+  combatScene?: CombatSceneResource | null;
+};
+
+export type AdventureSceneCollection = {
+  moduleName: string;
+  version?: string;
+  openingSceneId: string;
+  explorationScenes: ExplorationSceneResource[];
+  combatScenes: CombatSceneResource[];
 };
 
 export type Player = {
@@ -220,6 +254,40 @@ export type Character = {
   appearance?: { age: string; height: string; weight: string; eyes: string; skin: string; hair: string };
   images?: CharacterImage[];
   notes?: string;
+};
+
+export type MonsterCard = {
+  id: string;
+  name: string;
+  source: string;
+  page: string;
+  size: string;
+  type: string;
+  alignment: string;
+  armorClass: string;
+  hitPoints: string;
+  speed: string;
+  attributes: Record<AbilityKey, number>;
+  savingThrows: string;
+  skills: string;
+  damageVulnerabilities: string;
+  damageResistances: string;
+  damageImmunities: string;
+  conditionImmunities: string;
+  senses: string;
+  languages: string;
+  challengeRating: string;
+  traits: string;
+  actions: string;
+  bonusActions: string;
+  reactions: string;
+  legendaryActions: string;
+  mythicActions: string;
+  lairActions: string;
+  regionalEffects: string;
+  environment: string;
+  treasure: string;
+  notes: string;
 };
 
 export type DiceResult = {

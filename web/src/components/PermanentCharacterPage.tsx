@@ -64,6 +64,7 @@ export function PermanentCharacterPage() {
         <div className="session-strip">
           <span>{identity.player?.displayName || identity.userId}</span>
           <a className="nav-link" href="/">返回战棋</a>
+          <a className="nav-link" href="/monsters">怪物库</a>
           <button type="button" onClick={() => void handleLogout()}>
             Logout
           </button>

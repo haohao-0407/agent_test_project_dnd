@@ -1,0 +1,6 @@
+[2m17:53:11[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/me[39m
+Error: connect ECONNREFUSED 127.0.0.1:8766
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1705:16)
+[2m17:53:11[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /api/auth/me[39m
+Error: connect ECONNREFUSED 127.0.0.1:8766
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1705:16)

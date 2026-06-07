@@ -85,8 +85,14 @@ DM_TOOL_SCHEMAS.extend(
                 "type": "object",
                 "properties": {
                     "participant_ids": {"type": "array", "items": {"type": "string"}},
+                    "scene_id": {"type": "string", "description": "Optional combat scene id from the current module scene collection."},
                 },
             },
+        },
+        {
+            "name": "end_combat",
+            "description": "End tactical combat and return the session to exploration mode when the encounter is resolved. DM-only.",
+            "parameters": {"type": "object", "properties": {}},
         },
         {
             "name": "end_turn",
@@ -306,6 +312,9 @@ DM_SYSTEM_PROMPT = """You are the Dungeon Master for a DND tabletop web app.
 Use tool calls for every action that changes game state, moves tokens, rolls dice, or changes HP, conditions, spell slots, or resources.
 Do not reveal tool JSON, function names, or backend details in player-facing text.
 If no tool is needed, answer in concise Chinese as the DM.
+Exploration and combat are separate modes. In exploration mode, do not move tokens on the grid; narrate scenes, NPC dialogue, choices, and checks like a visual novel.
+Only call start_combat when the module scene, player choices, or failed checks make a fight begin. Once combat starts, the app switches to the tactical grid and combat tools.
+Call end_combat when the fight is resolved, enemies are defeated, surrender, flee, or the scene clearly returns to exploration.
 For map coordinates, every surface uses 0-based x/y: player text, tool arguments, tool results, current_state, events, and system messages.
 Never convert, add, or subtract coordinate values.
 Keep public replies short and based only on the known game state and tool results.
@@ -406,9 +415,10 @@ def _fallback_plan_tool_calls(
     user_id: str,
 ) -> list[ToolCall]:
     tool_calls: list[ToolCall] = []
-    move_call = _plan_move_call(message)
-    if move_call:
-        tool_calls.append(move_call)
+    if _can_use_tactical_grid():
+        move_call = _plan_move_call(message)
+        if move_call:
+            tool_calls.append(move_call)
 
     roll_call = _plan_roll_call(message, speaker=speaker, user_id=user_id)
     if roll_call:
@@ -468,10 +478,18 @@ def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dic
         )
         return {"name": name, "result": result}
     if name == "start_combat":
+        scene_id = arguments.get("scene_id")
+        if scene_id:
+            from playscript_agent.api.services import adventure_service
+
+            adventure_service.prepare_combat_scene(scene_id=str(scene_id), user_id=authority_user_id)
         combat = combat_service.start_combat(
             arguments.get("participant_ids"),
             user_id=authority_user_id,
         )
+        return {"name": name, "result": {"combat": combat}}
+    if name == "end_combat":
+        combat = combat_service.end_combat(user_id=authority_user_id)
         return {"name": name, "result": {"combat": combat}}
     if name == "end_turn":
         combat = combat_service.end_turn(
@@ -611,6 +629,7 @@ def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dic
 
 DM_AUTHORITY_TOOLS = {
     "start_combat",
+    "end_combat",
     "advance_turn",
     "apply_damage",
     "apply_healing",
@@ -712,6 +731,8 @@ def build_result_message(tool_results: list[dict[str, Any]]) -> str:
         elif tool_result["name"] == "roll_dice":
             result = tool_result["result"]
             parts.append(f"{result['expression']} 结果为 {result['total']}")
+        elif tool_result["name"] == "end_combat":
+            parts.append("战斗结束，场景回到探索")
         elif tool_result["name"] == "apply_damage":
             result = tool_result["result"]
             character = result["character"]
@@ -814,11 +835,13 @@ def _build_adventure_context(state: dict[str, Any]) -> str:
 
         module_name = state.get("adventure", {}).get("moduleName") or "凡戴尔的失落矿坑"
         excerpt = adventure_service.opening_module_excerpt(str(module_name))
+        scenes = adventure_service.scene_collection_summary(str(module_name))
     except Exception:
         return ""
     return (
         "Current adventure module excerpt follows. Use it to pace locations, clues, NPC motives, "
         "encounter triggers, and scene descriptions, but keep player-facing replies concise.\n"
+        f"Available module scenes JSON: {json.dumps(scenes, ensure_ascii=False)}\n"
         f"{excerpt}"
     )
 
@@ -870,6 +893,8 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
         return None
 
     if name == "move_token":
+        if not _can_use_tactical_grid():
+            return None
         token_id = arguments.get("token_id", arguments.get("tokenId"))
         if token_id is None or "x" not in arguments or "y" not in arguments:
             return None
@@ -898,6 +923,7 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
         }
     if name in {
         "start_combat",
+        "end_combat",
         "end_turn",
         "advance_turn",
         "apply_damage",
@@ -919,6 +945,13 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
     }:
         return {"name": name, "arguments": _snake_case_arguments(arguments)}
     return None
+
+
+def _can_use_tactical_grid() -> bool:
+    state = game_state.snapshot()
+    if "adventure" not in state:
+        return True
+    return state.get("session", {}).get("mode") == "combat"
 
 
 def _extract_content(response: Any) -> str:
@@ -1007,5 +1040,6 @@ def _snake_case_arguments(arguments: dict[str, Any]) -> dict[str, Any]:
         "slotLevel": "level",
         "spellLevel": "level",
         "windowId": "window_id",
+        "sceneId": "scene_id",
     }
     return {aliases.get(key, key): value for key, value in arguments.items()}

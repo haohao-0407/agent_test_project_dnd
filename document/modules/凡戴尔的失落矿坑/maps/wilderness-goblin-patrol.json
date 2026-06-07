@@ -1,0 +1,780 @@
+{
+  "id": "wilderness-goblin-patrol",
+  "name": "荒野地精巡逻",
+  "width": 12,
+  "height": 10,
+  "gridSize": 48,
+  "background": {
+    "url": "/module-assets/%E5%87%A1%E6%88%B4%E5%B0%94%E7%9A%84%E5%A4%B1%E8%90%BD%E7%9F%BF%E5%9D%91/pictures/DM/battle/wilderness-goblin-patrol.png",
+    "width": 1280,
+    "height": 720,
+    "opacity": 0.72
+  },
+  "grid": {
+    "size": 80,
+    "originX": 0,
+    "originY": 0,
+    "scale": 1,
+    "offsetX": 0,
+    "offsetY": 0
+  },
+  "terrain": [
+    {
+      "x": 0,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 4,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 5,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 6,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 7,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 8,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 9,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 8,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 9,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 3,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 3,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 4,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 5,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 5,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "type": "difficult"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "type": "difficult"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "type": "difficult"
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "type": "difficult"
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "type": "difficult"
+    }
+  ],
+  "annotations": [
+    {
+      "x": 6,
+      "y": 5,
+      "label": "空地"
+    }
+  ],
+  "layers": {
+    "terrain": [
+      {
+        "x": 0,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 2,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 2,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 2,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 2,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 3,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 3,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 3,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 3,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 4,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 4,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 4,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 4,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 5,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 5,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 5,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 6,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 6,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 6,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 7,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 7,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 7,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 8,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 8,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 8,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 9,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 9,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 9,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 9,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 0,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 1,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 8,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 9,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 2,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 2,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 2,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 2,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 3,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 3,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 3,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 3,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 4,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 4,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 4,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 4,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 5,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 5,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 5,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 6,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 6,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 6,
+        "type": "difficult"
+      },
+      {
+        "x": 0,
+        "y": 7,
+        "type": "difficult"
+      },
+      {
+        "x": 1,
+        "y": 7,
+        "type": "difficult"
+      },
+      {
+        "x": 10,
+        "y": 7,
+        "type": "difficult"
+      },
+      {
+        "x": 11,
+        "y": 7,
+        "type": "difficult"
+      }
+    ],
+    "walls": [],
+    "doors": [],
+    "obstacles": [
+      {
+        "x": 6,
+        "y": 5,
+        "type": "obstacle"
+      }
+    ],
+    "annotations": [
+      {
+        "x": 6,
+        "y": 5,
+        "label": "空地"
+      }
+    ],
+    "fog": [],
+    "effects": [],
+    "dmNotes": [
+      {
+        "id": "trigger",
+        "x": 1,
+        "y": 1,
+        "text": "旅行中遇到克拉摩巡逻队或追踪者。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1127 @@
+{
+  "styleGuide": "所有提示词都要求原创构图，不复刻官方地图、插图、版式或文字。",
+  "exploration": [
+    {
+      "id": "triboar-trail-road",
+      "name": "三猪小径",
+      "chapter": "地精箭矢",
+      "kind": "forest-road",
+      "background": "pictures/Player/triboar-trail-exploration-manual.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 三猪小径\nScene/backdrop: forest road fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "goblin-trail",
+      "name": "地精踪迹",
+      "chapter": "地精箭矢",
+      "kind": "forest",
+      "background": "pictures/Player/exploration/goblin-trail.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 地精踪迹\nScene/backdrop: forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-entrance",
+      "name": "克拉摩窝点洞口",
+      "chapter": "地精箭矢",
+      "kind": "cave-mouth",
+      "background": "pictures/Player/exploration/cragmaw-hideout-entrance.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点洞口\nScene/backdrop: cave mouth fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-kennel",
+      "name": "克拉摩窝点犬舍",
+      "chapter": "地精箭矢",
+      "kind": "cave",
+      "background": "pictures/Player/exploration/cragmaw-hideout-kennel.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点犬舍\nScene/backdrop: cave fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-steep-passage",
+      "name": "克拉摩窝点陡峭通道",
+      "chapter": "地精箭矢",
+      "kind": "cave",
+      "background": "pictures/Player/exploration/cragmaw-hideout-steep-passage.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点陡峭通道\nScene/backdrop: cave fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-overpass",
+      "name": "克拉摩窝点天桥",
+      "chapter": "地精箭矢",
+      "kind": "cave",
+      "background": "pictures/Player/exploration/cragmaw-hideout-overpass.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点天桥\nScene/backdrop: cave fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-goblin-den",
+      "name": "克拉摩窝点地精休息室",
+      "chapter": "地精箭矢",
+      "kind": "cave-camp",
+      "background": "pictures/Player/exploration/cragmaw-hideout-goblin-den.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点地精休息室\nScene/backdrop: cave camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-twin-pools",
+      "name": "克拉摩窝点双子池",
+      "chapter": "地精箭矢",
+      "kind": "cave-water",
+      "background": "pictures/Player/exploration/cragmaw-hideout-twin-pools.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点双子池\nScene/backdrop: cave water fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-klarg-cave",
+      "name": "克拉摩窝点首领洞穴",
+      "chapter": "地精箭矢",
+      "kind": "cave-camp",
+      "background": "pictures/Player/exploration/cragmaw-hideout-klarg-cave.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩窝点首领洞穴\nScene/backdrop: cave camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "phandalin-arrival",
+      "name": "凡达林镇口",
+      "chapter": "凡达林",
+      "kind": "town",
+      "background": "pictures/Player/exploration/phandalin-arrival-manual.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 凡达林镇口\nScene/backdrop: town fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "stonehill-inn",
+      "name": "石丘旅馆",
+      "chapter": "凡达林",
+      "kind": "inn",
+      "background": "pictures/Player/exploration/stonehill-inn.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 石丘旅馆\nScene/backdrop: inn fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "barthens-provisions",
+      "name": "巴森补给",
+      "chapter": "凡达林",
+      "kind": "shop",
+      "background": "pictures/Player/exploration/barthens-provisions.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 巴森补给\nScene/backdrop: shop fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "edermath-orchard",
+      "name": "埃德玛果园",
+      "chapter": "凡达林",
+      "kind": "orchard",
+      "background": "pictures/Player/exploration/edermath-orchard.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 埃德玛果园\nScene/backdrop: orchard fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "lionshield-coster",
+      "name": "狮盾小贩",
+      "chapter": "凡达林",
+      "kind": "shop",
+      "background": "pictures/Player/exploration/lionshield-coster.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 狮盾小贩\nScene/backdrop: shop fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "miners-exchange",
+      "name": "凡达林矿工兑换所",
+      "chapter": "凡达林",
+      "kind": "office",
+      "background": "pictures/Player/exploration/miners-exchange.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 凡达林矿工兑换所\nScene/backdrop: office fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "alderleaf-farm",
+      "name": "阿德里夫农场",
+      "chapter": "凡达林",
+      "kind": "farm",
+      "background": "pictures/Player/exploration/alderleaf-farm.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 阿德里夫农场\nScene/backdrop: farm fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "shrine-of-luck",
+      "name": "幸运圣坛",
+      "chapter": "凡达林",
+      "kind": "shrine",
+      "background": "pictures/Player/exploration/shrine-of-luck.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 幸运圣坛\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "sleeping-giant",
+      "name": "沉睡的巨人",
+      "chapter": "凡达林",
+      "kind": "tavern",
+      "background": "pictures/Player/exploration/sleeping-giant.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 沉睡的巨人\nScene/backdrop: tavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "townmasters-hall",
+      "name": "镇长大厅",
+      "chapter": "凡达林",
+      "kind": "hall",
+      "background": "pictures/Player/exploration/townmasters-hall.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 镇长大厅\nScene/backdrop: hall fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "tresendar-manor",
+      "name": "崔森德庄园",
+      "chapter": "凡达林",
+      "kind": "ruin",
+      "background": "pictures/Player/exploration/tresendar-manor.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 崔森德庄园\nScene/backdrop: ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-cellar",
+      "name": "红标帮窝点地窖",
+      "chapter": "凡达林",
+      "kind": "cellar",
+      "background": "pictures/Player/exploration/redbrand-hideout-cellar.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮窝点地窖\nScene/backdrop: cellar fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-barracks",
+      "name": "红标帮营房",
+      "chapter": "凡达林",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-barracks.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-trapped-hall",
+      "name": "陷阱走廊",
+      "chapter": "凡达林",
+      "kind": "dungeon",
+      "background": "pictures/Player/exploration/redbrand-hideout-trapped-hall.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 陷阱走廊\nScene/backdrop: dungeon fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-crypts",
+      "name": "崔森德墓室",
+      "chapter": "凡达林",
+      "kind": "crypt",
+      "background": "pictures/Player/exploration/redbrand-hideout-crypts.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 崔森德墓室\nScene/backdrop: crypt fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-slave-pens",
+      "name": "奴隶围栏",
+      "chapter": "凡达林",
+      "kind": "cell",
+      "background": "pictures/Player/exploration/redbrand-hideout-slave-pens.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 奴隶围栏\nScene/backdrop: cell fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-armory",
+      "name": "军械库",
+      "chapter": "凡达林",
+      "kind": "armory",
+      "background": "pictures/Player/exploration/redbrand-hideout-armory.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 军械库\nScene/backdrop: armory fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-storage",
+      "name": "储藏室和工作间",
+      "chapter": "凡达林",
+      "kind": "workshop",
+      "background": "pictures/Player/exploration/redbrand-hideout-storage.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 储藏室和工作间\nScene/backdrop: workshop fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-chasm",
+      "name": "红标帮窝点裂隙",
+      "chapter": "凡达林",
+      "kind": "chasm",
+      "background": "pictures/Player/exploration/redbrand-hideout-chasm.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮窝点裂隙\nScene/backdrop: chasm fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-guard-barracks",
+      "name": "警卫营房",
+      "chapter": "凡达林",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-guard-barracks.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 警卫营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-common-room",
+      "name": "公共休息室",
+      "chapter": "凡达林",
+      "kind": "tavern",
+      "background": "pictures/Player/exploration/redbrand-hideout-common-room.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 公共休息室\nScene/backdrop: tavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-workshop",
+      "name": "法师的工作坊",
+      "chapter": "凡达林",
+      "kind": "wizard-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-workshop.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 法师的工作坊\nScene/backdrop: wizard room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-hideout-glasstaff",
+      "name": "玻璃手杖的居所",
+      "chapter": "凡达林",
+      "kind": "wizard-room",
+      "background": "pictures/Player/exploration/redbrand-hideout-glasstaff.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 玻璃手杖的居所\nScene/backdrop: wizard room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "triboar-wilderness",
+      "name": "三猪小径荒野",
+      "chapter": "蜘蛛网",
+      "kind": "wilderness",
+      "background": "pictures/Player/exploration/triboar-wilderness.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 三猪小径荒野\nScene/backdrop: wilderness fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "conyberry",
+      "name": "兔莓废村",
+      "chapter": "蜘蛛网",
+      "kind": "ruin",
+      "background": "pictures/Player/exploration/conyberry.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 兔莓废村\nScene/backdrop: ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "agathas-lair",
+      "name": "阿加莎的巢穴",
+      "chapter": "蜘蛛网",
+      "kind": "forest-spirit",
+      "background": "pictures/Player/exploration/agathas-lair.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 阿加莎的巢穴\nScene/backdrop: forest spirit fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "old-owl-well",
+      "name": "古枭井",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-camp",
+      "background": "pictures/Player/exploration/old-owl-well.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 古枭井\nScene/backdrop: ruin camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wyvern-tor",
+      "name": "飞龙突岩",
+      "chapter": "蜘蛛网",
+      "kind": "rocky-camp",
+      "background": "pictures/Player/exploration/wyvern-tor.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 飞龙突岩\nScene/backdrop: rocky camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-arrival",
+      "name": "雷树废墟入口",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-arrival.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树废墟入口\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-west-cottage",
+      "name": "雷树：最西边的小屋",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-west-cottage.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：最西边的小屋\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-blighted-cottage",
+      "name": "雷树：枯萎的小屋",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-blighted-cottage.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：枯萎的小屋\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-brown-horse",
+      "name": "雷树：棕马酒馆",
+      "chapter": "蜘蛛网",
+      "kind": "tavern",
+      "background": "pictures/Player/exploration/thundertree-brown-horse.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：棕马酒馆\nScene/backdrop: tavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-druid-watch",
+      "name": "雷树：德鲁伊哨点",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-druid-watch.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：德鲁伊哨点\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-blighted-farmhouse",
+      "name": "雷树：枯萎的农舍",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-blighted-farmhouse.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：枯萎的农舍\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-store-ruin",
+      "name": "雷树：商店废墟",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-store-ruin.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：商店废墟\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-dragon-tower",
+      "name": "雷树：龙之塔",
+      "chapter": "蜘蛛网",
+      "kind": "tower",
+      "background": "pictures/Player/exploration/thundertree-dragon-tower.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：龙之塔\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-old-smithy",
+      "name": "雷树：旧铁匠铺",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-old-smithy.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：旧铁匠铺\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-herbalist-shop",
+      "name": "雷树：草药店",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-herbalist-shop.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：草药店\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-town-square",
+      "name": "雷树：城镇广场",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-town-square.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：城镇广场\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-old-garrison",
+      "name": "雷树：旧卫戍营",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-old-garrison.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：旧卫戍营\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-weavers-cottage",
+      "name": "雷树：织布工小屋",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-weavers-cottage.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：织布工小屋\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-cultist-house",
+      "name": "雷树：龙之邪教徒",
+      "chapter": "蜘蛛网",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/thundertree-cultist-house.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树：龙之邪教徒\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-approach",
+      "name": "克拉摩堡外缘",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-approach.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡外缘\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-entrance",
+      "name": "克拉摩堡：城堡入口",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-entrance.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：城堡入口\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-trapped-hall",
+      "name": "克拉摩堡：陷阱大厅",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-trapped-hall.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：陷阱大厅\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-archer-post",
+      "name": "克拉摩堡：弓箭手岗哨",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-archer-post.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：弓箭手岗哨\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-ruined-barracks",
+      "name": "克拉摩堡：营房废墟",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-ruined-barracks.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：营房废墟\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-storeroom",
+      "name": "克拉摩堡：储藏室",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-storeroom.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：储藏室\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-hobgoblin-barracks",
+      "name": "克拉摩堡：大地精营房",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-hobgoblin-barracks.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：大地精营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-banquet-hall",
+      "name": "克拉摩堡：宴会厅",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-banquet-hall.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：宴会厅\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-dark-hall",
+      "name": "克拉摩堡：黑暗大厅",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-dark-hall.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：黑暗大厅\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-shrine",
+      "name": "克拉摩堡：地精圣坛",
+      "chapter": "蜘蛛网",
+      "kind": "shrine",
+      "background": "pictures/Player/exploration/cragmaw-castle-shrine.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：地精圣坛\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-back-door",
+      "name": "克拉摩堡：后门",
+      "chapter": "蜘蛛网",
+      "kind": "castle-ruin",
+      "background": "pictures/Player/exploration/cragmaw-castle-back-door.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：后门\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-ruined-tower",
+      "name": "克拉摩堡：塔楼废墟",
+      "chapter": "蜘蛛网",
+      "kind": "tower",
+      "background": "pictures/Player/exploration/cragmaw-castle-ruined-tower.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：塔楼废墟\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-guard-barracks",
+      "name": "克拉摩堡：警卫营房",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-guard-barracks.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：警卫营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-owlbear-tower",
+      "name": "克拉摩堡：枭熊塔楼",
+      "chapter": "蜘蛛网",
+      "kind": "tower",
+      "background": "pictures/Player/exploration/cragmaw-castle-owlbear-tower.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：枭熊塔楼\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-kings-quarters",
+      "name": "克拉摩堡：王之居所",
+      "chapter": "蜘蛛网",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/cragmaw-castle-kings-quarters.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡：王之居所\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-return-trail",
+      "name": "克拉摩堡返程小队",
+      "chapter": "蜘蛛网",
+      "kind": "forest-road",
+      "background": "pictures/Player/exploration/cragmaw-return-trail.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 克拉摩堡返程小队\nScene/backdrop: forest road fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-cave-arrival",
+      "name": "回声洞入口",
+      "chapter": "回声洞",
+      "kind": "mine-mouth",
+      "background": "pictures/Player/exploration/wave-echo-cave-arrival.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞入口\nScene/backdrop: mine mouth fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-cave-entrance",
+      "name": "回声洞：洞穴入口",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-cave-entrance.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：洞穴入口\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-mine-tunnels",
+      "name": "回声洞：矿道",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-mine-tunnels.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：矿道\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-old-entrance",
+      "name": "回声洞：旧入口",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-old-entrance.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：旧入口\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-old-guardroom",
+      "name": "回声洞：旧警卫室",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-old-guardroom.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：旧警卫室\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-assayers-office",
+      "name": "回声洞：试金师办公室",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-assayers-office.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：试金师办公室\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-south-barracks",
+      "name": "回声洞：南部营房",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-south-barracks.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：南部营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-ruined-storeroom",
+      "name": "回声洞：储物间废墟",
+      "chapter": "回声洞",
+      "kind": "ruin-forest",
+      "background": "pictures/Player/exploration/wave-echo-ruined-storeroom.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：储物间废墟\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-fungi-cavern",
+      "name": "回声洞：真菌洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-fungi-cavern.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：真菌洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-great-cavern",
+      "name": "回声洞：大洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-great-cavern.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：大洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-dark-pool",
+      "name": "回声洞：黑水池",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-dark-pool.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：黑水池\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-north-barracks",
+      "name": "回声洞：北部营房",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-north-barracks.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：北部营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-smelter-cavern",
+      "name": "回声洞：冶炼洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-smelter-cavern.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：冶炼洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-glittering-cavern",
+      "name": "回声洞：明亮的洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-glittering-cavern.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：明亮的洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-wizards-quarters",
+      "name": "回声洞：法师的居所",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-wizards-quarters.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：法师的居所\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-spell-forge",
+      "name": "回声洞：法术工厂",
+      "chapter": "回声洞",
+      "kind": "mine",
+      "background": "pictures/Player/exploration/wave-echo-spell-forge.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：法术工厂\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-booming-cavern",
+      "name": "回声洞：轰鸣洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-booming-cavern.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：轰鸣洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-old-streambed",
+      "name": "回声洞：古老河床",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-old-streambed.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：古老河床\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-collapsed-cavern",
+      "name": "回声洞：崩塌的洞窟",
+      "chapter": "回声洞",
+      "kind": "mine-cavern",
+      "background": "pictures/Player/exploration/wave-echo-collapsed-cavern.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：崩塌的洞窟\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-temple",
+      "name": "回声洞：杜马松的神庙",
+      "chapter": "回声洞",
+      "kind": "shrine",
+      "background": "pictures/Player/exploration/wave-echo-temple.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：杜马松的神庙\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-priests-quarters",
+      "name": "回声洞：祭司的居所",
+      "chapter": "回声洞",
+      "kind": "dungeon-room",
+      "background": "pictures/Player/exploration/wave-echo-priests-quarters.png",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: exploration background for a fantasy tabletop session\nPrimary request: original atmospheric art for 回声洞：祭司的居所\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    }
+  ],
+  "battle": [
+    {
+      "id": "triboar-trail-ambush",
+      "name": "三猪小径伏击",
+      "chapter": "地精箭矢",
+      "template": "forest-road",
+      "map": "maps/triboar-trail-ambush.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 三猪小径伏击\nScene/backdrop: forest road fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-goblin-blind",
+      "name": "洞口暗哨",
+      "chapter": "地精箭矢",
+      "template": "cave-mouth",
+      "map": "maps/cragmaw-hideout-goblin-blind.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 洞口暗哨\nScene/backdrop: cave mouth fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-kennel",
+      "name": "狼群犬舍",
+      "chapter": "地精箭矢",
+      "template": "cave",
+      "map": "maps/cragmaw-hideout-kennel.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 狼群犬舍\nScene/backdrop: cave fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-overpass",
+      "name": "天桥哨兵",
+      "chapter": "地精箭矢",
+      "template": "cave-bridge",
+      "map": "maps/cragmaw-hideout-overpass.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 天桥哨兵\nScene/backdrop: cave bridge fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-goblin-den",
+      "name": "地精休息室",
+      "chapter": "地精箭矢",
+      "template": "cave-camp",
+      "map": "maps/cragmaw-hideout-goblin-den.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 地精休息室\nScene/backdrop: cave camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-twin-pools",
+      "name": "双子池守卫",
+      "chapter": "地精箭矢",
+      "template": "cave-water",
+      "map": "maps/cragmaw-hideout-twin-pools.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 双子池守卫\nScene/backdrop: cave water fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-hideout-klarg-cave",
+      "name": "首领洞穴",
+      "chapter": "地精箭矢",
+      "template": "cave-camp",
+      "map": "maps/cragmaw-hideout-klarg-cave.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 首领洞穴\nScene/backdrop: cave camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "phandalin-redbrand-street",
+      "name": "红标帮街头冲突",
+      "chapter": "凡达林",
+      "template": "town",
+      "map": "maps/phandalin-redbrand-street.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮街头冲突\nScene/backdrop: town fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-barracks",
+      "name": "红标帮营房",
+      "chapter": "凡达林",
+      "template": "dungeon-room",
+      "map": "maps/redbrand-barracks.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 红标帮营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-crypts",
+      "name": "墓室守卫",
+      "chapter": "凡达林",
+      "template": "crypt",
+      "map": "maps/redbrand-crypts.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 墓室守卫\nScene/backdrop: crypt fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-slave-pen-guards",
+      "name": "奴隶围栏守卫",
+      "chapter": "凡达林",
+      "template": "cell",
+      "map": "maps/redbrand-slave-pen-guards.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 奴隶围栏守卫\nScene/backdrop: cell fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-nothic-chasm",
+      "name": "裂隙窥视者",
+      "chapter": "凡达林",
+      "template": "chasm",
+      "map": "maps/redbrand-nothic-chasm.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 裂隙窥视者\nScene/backdrop: chasm fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-bugbear-barracks",
+      "name": "大地精警卫营房",
+      "chapter": "凡达林",
+      "template": "dungeon-room",
+      "map": "maps/redbrand-bugbear-barracks.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 大地精警卫营房\nScene/backdrop: dungeon room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-common-room",
+      "name": "公共休息室混战",
+      "chapter": "凡达林",
+      "template": "tavern",
+      "map": "maps/redbrand-common-room.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 公共休息室混战\nScene/backdrop: tavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "redbrand-glasstaff-quarters",
+      "name": "玻璃手杖的居所",
+      "chapter": "凡达林",
+      "template": "wizard-room",
+      "map": "maps/redbrand-glasstaff-quarters.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 玻璃手杖的居所\nScene/backdrop: wizard room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wilderness-goblin-patrol",
+      "name": "荒野地精巡逻",
+      "chapter": "蜘蛛网",
+      "template": "wilderness",
+      "map": "maps/wilderness-goblin-patrol.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 荒野地精巡逻\nScene/backdrop: wilderness fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wilderness-orc-raiders",
+      "name": "荒野兽人劫掠者",
+      "chapter": "蜘蛛网",
+      "template": "rocky-camp",
+      "map": "maps/wilderness-orc-raiders.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 荒野兽人劫掠者\nScene/backdrop: rocky camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wilderness-owlbear",
+      "name": "荒野枭熊",
+      "chapter": "蜘蛛网",
+      "template": "forest",
+      "map": "maps/wilderness-owlbear.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 荒野枭熊\nScene/backdrop: forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "agatha-hostile-banshee",
+      "name": "幽灵怒意",
+      "chapter": "蜘蛛网",
+      "template": "forest-spirit",
+      "map": "maps/agatha-hostile-banshee.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 幽灵怒意\nScene/backdrop: forest spirit fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "old-owl-well-zombies",
+      "name": "古枭井亡者",
+      "chapter": "蜘蛛网",
+      "template": "ruin-camp",
+      "map": "maps/old-owl-well-zombies.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 古枭井亡者\nScene/backdrop: ruin camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wyvern-tor-orc-camp",
+      "name": "飞龙突岩兽人营地",
+      "chapter": "蜘蛛网",
+      "template": "rocky-camp",
+      "map": "maps/wyvern-tor-orc-camp.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 飞龙突岩兽人营地\nScene/backdrop: rocky camp fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-blighted-cottages",
+      "name": "雷树枯枝怪袭击",
+      "chapter": "蜘蛛网",
+      "template": "ruin-forest",
+      "map": "maps/thundertree-blighted-cottages.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 雷树枯枝怪袭击\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-ash-zombie-tavern",
+      "name": "棕马酒馆灰烬僵尸",
+      "chapter": "蜘蛛网",
+      "template": "ruin-forest",
+      "map": "maps/thundertree-ash-zombie-tavern.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 棕马酒馆灰烬僵尸\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-spider-store",
+      "name": "蛛网商店",
+      "chapter": "蜘蛛网",
+      "template": "ruin-forest",
+      "map": "maps/thundertree-spider-store.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 蛛网商店\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-dragon-tower",
+      "name": "龙之塔",
+      "chapter": "蜘蛛网",
+      "template": "tower",
+      "map": "maps/thundertree-dragon-tower.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 龙之塔\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-ash-zombie-garrison",
+      "name": "旧卫戍营灰烬僵尸",
+      "chapter": "蜘蛛网",
+      "template": "ruin-forest",
+      "map": "maps/thundertree-ash-zombie-garrison.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 旧卫戍营灰烬僵尸\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "thundertree-cultist-house",
+      "name": "龙之邪教徒",
+      "chapter": "蜘蛛网",
+      "template": "ruin-forest",
+      "map": "maps/thundertree-cultist-house.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 龙之邪教徒\nScene/backdrop: ruin forest fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-entrance",
+      "name": "城堡入口守卫",
+      "chapter": "蜘蛛网",
+      "template": "castle-ruin",
+      "map": "maps/cragmaw-castle-entrance.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 城堡入口守卫\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-archer-post",
+      "name": "弓箭手岗哨",
+      "chapter": "蜘蛛网",
+      "template": "castle-ruin",
+      "map": "maps/cragmaw-castle-archer-post.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 弓箭手岗哨\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-ruined-barracks",
+      "name": "营房废墟",
+      "chapter": "蜘蛛网",
+      "template": "castle-ruin",
+      "map": "maps/cragmaw-castle-ruined-barracks.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 营房废墟\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-hobgoblin-barracks",
+      "name": "大地精营房",
+      "chapter": "蜘蛛网",
+      "template": "castle-room",
+      "map": "maps/cragmaw-castle-hobgoblin-barracks.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 大地精营房\nScene/backdrop: castle room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-banquet-hall",
+      "name": "宴会厅",
+      "chapter": "蜘蛛网",
+      "template": "castle-room",
+      "map": "maps/cragmaw-castle-banquet-hall.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 宴会厅\nScene/backdrop: castle room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-dark-hall",
+      "name": "黑暗大厅",
+      "chapter": "蜘蛛网",
+      "template": "castle-room",
+      "map": "maps/cragmaw-castle-dark-hall.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 黑暗大厅\nScene/backdrop: castle room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-shrine",
+      "name": "地精圣坛",
+      "chapter": "蜘蛛网",
+      "template": "shrine",
+      "map": "maps/cragmaw-castle-shrine.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 地精圣坛\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-back-door",
+      "name": "后门箭孔",
+      "chapter": "蜘蛛网",
+      "template": "castle-ruin",
+      "map": "maps/cragmaw-castle-back-door.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 后门箭孔\nScene/backdrop: castle ruin fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-guard-barracks",
+      "name": "警卫营房",
+      "chapter": "蜘蛛网",
+      "template": "castle-room",
+      "map": "maps/cragmaw-castle-guard-barracks.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 警卫营房\nScene/backdrop: castle room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-owlbear-tower",
+      "name": "枭熊塔楼",
+      "chapter": "蜘蛛网",
+      "template": "tower",
+      "map": "maps/cragmaw-castle-owlbear-tower.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 枭熊塔楼\nScene/backdrop: tower fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-king-quarters",
+      "name": "王之居所",
+      "chapter": "蜘蛛网",
+      "template": "castle-room",
+      "map": "maps/cragmaw-castle-king-quarters.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 王之居所\nScene/backdrop: castle room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "cragmaw-castle-returning-warband",
+      "name": "返程小队",
+      "chapter": "蜘蛛网",
+      "template": "forest-road",
+      "map": "maps/cragmaw-castle-returning-warband.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 返程小队\nScene/backdrop: forest road fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-mine-tunnels-stirges",
+      "name": "矿道蝙蝠群",
+      "chapter": "回声洞",
+      "template": "mine",
+      "map": "maps/wave-echo-mine-tunnels-stirges.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 矿道蝙蝠群\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-old-entrance-ooze",
+      "name": "旧入口黏液怪",
+      "chapter": "回声洞",
+      "template": "mine",
+      "map": "maps/wave-echo-old-entrance-ooze.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 旧入口黏液怪\nScene/backdrop: mine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-guardroom-undead",
+      "name": "旧警卫室亡者",
+      "chapter": "回声洞",
+      "template": "crypt",
+      "map": "maps/wave-echo-guardroom-undead.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 旧警卫室亡者\nScene/backdrop: crypt fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-south-barracks-ghouls",
+      "name": "南部营房食尸鬼",
+      "chapter": "回声洞",
+      "template": "mine-room",
+      "map": "maps/wave-echo-south-barracks-ghouls.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 南部营房食尸鬼\nScene/backdrop: mine room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-fungi-cavern",
+      "name": "真菌洞窟",
+      "chapter": "回声洞",
+      "template": "fungi",
+      "map": "maps/wave-echo-fungi-cavern.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 真菌洞窟\nScene/backdrop: fungi fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-great-cavern-bugbears",
+      "name": "大洞窟巡逻",
+      "chapter": "回声洞",
+      "template": "mine-cavern",
+      "map": "maps/wave-echo-great-cavern-bugbears.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 大洞窟巡逻\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-north-barracks",
+      "name": "北部营房",
+      "chapter": "回声洞",
+      "template": "mine-room",
+      "map": "maps/wave-echo-north-barracks.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 北部营房\nScene/backdrop: mine room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-smelter-cavern",
+      "name": "冶炼洞窟",
+      "chapter": "回声洞",
+      "template": "forge",
+      "map": "maps/wave-echo-smelter-cavern.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 冶炼洞窟\nScene/backdrop: forge fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-wizards-quarters",
+      "name": "法师的居所",
+      "chapter": "回声洞",
+      "template": "wizard-room",
+      "map": "maps/wave-echo-wizards-quarters.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 法师的居所\nScene/backdrop: wizard room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-spell-forge-guardian",
+      "name": "法术工厂守卫",
+      "chapter": "回声洞",
+      "template": "forge",
+      "map": "maps/wave-echo-spell-forge-guardian.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 法术工厂守卫\nScene/backdrop: forge fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-collapsed-cavern",
+      "name": "崩塌洞窟伏兵",
+      "chapter": "回声洞",
+      "template": "mine-cavern",
+      "map": "maps/wave-echo-collapsed-cavern.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 崩塌洞窟伏兵\nScene/backdrop: mine cavern fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-temple-final",
+      "name": "最终神庙",
+      "chapter": "回声洞",
+      "template": "shrine",
+      "map": "maps/wave-echo-temple-final.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 最终神庙\nScene/backdrop: shrine fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    },
+    {
+      "id": "wave-echo-priests-quarters",
+      "name": "祭司居所伏兵",
+      "chapter": "回声洞",
+      "template": "mine-room",
+      "map": "maps/wave-echo-priests-quarters.json",
+      "imagePrompt": "Use case: stylized-concept\nAsset type: battle map background for a fantasy tabletop session\nPrimary request: original atmospheric art for 祭司居所伏兵\nScene/backdrop: mine room fantasy location, inspired by classic sword-and-sorcery adventure play but not copying official maps or art\nStyle/medium: painterly cinematic digital illustration, no text, no watermark\nComposition/framing: wide 16:9 scene with clear foreground, midground, and readable tactical space\nLighting/mood: dramatic but usable at the table, enough contrast for tokens or dialogue overlays\nConstraints: original composition only; do not reproduce official D&D artwork, maps, boxed text, logos, or trade dress"
+    }
+  ]
+}

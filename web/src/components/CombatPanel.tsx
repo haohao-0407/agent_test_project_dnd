@@ -6,6 +6,7 @@ type CombatPanelProps = {
   tokens: Token[];
   currentUser: Player;
   onStartCombat: () => void;
+  onEndCombat: () => void;
   onEndTurn: () => void;
   onConfirmPending: (actionId: string) => void;
   onDeclinePending: (actionId: string) => void;
@@ -17,6 +18,7 @@ export function CombatPanel({
   tokens,
   currentUser,
   onStartCombat,
+  onEndCombat,
   onEndTurn,
   onConfirmPending,
   onDeclinePending
@@ -39,9 +41,16 @@ export function CombatPanel({
         </div>
         <div className="combat-actions">
           {combat.active ? (
-            <button type="button" onClick={onEndTurn}>
-              End turn
-            </button>
+            <>
+              <button type="button" onClick={onEndTurn}>
+                End turn
+              </button>
+              {currentUser.role === "dm" ? (
+                <button type="button" onClick={onEndCombat}>
+                  探索
+                </button>
+              ) : null}
+            </>
           ) : currentUser.role === "dm" ? (
             <button type="button" onClick={onStartCombat}>
               Start

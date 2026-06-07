@@ -1,4 +1,5 @@
 import type {
+  AdventureSceneCollection,
   Character,
   CharacterResource,
   ChatResponse,
@@ -6,6 +7,7 @@ import type {
   DiceResult,
   GameMap,
   GameState,
+  MonsterCard,
   PendingAction,
   RagQueryResponse,
   SpellSlot
@@ -152,12 +154,42 @@ export function startAdventure(input: {
   });
 }
 
+export function getAdventureScenes(input: {
+  moduleName?: string;
+} = {}): Promise<{ scenes: AdventureSceneCollection }> {
+  const params = new URLSearchParams({
+    moduleName: input.moduleName || "凡戴尔的失落矿坑"
+  });
+  return request<{ scenes: AdventureSceneCollection }>(`/api/adventure/scenes?${params.toString()}`);
+}
+
+export function jumpAdventureScene(input: {
+  moduleName?: string;
+  sceneId: string;
+}): Promise<{ state: GameState }> {
+  return request<{ state: GameState }>("/api/adventure/scenes/jump", {
+    method: "POST",
+    body: JSON.stringify({
+      moduleName: input.moduleName || "凡戴尔的失落矿坑",
+      sceneId: input.sceneId
+    })
+  });
+}
+
 export function startCombat(input: {
   participantIds?: string[] | null;
+  sceneId?: string | null;
 }): Promise<{ combat: GameState["combat"]; state: GameState }> {
   return request<{ combat: GameState["combat"]; state: GameState }>("/api/combat/start", {
     method: "POST",
     body: JSON.stringify(input)
+  });
+}
+
+export function endCombat(): Promise<{ combat: GameState["combat"]; state: GameState }> {
+  return request<{ combat: GameState["combat"]; state: GameState }>("/api/combat/end", {
+    method: "POST",
+    body: JSON.stringify({})
   });
 }
 
@@ -302,6 +334,32 @@ export function updatePermanentCharacter(input: {
 }): Promise<{ character: Character; characters: Character[] }> {
   return request<{ character: Character; characters: Character[] }>(
     `/api/permanent-characters/${input.characterId}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ updates: input.updates })
+    }
+  );
+}
+
+export function getPermanentMonsters(): Promise<{ monsters: MonsterCard[] }> {
+  return request<{ monsters: MonsterCard[] }>("/api/permanent-monsters");
+}
+
+export function createPermanentMonster(input: {
+  monster: MonsterCard;
+}): Promise<{ monster: MonsterCard; monsters: MonsterCard[] }> {
+  return request<{ monster: MonsterCard; monsters: MonsterCard[] }>("/api/permanent-monsters", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export function updatePermanentMonster(input: {
+  monsterId: string;
+  updates: Partial<MonsterCard>;
+}): Promise<{ monster: MonsterCard; monsters: MonsterCard[] }> {
+  return request<{ monster: MonsterCard; monsters: MonsterCard[] }>(
+    `/api/permanent-monsters/${input.monsterId}`,
     {
       method: "PATCH",
       body: JSON.stringify({ updates: input.updates })

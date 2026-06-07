@@ -16,7 +16,7 @@ from playscript_agent.api.schemas import (
     ResourceRequest,
     SpellSlotRequest,
 )
-from playscript_agent.api.services import combat_service
+from playscript_agent.api.services import adventure_service, combat_service
 from playscript_agent.api.services.game_state import Principal, get_store
 
 
@@ -35,6 +35,12 @@ def _raise_http(error: Exception) -> None:
 def start_combat(request: CombatStartRequest, principal: Principal = Depends(get_principal)) -> dict:
     store = get_store(principal.session_id)
     try:
+        if request.sceneId:
+            adventure_service.prepare_combat_scene(
+                session_id=principal.session_id,
+                scene_id=request.sceneId,
+                user_id=principal.user_id,
+            )
         combat = combat_service.start_combat(request.participantIds, user_id=principal.user_id)
     except Exception as error:
         _raise_http(error)
