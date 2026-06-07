@@ -12,6 +12,7 @@ type ExplorationSceneProps = {
 export function ExplorationScene({ state, currentUser, onStateChange, onSend }: ExplorationSceneProps) {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const visibleCharacters = useMemo(() => explorationCharacters(state), [state]);
   const currentDialogue = [...state.events].reverse().find((event) => event.type === "dm" || event.type === "player");
   const recentDialogue = state.events.filter((event) => event.type === "dm" || event.type === "player").slice(-5);
@@ -22,9 +23,12 @@ export function ExplorationScene({ state, currentUser, onStateChange, onSend }: 
     const text = message.trim();
     if (!text) return;
     setIsSending(true);
+    setSendError(null);
     try {
       await onSend(text);
       setMessage("");
+    } catch (error) {
+      setSendError(error instanceof Error ? error.message : "发送失败");
     } finally {
       setIsSending(false);
     }
@@ -63,6 +67,7 @@ export function ExplorationScene({ state, currentUser, onStateChange, onSend }: 
               </div>
               <p>{currentDialogue?.text || "队伍在旅途中短暂停下，等待下一步行动。"}</p>
               <form className="dialogue-form" onSubmit={handleSubmit}>
+                {sendError ? <p className="chat-error">{sendError}</p> : null}
                 <input
                   autoComplete="off"
                   name="message"

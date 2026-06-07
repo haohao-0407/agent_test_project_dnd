@@ -285,7 +285,7 @@ def generate_opening_narration(
     party: list[dict[str, str]],
     module_name: str,
 ) -> str:
-    excerpt = _opening_excerpt_from_text(module_text)
+    intro_excerpt = _module_intro_excerpt_from_text(module_text)
     scene_prompt = str(scene.get("scenePrompt") or scene.get("openingText") or "")
     try:
         llm = get_llm("dm")
@@ -293,11 +293,12 @@ def generate_opening_narration(
             [
                 (
                     "system",
-                    "You are a Chinese DND Dungeon Master opening an adventure in exploration mode. "
-                    "Write an original opening narration for this specific party. "
-                    "Follow the module facts and scene prompt, but do not copy fixed boxed text verbatim. "
+                    "You are a Chinese DND Dungeon Master beginning a published adventure in exploration mode. "
+                    "First introduce the adventure according to the DM guidance, module introduction, background, overview, and adventure hook. "
+                    "Do not jump directly into the first encounter, battle map, dead horses, ambush, or tactical scene. "
+                    "Frame why the party is together, what their patron or hook asks of them, and invite players to introduce their characters, relationships, marching order, and motivations. "
                     "Use the characters' race/class/background details when they naturally color the moment. "
-                    "Do not start combat yet; end by inviting players to choose their marching order, investigate, talk, or act. "
+                    "Do not start combat yet; end with a clear prompt for character introductions and how they accept or personalize the adventure hook. "
                     "Keep it vivid, concise, and player-facing. Do not mention JSON, tools, or hidden notes.",
                 ),
                 (
@@ -309,11 +310,11 @@ def generate_opening_narration(
                             "explorationScene": {
                                 "id": scene.get("explorationSceneId"),
                                 "name": scene.get("explorationSceneName"),
-                                "prompt": scene_prompt,
+                                "laterScenePromptDoNotNarrateYet": scene_prompt,
                                 "backgroundUrl": scene.get("backgroundUrl"),
                                 "linkedCombatSceneId": scene.get("combatSceneId"),
                             },
-                            "moduleExcerpt": excerpt,
+                            "moduleIntroAndDmGuidanceExcerpt": intro_excerpt,
                         },
                         ensure_ascii=False,
                     ),
@@ -467,6 +468,20 @@ def _opening_excerpt_from_text(text: str) -> str:
     return text[start:end].strip()[:6000]
 
 
+def _module_intro_excerpt_from_text(text: str) -> str:
+    end = text.find("# 地精箭矢")
+    if end < 0:
+        end = text.find("### 地精伏击")
+    if end < 0:
+        end = min(len(text), 8000)
+    intro = text[:end].strip()
+    if len(intro) > 8000:
+        background = text.find("### 背景")
+        if background >= 0 and background < end:
+            intro = text[:2500] + "\n\n" + text[background:end]
+    return intro.strip()[:8000]
+
+
 def _extract_json(content: str) -> str:
     stripped = content.strip()
     if stripped.startswith("```"):
@@ -480,8 +495,6 @@ def _fallback_opening_narration(*, scene: dict[str, Any], party: list[dict[str, 
     party_names = "、".join(character["name"] for character in party if character.get("name"))
     if not party_names:
         party_names = "冒险者们"
-    scene_name = str(scene.get("explorationSceneName") or scene.get("map", {}).get("name") or "前路")
-    scene_prompt = str(scene.get("scenePrompt") or scene.get("openingText") or "").strip()
     party_detail = "；".join(
         " ".join(
             item
@@ -496,10 +509,12 @@ def _fallback_opening_narration(*, scene: dict[str, Any], party: list[dict[str, 
         for character in party
     )
     role_note = f"队伍中有 {party_detail}。" if party_detail else ""
-    prompt_note = scene_prompt or "道路前方出现了异常迹象，空气里有一丝紧绷。"
     return (
-        f"{party_names}来到{scene_name}。{role_note}"
-        f"{prompt_note} 现在，你们打算如何行进、观察或处理眼前的情况？"
+        f"{party_names}的故事从一份前往凡达林的委托开始。"
+        f"{role_note}矮人刚铎·寻岩者需要一支可靠队伍护送补给前往边境小镇，"
+        "而他对自己新发现的秘密显得兴奋又谨慎。"
+        "在启程前，请介绍你们的角色、你们如何认识刚铎，"
+        "以及你们为什么愿意接下这趟看似普通却暗藏风险的旅程。"
     )
 
 

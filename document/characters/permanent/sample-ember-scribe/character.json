@@ -1,0 +1,225 @@
+{
+  "id": "sample-ember-scribe",
+  "ownerUserId": "library",
+  "name": "塞芙拉·余烬墨",
+  "playerName": "示例角色",
+  "class": "Wizard 2",
+  "classes": [
+    {
+      "name": "Wizard",
+      "subclass": "",
+      "level": 2,
+      "hitDie": "d6"
+    }
+  ],
+  "level": 2,
+  "race": "High Elf",
+  "background": "Sage",
+  "alignment": "Neutral Good",
+  "experience": 300,
+  "proficiencyBonus": 2,
+  "hp": {
+    "current": 12,
+    "max": 12,
+    "temp": 0
+  },
+  "hitDice": [
+    {
+      "die": "d6",
+      "max": 2,
+      "current": 2
+    }
+  ],
+  "ac": 12,
+  "initiative": 2,
+  "speed": 30,
+  "attributes": {
+    "STR": 8,
+    "DEX": 14,
+    "CON": 14,
+    "INT": 16,
+    "WIS": 12,
+    "CHA": 10
+  },
+  "abilities": {
+    "INT": {
+      "saveProficient": true
+    },
+    "WIS": {
+      "saveProficient": true
+    }
+  },
+  "savingThrows": [
+    "INT",
+    "WIS"
+  ],
+  "skills": [
+    "Arcana",
+    "History",
+    "Investigation",
+    "Religion"
+  ],
+  "skillDetails": [
+    "Arcana +5",
+    "History +5",
+    "Investigation +5",
+    "Religion +5"
+  ],
+  "attacks": [
+    "Fire Bolt +5, 1d10 fire, range 120",
+    "Dagger +4, 1d4+2 piercing"
+  ],
+  "attackDetails": [
+    {
+      "name": "Fire Bolt",
+      "ability": "INT",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d10",
+      "damageAbility": false,
+      "extraDamageBonus": 0,
+      "damageType": "fire",
+      "range": "120 ft.",
+      "notes": "Cantrip spell attack"
+    },
+    {
+      "name": "Dagger",
+      "ability": "DEX",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d4",
+      "damageAbility": true,
+      "extraDamageBonus": 0,
+      "damageType": "piercing",
+      "range": "5 ft. or 20/60 ft.",
+      "notes": "Finesse, light, thrown"
+    }
+  ],
+  "actions": [
+    "Arcane Recovery",
+    "Ritual Casting"
+  ],
+  "actionDetails": [
+    {
+      "name": "Arcane Recovery",
+      "cost": "Short Rest",
+      "description": "Recover expended spell slots with combined levels up to 1."
+    },
+    {
+      "name": "Ritual Casting",
+      "cost": "Special",
+      "description": "Cast wizard ritual spells from the spellbook without preparing them."
+    }
+  ],
+  "proficiencies": {
+    "armor": [],
+    "weapons": [
+      "Daggers",
+      "Darts",
+      "Slings",
+      "Quarterstaffs",
+      "Light crossbows",
+      "Longswords",
+      "Shortswords",
+      "Shortbows",
+      "Longbows"
+    ],
+    "tools": []
+  },
+  "languages": [
+    "Common",
+    "Elvish",
+    "Draconic",
+    "Infernal"
+  ],
+  "equipment": {
+    "items": [
+      "Spellbook",
+      "Arcane focus",
+      "Dagger",
+      "Scholar's pack",
+      "Bottle of black sand"
+    ],
+    "attunedItems": [],
+    "carryingCapacity": 120
+  },
+  "currency": {
+    "cp": 0,
+    "sp": 3,
+    "ep": 0,
+    "gp": 34,
+    "pp": 0
+  },
+  "features": [
+    "Spellcasting",
+    "Arcane Recovery",
+    "Darkvision",
+    "Fey Ancestry"
+  ],
+  "featureDetails": [
+    {
+      "name": "Arcane Recovery",
+      "source": "Wizard",
+      "description": "Once per day after a short rest, recover expended spell slots."
+    },
+    {
+      "name": "Fey Ancestry",
+      "source": "Elf",
+      "description": "Advantage on saving throws against being charmed, and magic cannot put you to sleep."
+    }
+  ],
+  "spellcasting": {
+    "ability": "INT",
+    "saveDc": 13,
+    "attackBonus": 5,
+    "slots": {
+      "1": {
+        "max": 3,
+        "current": 3
+      }
+    },
+    "spellsKnown": [
+      "Fire Bolt",
+      "Mage Hand",
+      "Minor Illusion",
+      "Prestidigitation",
+      "Detect Magic",
+      "Identify",
+      "Mage Armor",
+      "Magic Missile",
+      "Shield",
+      "Sleep",
+      "Thunderwave"
+    ],
+    "spellsPrepared": [
+      "Mage Armor",
+      "Magic Missile",
+      "Shield",
+      "Sleep",
+      "Thunderwave"
+    ]
+  },
+  "resources": [
+    {
+      "name": "Arcane Recovery",
+      "max": 1,
+      "current": 1,
+      "reset": "Long Rest"
+    }
+  ],
+  "personality": {
+    "traits": "会把危险现象先命名再逃跑。",
+    "ideals": "知识。真相值得冒险，但不值得让同伴白白送命。",
+    "bonds": "正在寻找烧毁导师高塔的蓝色火焰来源。",
+    "flaws": "遇到古文字会短暂忘记周围还在战斗。"
+  },
+  "appearance": {
+    "age": "112",
+    "height": "5'7\"",
+    "weight": "120 lb.",
+    "eyes": "Amber",
+    "skin": "Pale",
+    "hair": "Silver"
+  },
+  "notes": "奥术控制和知识检定示例角色，带基础法术位和准备法术。"
+}

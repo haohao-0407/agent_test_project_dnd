@@ -10,15 +10,19 @@ type ChatPanelProps = {
 export function ChatPanel({ events, onSend }: ChatPanelProps) {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     const text = message.trim();
     if (!text) return;
     setIsSending(true);
+    setSendError(null);
     try {
       await onSend(text);
       setMessage("");
+    } catch (error) {
+      setSendError(error instanceof Error ? error.message : "发送失败");
     } finally {
       setIsSending(false);
     }
@@ -34,6 +38,7 @@ export function ChatPanel({ events, onSend }: ChatPanelProps) {
       </div>
       <EventLog events={events} />
       <form className="chat-form" onSubmit={handleSubmit}>
+        {sendError ? <p className="chat-error">{sendError}</p> : null}
         <input
           autoComplete="off"
           name="message"

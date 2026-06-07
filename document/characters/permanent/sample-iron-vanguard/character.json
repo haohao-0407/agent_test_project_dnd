@@ -1,0 +1,193 @@
+{
+  "id": "sample-iron-vanguard",
+  "ownerUserId": "library",
+  "name": "艾丹·铁誓",
+  "playerName": "示例角色",
+  "class": "Fighter 2",
+  "classes": [
+    {
+      "name": "Fighter",
+      "subclass": "",
+      "level": 2,
+      "hitDie": "d10"
+    }
+  ],
+  "level": 2,
+  "race": "Human",
+  "background": "Soldier",
+  "alignment": "Lawful Good",
+  "experience": 300,
+  "proficiencyBonus": 2,
+  "hp": {
+    "current": 20,
+    "max": 20,
+    "temp": 0
+  },
+  "hitDice": [
+    {
+      "die": "d10",
+      "max": 2,
+      "current": 2
+    }
+  ],
+  "ac": 18,
+  "initiative": 1,
+  "speed": 30,
+  "attributes": {
+    "STR": 16,
+    "DEX": 12,
+    "CON": 15,
+    "INT": 10,
+    "WIS": 11,
+    "CHA": 13
+  },
+  "abilities": {
+    "STR": {
+      "saveProficient": true
+    },
+    "CON": {
+      "saveProficient": true
+    }
+  },
+  "savingThrows": [
+    "STR",
+    "CON"
+  ],
+  "skills": [
+    "Athletics",
+    "Intimidation",
+    "Perception"
+  ],
+  "skillDetails": [
+    "Athletics +5",
+    "Intimidation +3",
+    "Perception +2"
+  ],
+  "attacks": [
+    "Longsword +5, 1d8+3 slashing",
+    "Javelin +5, 1d6+3 piercing, range 30/120"
+  ],
+  "attackDetails": [
+    {
+      "name": "Longsword",
+      "ability": "STR",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d8",
+      "damageAbility": true,
+      "extraDamageBonus": 0,
+      "damageType": "slashing",
+      "range": "5 ft.",
+      "notes": "Versatile 1d10"
+    },
+    {
+      "name": "Javelin",
+      "ability": "STR",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d6",
+      "damageAbility": true,
+      "extraDamageBonus": 0,
+      "damageType": "piercing",
+      "range": "30/120 ft.",
+      "notes": "Thrown"
+    }
+  ],
+  "actions": [
+    "Second Wind",
+    "Action Surge"
+  ],
+  "actionDetails": [
+    {
+      "name": "Second Wind",
+      "cost": "Bonus Action",
+      "description": "Regain 1d10+2 hit points once per short rest."
+    },
+    {
+      "name": "Action Surge",
+      "cost": "Free",
+      "description": "Take one additional action on your turn once per short rest."
+    }
+  ],
+  "proficiencies": {
+    "armor": [
+      "All armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Martial weapons"
+    ],
+    "tools": [
+      "Dice set",
+      "Vehicles (land)"
+    ]
+  },
+  "languages": [
+    "Common"
+  ],
+  "equipment": {
+    "items": [
+      "Chain mail",
+      "Shield",
+      "Longsword",
+      "4 javelins",
+      "Explorer's pack"
+    ],
+    "attunedItems": [],
+    "carryingCapacity": 240
+  },
+  "currency": {
+    "cp": 0,
+    "sp": 5,
+    "ep": 0,
+    "gp": 18,
+    "pp": 0
+  },
+  "features": [
+    "Fighting Style: Defense",
+    "Second Wind",
+    "Action Surge"
+  ],
+  "featureDetails": [
+    {
+      "name": "Fighting Style: Defense",
+      "source": "Fighter",
+      "description": "While wearing armor, gain a +1 bonus to AC."
+    },
+    {
+      "name": "Second Wind",
+      "source": "Fighter",
+      "description": "Regain hit points equal to 1d10 + fighter level once per short rest."
+    }
+  ],
+  "resources": [
+    {
+      "name": "Second Wind",
+      "max": 1,
+      "current": 1,
+      "reset": "Short Rest"
+    },
+    {
+      "name": "Action Surge",
+      "max": 1,
+      "current": 1,
+      "reset": "Short Rest"
+    }
+  ],
+  "personality": {
+    "traits": "说话简短，习惯先确认撤退路线。",
+    "ideals": "守护。强者的第一责任是挡在别人前面。",
+    "bonds": "仍佩戴阵亡小队长留下的铁戒。",
+    "flaws": "面对求援很难拒绝，即使明显是陷阱。"
+  },
+  "appearance": {
+    "age": "31",
+    "height": "6'1\"",
+    "weight": "205 lb.",
+    "eyes": "Gray",
+    "skin": "Tan",
+    "hair": "Black"
+  },
+  "notes": "前排防御型示例角色，适合快速导入为队伍坦克。"
+}

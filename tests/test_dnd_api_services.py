@@ -595,6 +595,23 @@ def test_chat_reuses_rule_context_in_tool_narration_prompt(monkeypatch):
     assert '"class": "Wizard 3"' in narration_prompt
 
 
+def test_player_roll_tool_call_coerces_unowned_roller_to_owned_character():
+    result = chat_service.execute_tool_call(
+        {
+            "name": "roll_dice",
+            "arguments": {
+                "expression": "1d20+1",
+                "reason": "ability check",
+                "roller_id": "DM",
+                "advantage": "normal",
+            },
+        },
+        user_id="player-kael",
+    )
+
+    assert result["result"]["rollerId"] == "kael"
+
+
 def test_map_repository_migrates_legacy_map_to_layered_map():
     from playscript_agent.api.services import map_repository
 
@@ -637,19 +654,40 @@ def test_combat_start_end_turn_and_damage(monkeypatch):
     assert result["character"]["hp"]["current"] == 4
 
 
-def test_combat_advances_monster_turns_to_next_player(monkeypatch):
-    from playscript_agent.api.services import combat_service
-
+def test_combat_uses_agent_for_monster_turns_before_next_player(monkeypatch):
     monkeypatch.setattr("playscript_agent.api.services.game_state.random.randint", lambda low, high: 10)
+    fake_dm = FakeDmModel(
+        [
+            FakeMessage(
+                content="地精趁势挥刀，逼得 Kael 后退半步。",
+                tool_calls=[
+                    {
+                        "name": "apply_damage",
+                        "args": {"target_id": "kael", "amount": 3, "damage_type": "slashing"},
+                    },
+                    {
+                        "name": "end_turn",
+                        "args": {"actor_id": "goblin-1"},
+                    },
+                ],
+            )
+        ]
+    )
+    monkeypatch.setattr(chat_service, "get_llm", lambda role: fake_dm)
+    monkeypatch.setattr(chat_service, "_build_rule_context", lambda message, *, user_id: "")
     game_state.start_combat(["goblin-1", "kael"], user_id="dm")
 
     assert game_state.current_combat_actor_id() == "goblin-1"
 
-    combat = combat_service.advance_to_player_turn(user_id="player-kael")
+    combat = chat_service.advance_to_player_turn(user_id="player-kael")
+    kael = game_state.find_character("kael")
 
     assert combat["turnState"]["kael"]["actorId"] == "kael"
     assert game_state.current_combat_actor_id() == "kael"
-    assert "DM control" in game_state.snapshot()["events"][-1]["text"]
+    assert kael["hp"]["current"] == 21
+    assert game_state.snapshot()["events"][-1]["text"] == "地精趁势挥刀，逼得 Kael 后退半步。"
+    prompt_text = "\n".join(part for _, part in fake_dm.messages[0])
+    assert "Current monster actor_id: goblin-1" in prompt_text
 
 
 def test_player_reaction_pending_requires_actor_control():

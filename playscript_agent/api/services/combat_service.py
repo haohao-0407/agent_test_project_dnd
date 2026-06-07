@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from typing import Any
 
 from playscript_agent.api.services import dice_service
@@ -37,7 +38,7 @@ def end_turn(actor_id: str | None = None, *, user_id: str) -> dict[str, Any]:
         {
             "type": "system",
             "speaker": "Combat",
-            "text": f"Turn advanced to {combat['turnState'].get('actorId', 'unknown')}.",
+            "text": f"Turn advanced to {_current_turn_actor(combat)}.",
         }
     )
     return combat
@@ -49,13 +50,17 @@ def advance_turn(*, user_id: str) -> dict[str, Any]:
         {
             "type": "system",
             "speaker": "Combat",
-            "text": f"Turn advanced to {combat['turnState'].get('actorId', 'unknown')}.",
+            "text": f"Turn advanced to {_current_turn_actor(combat)}.",
         }
     )
     return combat
 
 
-def advance_to_player_turn(*, user_id: str) -> dict[str, Any]:
+def advance_to_player_turn(
+    *,
+    user_id: str,
+    monster_turn_runner: Callable[[str], None] | None = None,
+) -> dict[str, Any]:
     combat = game_state.snapshot()["combat"]
     if not combat.get("active"):
         raise ValueError("combat is not active")
@@ -67,14 +72,20 @@ def advance_to_player_turn(*, user_id: str) -> dict[str, Any]:
         token = _token_for_actor(actor_id)
         if token is None or token.get("kind") == "player":
             break
-        game_state.append_event(
-            {
-                "type": "dm",
-                "speaker": "DM",
-                "text": f"{token['name']} takes its turn under DM control.",
-            }
-        )
-        combat = game_state.advance_turn(user_id="dm")
+        if monster_turn_runner is None:
+            game_state.append_event(
+                {
+                    "type": "dm",
+                    "speaker": "DM",
+                    "text": f"{token['name']} takes its turn under DM control.",
+                }
+            )
+            combat = game_state.advance_turn(user_id="dm")
+        else:
+            monster_turn_runner(actor_id)
+            combat = game_state.snapshot()["combat"]
+            if combat.get("active") and game_state.current_combat_actor_id() == actor_id:
+                combat = game_state.advance_turn(user_id="dm")
         steps += 1
 
     return combat
@@ -341,3 +352,8 @@ def _token_for_actor(actor_id: str) -> dict[str, Any] | None:
         if str(token.get("actorId", token["id"])).strip().lower() == normalized:
             return token
     return None
+
+
+def _current_turn_actor(combat: dict[str, Any]) -> str:
+    turn_state = next(iter(combat.get("turnState", {}).values()), {})
+    return str(turn_state.get("actorId") or "unknown")

@@ -16,7 +16,7 @@ from playscript_agent.api.schemas import (
     ResourceRequest,
     SpellSlotRequest,
 )
-from playscript_agent.api.services import adventure_service, combat_service
+from playscript_agent.api.services import adventure_service, chat_service, combat_service
 from playscript_agent.api.services.game_state import Principal, get_store
 
 
@@ -81,7 +81,7 @@ def advance_turn(request: CombatTurnRequest, principal: Principal = Depends(get_
 def advance_to_player_turn(request: CombatTurnRequest, principal: Principal = Depends(get_principal)) -> dict:
     store = get_store(principal.session_id)
     try:
-        combat = combat_service.advance_to_player_turn(user_id=principal.user_id)
+        combat = chat_service.advance_to_player_turn(user_id=principal.user_id)
     except Exception as error:
         _raise_http(error)
     return {"combat": combat, "state": store.snapshot()}

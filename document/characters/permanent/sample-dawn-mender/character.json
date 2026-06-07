@@ -1,0 +1,233 @@
+{
+  "id": "sample-dawn-mender",
+  "ownerUserId": "library",
+  "name": "布罗姆·晨砧",
+  "playerName": "示例角色",
+  "class": "Cleric 2",
+  "classes": [
+    {
+      "name": "Cleric",
+      "subclass": "Life Domain",
+      "level": 2,
+      "hitDie": "d8"
+    }
+  ],
+  "level": 2,
+  "race": "Hill Dwarf",
+  "background": "Acolyte",
+  "alignment": "Neutral Good",
+  "experience": 300,
+  "proficiencyBonus": 2,
+  "hp": {
+    "current": 19,
+    "max": 19,
+    "temp": 0
+  },
+  "hitDice": [
+    {
+      "die": "d8",
+      "max": 2,
+      "current": 2
+    }
+  ],
+  "ac": 18,
+  "initiative": 0,
+  "speed": 25,
+  "attributes": {
+    "STR": 14,
+    "DEX": 10,
+    "CON": 16,
+    "INT": 10,
+    "WIS": 16,
+    "CHA": 12
+  },
+  "abilities": {
+    "WIS": {
+      "saveProficient": true
+    },
+    "CHA": {
+      "saveProficient": true
+    }
+  },
+  "savingThrows": [
+    "WIS",
+    "CHA"
+  ],
+  "skills": [
+    "Insight",
+    "Medicine",
+    "Religion",
+    "Persuasion"
+  ],
+  "skillDetails": [
+    "Insight +5",
+    "Medicine +5",
+    "Religion +2",
+    "Persuasion +3"
+  ],
+  "attacks": [
+    "Warhammer +4, 1d8+2 bludgeoning",
+    "Sacred Flame, DC 13 DEX, 1d8 radiant"
+  ],
+  "attackDetails": [
+    {
+      "name": "Warhammer",
+      "ability": "STR",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d8",
+      "damageAbility": true,
+      "extraDamageBonus": 0,
+      "damageType": "bludgeoning",
+      "range": "5 ft.",
+      "notes": "Versatile 1d10"
+    },
+    {
+      "name": "Sacred Flame",
+      "ability": "WIS",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d8",
+      "damageAbility": false,
+      "extraDamageBonus": 0,
+      "damageType": "radiant",
+      "range": "60 ft.",
+      "notes": "Target makes a Dexterity saving throw against spell save DC."
+    }
+  ],
+  "actions": [
+    "Channel Divinity: Preserve Life",
+    "Turn Undead"
+  ],
+  "actionDetails": [
+    {
+      "name": "Channel Divinity: Preserve Life",
+      "cost": "Action",
+      "description": "Distribute up to 10 hit points of healing among creatures within 30 feet."
+    },
+    {
+      "name": "Turn Undead",
+      "cost": "Action",
+      "description": "Undead within 30 feet must make a Wisdom save or be turned for 1 minute."
+    }
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Battleaxes",
+      "Handaxes",
+      "Light hammers",
+      "Warhammers"
+    ],
+    "tools": [
+      "Smith's tools"
+    ]
+  },
+  "languages": [
+    "Common",
+    "Dwarvish",
+    "Celestial"
+  ],
+  "equipment": {
+    "items": [
+      "Chain mail",
+      "Shield",
+      "Warhammer",
+      "Holy symbol",
+      "Priest's pack",
+      "Healer's kit"
+    ],
+    "attunedItems": [],
+    "carryingCapacity": 210
+  },
+  "currency": {
+    "cp": 4,
+    "sp": 11,
+    "ep": 0,
+    "gp": 26,
+    "pp": 0
+  },
+  "features": [
+    "Spellcasting",
+    "Divine Domain: Life",
+    "Disciple of Life",
+    "Channel Divinity",
+    "Dwarven Resilience"
+  ],
+  "featureDetails": [
+    {
+      "name": "Disciple of Life",
+      "source": "Life Domain",
+      "description": "Healing spells of 1st level or higher restore additional hit points equal to 2 + the spell's level."
+    },
+    {
+      "name": "Dwarven Resilience",
+      "source": "Dwarf",
+      "description": "Advantage on saving throws against poison and resistance to poison damage."
+    }
+  ],
+  "defenses": {
+    "resistances": [
+      "poison"
+    ],
+    "immunities": [],
+    "vulnerabilities": []
+  },
+  "spellcasting": {
+    "ability": "WIS",
+    "saveDc": 13,
+    "attackBonus": 5,
+    "slots": {
+      "1": {
+        "max": 3,
+        "current": 3
+      }
+    },
+    "spellsKnown": [
+      "Guidance",
+      "Sacred Flame",
+      "Spare the Dying",
+      "Bless",
+      "Cure Wounds",
+      "Healing Word",
+      "Sanctuary",
+      "Shield of Faith"
+    ],
+    "spellsPrepared": [
+      "Bless",
+      "Cure Wounds",
+      "Healing Word",
+      "Sanctuary",
+      "Shield of Faith"
+    ]
+  },
+  "resources": [
+    {
+      "name": "Channel Divinity",
+      "max": 1,
+      "current": 1,
+      "reset": "Short Rest"
+    }
+  ],
+  "personality": {
+    "traits": "先检查伤口，再判断谁该挨骂。",
+    "ideals": "怜悯。能救的人，就不要让他倒在黎明前。",
+    "bonds": "把一枚断裂圣徽当作最珍贵的护符。",
+    "flaws": "对亵渎亡者的行为几乎没有耐心。"
+  },
+  "appearance": {
+    "age": "86",
+    "height": "4'5\"",
+    "weight": "165 lb.",
+    "eyes": "Blue",
+    "skin": "Ruddy",
+    "hair": "Copper"
+  },
+  "notes": "治疗和辅助示例角色，适合给新队伍补足续航。"
+}

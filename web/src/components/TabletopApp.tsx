@@ -104,11 +104,19 @@ export function TabletopApp() {
   }
 
   async function handleSend(message: string) {
-    const response = await sendChat({
-      speaker: currentUser?.displayName || identity?.userId || "player",
-      message
-    });
-    setState(response.state);
+    try {
+      const response = await sendChat({
+        speaker: currentUser?.displayName || identity?.userId || "player",
+        message
+      });
+      setState(response.state);
+    } catch (apiError) {
+      if (apiError instanceof ApiError && apiError.status === 401) {
+        setIdentity(null);
+        setState(null);
+      }
+      throw apiError;
+    }
   }
 
   async function handleEditMapCell(x: number, y: number) {

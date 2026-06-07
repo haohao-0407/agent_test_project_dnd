@@ -1,0 +1,198 @@
+{
+  "id": "sample-moonlit-knife",
+  "ownerUserId": "library",
+  "name": "莉里·月缝",
+  "playerName": "示例角色",
+  "class": "Rogue 2",
+  "classes": [
+    {
+      "name": "Rogue",
+      "subclass": "",
+      "level": 2,
+      "hitDie": "d8"
+    }
+  ],
+  "level": 2,
+  "race": "Lightfoot Halfling",
+  "background": "Urchin",
+  "alignment": "Chaotic Good",
+  "experience": 300,
+  "proficiencyBonus": 2,
+  "hp": {
+    "current": 15,
+    "max": 15,
+    "temp": 0
+  },
+  "hitDice": [
+    {
+      "die": "d8",
+      "max": 2,
+      "current": 2
+    }
+  ],
+  "ac": 14,
+  "initiative": 3,
+  "speed": 25,
+  "attributes": {
+    "STR": 8,
+    "DEX": 17,
+    "CON": 14,
+    "INT": 13,
+    "WIS": 12,
+    "CHA": 10
+  },
+  "abilities": {
+    "DEX": {
+      "saveProficient": true
+    },
+    "INT": {
+      "saveProficient": true
+    }
+  },
+  "savingThrows": [
+    "DEX",
+    "INT"
+  ],
+  "skills": [
+    "Acrobatics",
+    "Investigation",
+    "Perception",
+    "Sleight of Hand",
+    "Stealth"
+  ],
+  "skillDetails": [
+    "Acrobatics +5",
+    "Investigation +3",
+    "Perception +3",
+    "Sleight of Hand +7 (Expertise)",
+    "Stealth +7 (Expertise)"
+  ],
+  "attacks": [
+    "Shortsword +5, 1d6+3 piercing",
+    "Shortbow +5, 1d6+3 piercing, range 80/320"
+  ],
+  "attackDetails": [
+    {
+      "name": "Shortsword",
+      "ability": "DEX",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d6",
+      "damageAbility": true,
+      "extraDamageBonus": 0,
+      "damageType": "piercing",
+      "range": "5 ft.",
+      "notes": "Finesse, light. Add Sneak Attack when applicable."
+    },
+    {
+      "name": "Shortbow",
+      "ability": "DEX",
+      "proficient": true,
+      "extraAttackBonus": 0,
+      "damageDice": "1d6",
+      "damageAbility": true,
+      "extraDamageBonus": 0,
+      "damageType": "piercing",
+      "range": "80/320 ft.",
+      "notes": "Two-handed. Add Sneak Attack when applicable."
+    }
+  ],
+  "actions": [
+    "Sneak Attack",
+    "Cunning Action"
+  ],
+  "actionDetails": [
+    {
+      "name": "Sneak Attack",
+      "cost": "Once per turn",
+      "description": "Deal an extra 1d6 damage when you have advantage or an ally threatens the target."
+    },
+    {
+      "name": "Cunning Action",
+      "cost": "Bonus Action",
+      "description": "Dash, Disengage, or Hide as a bonus action."
+    }
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor"
+    ],
+    "weapons": [
+      "Simple weapons",
+      "Hand crossbows",
+      "Longswords",
+      "Rapiers",
+      "Shortswords"
+    ],
+    "tools": [
+      "Thieves' tools",
+      "Disguise kit"
+    ]
+  },
+  "languages": [
+    "Common",
+    "Halfling",
+    "Thieves' Cant"
+  ],
+  "equipment": {
+    "items": [
+      "Leather armor",
+      "Shortsword",
+      "Shortbow",
+      "20 arrows",
+      "Thieves' tools",
+      "Small lucky charm"
+    ],
+    "attunedItems": [],
+    "carryingCapacity": 120
+  },
+  "currency": {
+    "cp": 12,
+    "sp": 8,
+    "ep": 0,
+    "gp": 21,
+    "pp": 0
+  },
+  "features": [
+    "Sneak Attack",
+    "Cunning Action",
+    "Lucky",
+    "Brave",
+    "Halfling Nimbleness"
+  ],
+  "featureDetails": [
+    {
+      "name": "Sneak Attack",
+      "source": "Rogue",
+      "description": "Extra 1d6 damage once per turn when conditions are met."
+    },
+    {
+      "name": "Lucky",
+      "source": "Halfling",
+      "description": "Reroll a d20 roll of 1 for an attack roll, ability check, or saving throw."
+    }
+  ],
+  "resources": [
+    {
+      "name": "Sneak Attack",
+      "max": 1,
+      "current": 1,
+      "reset": "Turn"
+    }
+  ],
+  "personality": {
+    "traits": "总在笑，越紧张笑得越灿烂。",
+    "ideals": "自由。没有人该被锁链、债务或恐惧困住。",
+    "bonds": "欠下城东孤儿院一笔永远还不完的人情。",
+    "flaws": "看见上锁的门就很难不手痒。"
+  },
+  "appearance": {
+    "age": "24",
+    "height": "3'1\"",
+    "weight": "38 lb.",
+    "eyes": "Hazel",
+    "skin": "Warm brown",
+    "hair": "Auburn"
+  },
+  "notes": "潜行、侦查和机关处理示例角色，适合城市或地城冒险。"
+}

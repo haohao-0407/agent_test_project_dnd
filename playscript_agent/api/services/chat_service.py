@@ -344,6 +344,35 @@ TOKEN_ALIASES = {
     "wolf": "wolf-1",
 }
 
+MONSTER_TURN_PROMPT = """It is the current monster's turn in tactical combat.
+Control only that monster for this turn. Choose sensible DND 5e actions from current_state.
+Prefer resolve_attack when a player character is a plausible target; otherwise move the monster or use another legal combat tool.
+Do not start or end combat from a monster turn.
+Always finish the monster turn with end_turn for the current monster."""
+
+MONSTER_TURN_TOOLS = {
+    "move_token",
+    "roll_dice",
+    "end_turn",
+    "apply_damage",
+    "apply_healing",
+    "apply_condition",
+    "remove_condition",
+    "spend_resource",
+    "restore_resource",
+    "resolve_attack",
+    "resolve_saving_throw",
+    "resolve_skill_check",
+    "open_reaction_window",
+    "resolve_reaction",
+    "decline_reaction",
+}
+
+ATTACK_PATTERN = re.compile(
+    r"(?P<name>.*?)\s+(?P<bonus>[+-]\d+)\s+(?P<damage>\d+d\d+(?:[+-]\d+)?)",
+    flags=re.IGNORECASE,
+)
+
 
 def handle_chat(
     message: str,
@@ -385,6 +414,97 @@ def handle_chat(
         "pendingActions": snapshot.get("pendingActions", []),
         "state": snapshot,
     }
+
+
+def advance_to_player_turn(*, user_id: str) -> dict[str, Any]:
+    return combat_service.advance_to_player_turn(
+        user_id=user_id,
+        monster_turn_runner=_run_monster_agent_turn,
+    )
+
+
+def _run_monster_agent_turn(actor_id: str) -> None:
+    token = _token_for_actor(actor_id)
+    actor_name = token.get("name", actor_id) if token else actor_id
+    game_state.append_event(
+        {
+            "type": "dm",
+            "speaker": "DM",
+            "text": f"{actor_name} 开始由 DM agent 执行回合。",
+        }
+    )
+    dm_plan = _plan_monster_turn(actor_id)
+    tool_results: list[dict[str, Any]] = []
+    for tool_call in dm_plan["tool_calls"]:
+        if not _is_current_actor_turn(actor_id):
+            break
+        tool_results.append(execute_tool_call(tool_call, user_id="dm"))
+
+    if _is_current_actor_turn(actor_id):
+        tool_results.append(
+            execute_tool_call(
+                {"name": "end_turn", "arguments": {"actor_id": actor_id}},
+                user_id="dm",
+            )
+        )
+
+    dm_text = dm_plan["content"].strip() or build_result_message(tool_results)
+    game_state.append_event(
+        {
+            "type": "dm",
+            "speaker": "DM",
+            "text": dm_text,
+        }
+    )
+
+
+def _plan_monster_turn(actor_id: str) -> DmPlan:
+    try:
+        rule_context = _build_rule_context(f"{actor_id} monster combat turn", user_id="dm")
+        llm = get_llm("dm")
+        tool_bound_llm = llm.bind_tools(DM_TOOL_SCHEMAS)
+        response = tool_bound_llm.invoke(
+            _build_monster_turn_messages(
+                actor_id,
+                rule_context=rule_context,
+            )
+        )
+        tool_calls = _filter_monster_turn_tool_calls(
+            _extract_tool_calls(response, user_id="dm"),
+            actor_id=actor_id,
+        )
+        if not tool_calls:
+            tool_calls = _fallback_monster_turn_tool_calls(actor_id)
+        return {
+            "tool_calls": tool_calls,
+            "content": _extract_content(response),
+            "source": "llm",
+            "rule_context": rule_context,
+        }
+    except Exception:
+        return {
+            "tool_calls": _fallback_monster_turn_tool_calls(actor_id),
+            "content": "",
+            "source": "fallback",
+            "rule_context": "",
+        }
+
+
+def _build_monster_turn_messages(actor_id: str, *, rule_context: str = "") -> list[tuple[str, str]]:
+    messages = [
+        ("system", DM_SYSTEM_PROMPT),
+        ("system", MONSTER_TURN_PROMPT),
+        ("system", _build_state_context(user_id="dm")),
+    ]
+    if rule_context:
+        messages.append(("system", rule_context))
+    messages.append(
+        (
+            "human",
+            f"Current monster actor_id: {actor_id}\nResolve this monster turn with tool calls.",
+        )
+    )
+    return messages
 
 
 def plan_dm_turn(message: str, *, speaker: str, user_id: str = "player-kael") -> DmPlan:
@@ -464,12 +584,7 @@ def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dic
         )
         return {"name": name, "result": {"token": token}}
     if name == "roll_dice":
-        roller_id = arguments.get("roller_id")
-        if user_id is not None and not game_state.can_roll_for_actor(
-            user_id,
-            str(roller_id) if roller_id is not None else None,
-        ):
-            raise PermissionError(f"user {user_id} cannot roll for {roller_id}")
+        roller_id = _safe_roller_id(arguments.get("roller_id"), user_id=user_id)
         result = dice_service.roll_and_record(
             str(arguments["expression"]),
             reason=str(arguments.get("reason", "chat roll")),
@@ -733,6 +848,11 @@ def build_result_message(tool_results: list[dict[str, Any]]) -> str:
             parts.append(f"{result['expression']} 结果为 {result['total']}")
         elif tool_result["name"] == "end_combat":
             parts.append("战斗结束，场景回到探索")
+        elif tool_result["name"] == "end_turn":
+            combat = tool_result["result"]["combat"]
+            turn_state = next(iter(combat.get("turnState", {}).values()), {})
+            actor_id = turn_state.get("actorId", "unknown")
+            parts.append(f"回合推进到 {actor_id}")
         elif tool_result["name"] == "apply_damage":
             result = tool_result["result"]
             character = result["character"]
@@ -767,6 +887,12 @@ def build_result_message(tool_results: list[dict[str, Any]]) -> str:
             character = result["character"]
             resource = result["resource"]
             parts.append(f"{character['name']} 恢复 {result['amount']} 点 {resource['name']}")
+        elif tool_result["name"] == "resolve_attack":
+            result = tool_result["result"]
+            parts.append(
+                f"{result['attackerId']} 攻击 {result['targetId']}："
+                f"{'命中' if result['hit'] else '未命中'}"
+            )
     return "；".join(parts) + "。" if parts else "行动已记录。"
 
 
@@ -915,9 +1041,10 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
             "arguments": {
                 "expression": str(expression),
                 "reason": str(arguments.get("reason", "chat roll")),
-                "roller_id": arguments.get("roller_id", arguments.get("rollerId"))
-                or game_state.character_id_for_user(user_id)
-                or user_id,
+                "roller_id": _safe_roller_id(
+                    arguments.get("roller_id", arguments.get("rollerId")),
+                    user_id=user_id,
+                ),
                 "advantage": str(arguments.get("advantage", "normal")),
             },
         }
@@ -945,6 +1072,151 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
     }:
         return {"name": name, "arguments": _snake_case_arguments(arguments)}
     return None
+
+
+def _filter_monster_turn_tool_calls(tool_calls: list[ToolCall], *, actor_id: str) -> list[ToolCall]:
+    filtered: list[ToolCall] = []
+    for tool_call in tool_calls:
+        name = tool_call["name"]
+        arguments = dict(tool_call["arguments"])
+        if name not in MONSTER_TURN_TOOLS:
+            continue
+        if name == "move_token":
+            token_id = arguments.get("token_id")
+            if token_id is None or not _matches_actor(str(token_id), actor_id):
+                continue
+            arguments["token_id"] = actor_id
+        elif name == "roll_dice":
+            roller_id = arguments.get("roller_id")
+            if roller_id is not None and not _matches_actor(str(roller_id), actor_id):
+                arguments["roller_id"] = actor_id
+            elif roller_id is None:
+                arguments["roller_id"] = actor_id
+        elif name == "end_turn":
+            requested_actor = arguments.get("actor_id")
+            if requested_actor is not None and not _matches_actor(str(requested_actor), actor_id):
+                continue
+            arguments["actor_id"] = actor_id
+        elif name == "resolve_attack":
+            if not _matches_actor(str(arguments.get("attacker_id", "")), actor_id):
+                continue
+            arguments["attacker_id"] = actor_id
+        elif name in {"resolve_saving_throw", "resolve_skill_check"}:
+            if not _matches_actor(str(arguments.get("actor_id", "")), actor_id):
+                continue
+            arguments["actor_id"] = actor_id
+        elif name in {"spend_resource", "restore_resource"}:
+            if not _matches_actor(str(arguments.get("character_id", "")), actor_id):
+                continue
+            arguments["character_id"] = actor_id
+        filtered.append({"name": name, "arguments": arguments})
+    if not any(tool_call["name"] == "end_turn" for tool_call in filtered):
+        filtered.append({"name": "end_turn", "arguments": {"actor_id": actor_id}})
+    return filtered
+
+
+def _fallback_monster_turn_tool_calls(actor_id: str) -> list[ToolCall]:
+    target_id = _nearest_living_player_actor_id(actor_id)
+    if not target_id:
+        return [{"name": "end_turn", "arguments": {"actor_id": actor_id}}]
+    attack = _first_attack(actor_id)
+    return [
+        {
+            "name": "resolve_attack",
+            "arguments": {
+                "attacker_id": actor_id,
+                "target_id": target_id,
+                "attack_bonus": attack["attack_bonus"],
+                "damage_expression": attack["damage_expression"],
+                "damage_type": attack["damage_type"],
+                "advantage": "normal",
+            },
+        },
+        {"name": "end_turn", "arguments": {"actor_id": actor_id}},
+    ]
+
+
+def _first_attack(actor_id: str) -> dict[str, Any]:
+    try:
+        character = game_state.find_character(actor_id)
+    except ValueError:
+        character = {}
+    attacks = character.get("attacks") or []
+    for attack in attacks:
+        match = ATTACK_PATTERN.search(str(attack))
+        if match:
+            return {
+                "attack_bonus": int(match.group("bonus")),
+                "damage_expression": match.group("damage"),
+                "damage_type": "untyped",
+            }
+    return {"attack_bonus": 0, "damage_expression": "1d4", "damage_type": "untyped"}
+
+
+def _nearest_living_player_actor_id(actor_id: str) -> str | None:
+    state = game_state.snapshot()
+    try:
+        actor_token = _token_for_actor(actor_id)
+    except Exception:
+        actor_token = None
+    player_tokens = [
+        token
+        for token in state["tokens"]
+        if token.get("kind") == "player" and _is_living_actor(str(token.get("actorId", token["id"])))
+    ]
+    if not player_tokens:
+        return None
+    if actor_token is None:
+        return str(player_tokens[0].get("actorId", player_tokens[0]["id"]))
+    target = min(
+        player_tokens,
+        key=lambda token: abs(int(token["x"]) - int(actor_token["x"])) + abs(int(token["y"]) - int(actor_token["y"])),
+    )
+    return str(target.get("actorId", target["id"]))
+
+
+def _is_living_actor(actor_id: str) -> bool:
+    try:
+        character = game_state.find_character(actor_id)
+    except ValueError:
+        return False
+    return int(character.get("hp", {}).get("current", 0)) > 0
+
+
+def _is_current_actor_turn(actor_id: str) -> bool:
+    state = game_state.snapshot()
+    return bool(state["combat"].get("active")) and _matches_actor(game_state.current_combat_actor_id(), actor_id)
+
+
+def _matches_actor(value: str, actor_id: str) -> bool:
+    normalized = _normalize_actor_ref(value)
+    actor_refs = {_normalize_actor_ref(actor_id)}
+    try:
+        token = _token_for_actor(actor_id)
+        actor_refs.update(
+            {
+                _normalize_actor_ref(str(token["id"])),
+                _normalize_actor_ref(str(token.get("actorId", token["id"]))),
+                _normalize_actor_ref(str(token.get("name", ""))),
+            }
+        )
+    except Exception:
+        pass
+    try:
+        character = game_state.find_character(actor_id)
+        actor_refs.update(
+            {
+                _normalize_actor_ref(str(character["id"])),
+                _normalize_actor_ref(str(character.get("name", ""))),
+            }
+        )
+    except ValueError:
+        pass
+    return normalized in actor_refs
+
+
+def _normalize_actor_ref(value: str) -> str:
+    return re.sub(r"\s+", "", _canonical_token(value).strip().lower())
 
 
 def _can_use_tactical_grid() -> bool:
@@ -1023,6 +1295,25 @@ def _plan_roll_call(message: str, *, speaker: str, user_id: str) -> ToolCall | N
 def _canonical_token(value: str) -> str:
     normalized = value.strip().lower()
     return TOKEN_ALIASES.get(value.strip(), TOKEN_ALIASES.get(normalized, normalized))
+
+
+def _token_for_actor(actor_id: str) -> dict[str, Any] | None:
+    try:
+        return game_state.actor_token(actor_id)
+    except ValueError:
+        return None
+
+
+def _safe_roller_id(value: Any, *, user_id: str | None) -> str | None:
+    requested = str(value).strip() if value is not None else ""
+    fallback = game_state.character_id_for_user(user_id) if user_id else None
+    if user_id is None:
+        return requested or fallback
+    if requested and game_state.can_roll_for_actor(user_id, requested):
+        return requested
+    if fallback and game_state.can_roll_for_actor(user_id, fallback):
+        return fallback
+    return user_id
 
 
 def _snake_case_arguments(arguments: dict[str, Any]) -> dict[str, Any]:
