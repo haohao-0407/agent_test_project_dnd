@@ -420,6 +420,15 @@ export type ToolCall =
       };
     }
   | {
+      name: "restore_action_economy";
+      arguments: {
+        actor_id: string;
+        action_type: string;
+        amount?: number;
+        reason?: string;
+      };
+    }
+  | {
       name: string;
       arguments: Record<string, unknown>;
     };
@@ -440,6 +449,10 @@ export type ToolResult =
   | {
       name: "spend_resource" | "restore_resource";
       result: { character: Character; amount: number; resource: CharacterResource };
+    }
+  | {
+      name: "restore_action_economy";
+      result: { actorId: string; actionType: string; amount: number; reason: string; turnState: TurnState };
     }
   | {
       name: string;

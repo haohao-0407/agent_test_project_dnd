@@ -403,6 +403,7 @@ def test_chat_uses_llm_dm_for_plain_dialogue(monkeypatch):
     assert "resolve_attack" in tool_names
     assert "spend_spell_slot" in tool_names
     assert "spend_resource" in tool_names
+    assert "restore_action_economy" in tool_names
     assert "edit_map_layer" in tool_names
     prompt_text = "\n".join(part for _, part in fake_dm.messages[0])
     assert '"class": "Wizard 3"' in prompt_text
@@ -518,6 +519,46 @@ def test_chat_uses_granular_llm_tools_for_spell_slots_and_resources(monkeypatch)
     assert [call["name"] for call in response["toolCalls"]] == ["spend_spell_slot", "spend_resource"]
     assert mira["spellcasting"]["slots"]["2"]["current"] == 0
     assert second_wind["current"] == 0
+
+
+def test_chat_llm_can_restore_action_economy(monkeypatch):
+    game_state.start_combat(["kael"], user_id="dm")
+    game_state.spend_action("kael", "action", user_id="player-kael")
+    fake_dm = FakeDmModel(
+        [
+            FakeMessage(
+                tool_calls=[
+                    {
+                        "name": "restore_action_economy",
+                        "args": {
+                            "actorId": "kael",
+                            "actionType": "action",
+                            "reason": "Action Surge",
+                        },
+                    }
+                ]
+            ),
+            FakeMessage(content="Kael 的动作如潮水般回到掌心。"),
+        ]
+    )
+    monkeypatch.setattr(chat_service, "get_llm", lambda role: fake_dm)
+    monkeypatch.setattr(chat_service, "_build_rule_context", lambda message, *, user_id: "")
+
+    response = chat_service.handle_chat("我使用 Action Surge", speaker="Kael Player", user_id="player-kael")
+    turn_state = response["state"]["combat"]["turnState"]["kael"]
+
+    assert response["toolCalls"] == [
+        {
+            "name": "restore_action_economy",
+            "arguments": {
+                "actor_id": "kael",
+                "action_type": "action",
+                "reason": "Action Surge",
+            },
+        }
+    ]
+    assert turn_state["actionAvailable"] is True
+    assert response["state"]["events"][-1]["text"] == "Kael 的动作如潮水般回到掌心。"
 
 
 def test_legacy_update_character_state_tool_call_is_ignored(monkeypatch):
@@ -748,6 +789,35 @@ def test_combat_start_end_turn_and_damage(monkeypatch):
 
     result = combat_service.apply_damage("goblin-1", 3, damage_type="slashing", user_id="dm")
     assert result["character"]["hp"]["current"] == 4
+
+
+def test_combat_restores_action_economy_and_movement():
+    from playscript_agent.api.services import combat_service
+
+    game_state.start_combat(["kael"], user_id="dm")
+    game_state.spend_action("kael", "action", user_id="player-kael")
+    map_service.move_token("kael", 3, 3, user_id="player-kael")
+
+    spent_state = game_state.snapshot()["combat"]["turnState"]["kael"]
+    assert spent_state["actionAvailable"] is False
+    assert spent_state["movementUsed"] == 5
+
+    action_result = combat_service.restore_action_economy(
+        "kael",
+        "action",
+        reason="Action Surge",
+        user_id="player-kael",
+    )
+    movement_result = combat_service.restore_action_economy(
+        "kael",
+        "movement",
+        amount=5,
+        reason="movement refund",
+        user_id="player-kael",
+    )
+
+    assert action_result["turnState"]["actionAvailable"] is True
+    assert movement_result["turnState"]["movementUsed"] == 0
 
 
 def test_combat_uses_agent_for_monster_turns_before_next_player(monkeypatch):

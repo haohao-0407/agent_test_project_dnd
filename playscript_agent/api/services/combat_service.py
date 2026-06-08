@@ -208,6 +208,37 @@ def restore_resource(character_id: str, resource_name: str, amount: int = 1, *, 
     return result
 
 
+def restore_action_economy(
+    actor_id: str,
+    action_type: str,
+    *,
+    amount: int = 0,
+    reason: str = "action recovery",
+    user_id: str,
+) -> dict[str, Any]:
+    turn_state = game_state.restore_action_economy(
+        actor_id,
+        action_type,
+        amount=amount,
+        user_id=user_id,
+    )
+    result = {
+        "actorId": actor_id,
+        "actionType": action_type,
+        "amount": amount,
+        "reason": reason,
+        "turnState": turn_state,
+    }
+    game_state.append_event(
+        {
+            "type": "system",
+            "speaker": "Combat",
+            "text": f"{actor_id} restores {action_type} ({reason}).",
+        }
+    )
+    return result
+
+
 def resolve_attack(
     attacker_id: str,
     target_id: str,

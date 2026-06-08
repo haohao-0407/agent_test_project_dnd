@@ -221,6 +221,23 @@ DM_TOOL_SCHEMAS.extend(
             },
         },
         {
+            "name": "restore_action_economy",
+            "description": "Restore a combat action economy slot or movement for the current turn, such as Action Surge, Haste, regaining a reaction, or refunded movement.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "actor_id": {"type": "string"},
+                    "action_type": {
+                        "type": "string",
+                        "enum": ["action", "bonus_action", "reaction", "object_interaction", "movement", "all"],
+                    },
+                    "amount": {"type": "integer", "minimum": 0, "description": "Movement feet to restore when action_type is movement. 0 restores all spent movement."},
+                    "reason": {"type": "string", "description": "Short rules reason, such as Action Surge, Haste, or reaction refresh."},
+                },
+                "required": ["actor_id", "action_type"],
+            },
+        },
+        {
             "name": "resolve_attack",
             "description": "Resolve a 5e attack roll, spend the attacker's action, and apply damage on hit.",
             "parameters": {
@@ -373,6 +390,7 @@ MONSTER_TURN_TOOLS = {
     "remove_condition",
     "spend_resource",
     "restore_resource",
+    "restore_action_economy",
     "resolve_attack",
     "resolve_saving_throw",
     "resolve_skill_check",
@@ -701,6 +719,15 @@ def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dic
             user_id=authority_user_id,
         )
         return {"name": name, "result": result}
+    if name == "restore_action_economy":
+        result = combat_service.restore_action_economy(
+            _canonical_token(str(arguments["actor_id"])),
+            str(arguments["action_type"]),
+            amount=int(arguments.get("amount", 0)),
+            reason=str(arguments.get("reason", "action recovery")),
+            user_id=authority_user_id,
+        )
+        return {"name": name, "result": result}
     if name == "resolve_attack":
         result = combat_service.resolve_attack(
             str(arguments["attacker_id"]),
@@ -780,6 +807,7 @@ DM_AUTHORITY_TOOLS = {
     "restore_spell_slot",
     "spend_resource",
     "restore_resource",
+    "restore_action_economy",
     "open_reaction_window",
     "resolve_reaction",
     "decline_reaction",
@@ -917,6 +945,9 @@ def build_result_message(tool_results: list[dict[str, Any]]) -> str:
             character = result["character"]
             resource = result["resource"]
             parts.append(f"{character['name']} 恢复 {result['amount']} 点 {resource['name']}")
+        elif tool_result["name"] == "restore_action_economy":
+            result = tool_result["result"]
+            parts.append(f"{result['actorId']} 恢复 {result['actionType']}")
         elif tool_result["name"] == "resolve_attack":
             result = tool_result["result"]
             parts.append(
@@ -1092,6 +1123,7 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
         "restore_spell_slot",
         "spend_resource",
         "restore_resource",
+        "restore_action_economy",
         "resolve_attack",
         "resolve_saving_throw",
         "resolve_skill_check",
@@ -1140,6 +1172,10 @@ def _filter_monster_turn_tool_calls(tool_calls: list[ToolCall], *, actor_id: str
             if not _matches_actor(str(arguments.get("character_id", "")), actor_id):
                 continue
             arguments["character_id"] = actor_id
+        elif name == "restore_action_economy":
+            if not _matches_actor(str(arguments.get("actor_id", "")), actor_id):
+                continue
+            arguments["actor_id"] = actor_id
         filtered.append({"name": name, "arguments": arguments})
     if not any(tool_call["name"] == "end_turn" for tool_call in filtered):
         filtered.append({"name": "end_turn", "arguments": {"actor_id": actor_id}})
@@ -1359,6 +1395,7 @@ def _snake_case_arguments(arguments: dict[str, Any]) -> dict[str, Any]:
         "damageExpression": "damage_expression",
         "damageType": "damage_type",
         "resourceName": "resource_name",
+        "actionType": "action_type",
         "slotLevel": "level",
         "spellLevel": "level",
         "windowId": "window_id",

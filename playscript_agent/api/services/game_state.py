@@ -4,6 +4,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 import random
+import re
 import secrets
 from threading import RLock
 from typing import Any
@@ -112,6 +113,27 @@ def default_turn_state(actor_id: str) -> dict[str, Any]:
         "movementUsed": 0,
         "movementMax": 30,
     }
+
+
+ACTION_ECONOMY_KEYS = {
+    "action": "actionAvailable",
+    "bonus_action": "bonusActionAvailable",
+    "reaction": "reactionAvailable",
+    "object_interaction": "objectInteractionAvailable",
+}
+
+
+ACTION_ECONOMY_ALIASES = {
+    "bonus": "bonus_action",
+    "bonusaction": "bonus_action",
+    "bonus action": "bonus_action",
+    "object": "object_interaction",
+    "interaction": "object_interaction",
+    "object interaction": "object_interaction",
+    "free_object_interaction": "object_interaction",
+    "move": "movement",
+    "speed": "movement",
+}
 
 
 def blank_spell_slots() -> dict[str, dict[str, int]]:
@@ -871,17 +893,41 @@ class GameStateStore:
             if not self.is_dm(user_id):
                 self.assert_can_control_actor(user_id, actor_id)
             turn_state = self._require_turn_state(actor_id)
-            key = {
-                "action": "actionAvailable",
-                "bonus_action": "bonusActionAvailable",
-                "reaction": "reactionAvailable",
-                "object_interaction": "objectInteractionAvailable",
-            }.get(action_type)
+            normalized_action = normalize_action_economy_type(action_type)
+            key = ACTION_ECONOMY_KEYS.get(normalized_action)
             if key is None:
                 raise ValueError(f"unknown action type: {action_type}")
             if not turn_state[key]:
                 raise ValueError(f"{actor_id} has already spent {action_type}")
             turn_state[key] = False
+            return deepcopy(turn_state)
+
+    def restore_action_economy(
+        self,
+        actor_id: str,
+        action_type: str,
+        *,
+        amount: int = 0,
+        user_id: str,
+    ) -> dict[str, Any]:
+        with self._lock:
+            if not self.is_dm(user_id):
+                self.assert_can_control_actor(user_id, actor_id)
+            turn_state = self._require_turn_state(actor_id)
+            normalized_action = normalize_action_economy_type(action_type)
+            if normalized_action == "all":
+                for key in ACTION_ECONOMY_KEYS.values():
+                    turn_state[key] = True
+                turn_state["movementUsed"] = 0
+                return deepcopy(turn_state)
+            if normalized_action == "movement":
+                restore_amount = int(amount) if amount else int(turn_state.get("movementMax", 30))
+                turn_state["movementUsed"] = max(0, int(turn_state.get("movementUsed", 0)) - restore_amount)
+                return deepcopy(turn_state)
+            key = ACTION_ECONOMY_KEYS.get(normalized_action)
+            if key is None:
+                raise ValueError(f"unknown action type: {action_type}")
+            turn_state[key] = True
             return deepcopy(turn_state)
 
     def apply_damage(self, target_id: str, amount: int, *, damage_type: str = "untyped", user_id: str) -> dict[str, Any]:
@@ -1352,6 +1398,15 @@ def current_time() -> str:
 
 def normalize_token_name(value: str) -> str:
     return value.strip().lower()
+
+
+def normalize_action_economy_type(value: str) -> str:
+    normalized = re.sub(r"[\s-]+", "_", value.strip().lower())
+    readable = value.strip().lower()
+    return ACTION_ECONOMY_ALIASES.get(
+        normalized,
+        ACTION_ECONOMY_ALIASES.get(readable, normalized),
+    )
 
 
 def normalize_login_username(value: str) -> str:

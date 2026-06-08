@@ -10,7 +10,8 @@ import type {
   MonsterCard,
   PendingAction,
   RagQueryResponse,
-  SpellSlot
+  SpellSlot,
+  TurnState
 } from "./types";
 
 const AUTH_TOKEN_KEY = "dnd-seat-token";
@@ -283,6 +284,24 @@ export function restoreResource(input: {
       body: JSON.stringify(input)
     }
   );
+}
+
+export function restoreActionEconomy(input: {
+  actorId: string;
+  actionType: "action" | "bonus_action" | "reaction" | "object_interaction" | "movement" | "all" | string;
+  amount?: number;
+  reason?: string;
+}): Promise<{
+  result: { actorId: string; actionType: string; amount: number; reason: string; turnState: TurnState };
+  state: GameState;
+}> {
+  return request<{
+    result: { actorId: string; actionType: string; amount: number; reason: string; turnState: TurnState };
+    state: GameState;
+  }>("/api/combat/restore-action-economy", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
 }
 
 export function confirmPendingAction(input: {

@@ -71,6 +71,13 @@ class ResourceRequest(BaseModel):
     amount: int = Field(default=1, ge=1)
 
 
+class ActionEconomyRequest(BaseModel):
+    actorId: str
+    actionType: str = "action"
+    amount: int = Field(default=0, ge=0)
+    reason: str = "action recovery"
+
+
 class AttackResolveRequest(BaseModel):
     attackerId: str
     targetId: str

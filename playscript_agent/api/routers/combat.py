@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from playscript_agent.api.dependencies import get_principal
 from playscript_agent.api.schemas import (
+    ActionEconomyRequest,
     AttackResolveRequest,
     CheckResolveRequest,
     CombatStartRequest,
@@ -197,6 +198,22 @@ def restore_resource(request: ResourceRequest, principal: Principal = Depends(ge
             request.characterId,
             request.resourceName,
             request.amount,
+            user_id=principal.user_id,
+        )
+    except Exception as error:
+        _raise_http(error)
+    return {"result": result, "state": store.snapshot()}
+
+
+@router.post("/api/combat/restore-action-economy")
+def restore_action_economy(request: ActionEconomyRequest, principal: Principal = Depends(get_principal)) -> dict:
+    store = get_store(principal.session_id)
+    try:
+        result = combat_service.restore_action_economy(
+            request.actorId,
+            request.actionType,
+            amount=request.amount,
+            reason=request.reason,
             user_id=principal.user_id,
         )
     except Exception as error:
