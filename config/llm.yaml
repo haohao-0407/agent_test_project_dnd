@@ -18,7 +18,7 @@ models:
     base_url_env: DEEPSEEK_BASE_URL
     temperature: 0.1
     kwargs:
-      timeout: 12
+      timeout: 120
 
   # Example OpenAI or OpenAI-compatible third-party gateway:
   # player:

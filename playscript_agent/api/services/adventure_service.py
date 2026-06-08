@@ -49,6 +49,20 @@ def start_adventure(
     )
 
 
+def set_player_ready(
+    *,
+    user_id: str,
+    session_id: str = "default",
+    module_name: str = DEFAULT_MODULE_NAME,
+    ready: bool = True,
+) -> dict[str, Any]:
+    store = get_store(session_id)
+    state = store.set_player_ready(user_id, ready)
+    if ready and state.get("session", {}).get("mode") == "character_creation" and _joined_players_are_ready(state):
+        return start_adventure(user_id=user_id, session_id=session_id, module_name=module_name)
+    return state
+
+
 def prepare_combat_scene(
     *,
     session_id: str = "default",
@@ -536,6 +550,15 @@ def _party_summary(session_id: str) -> list[dict[str, str]]:
                 }
             )
     return party
+
+
+def _joined_players_are_ready(state: dict[str, Any]) -> bool:
+    joined_players = [
+        player
+        for player in state.get("players", [])
+        if player.get("role") == "player" and player.get("joined")
+    ]
+    return bool(joined_players) and all(player.get("characterId") and player.get("ready") for player in joined_players)
 
 
 def _find_scene(scenes: Any, scene_id: str, *, fallback_to_first: bool = True) -> dict[str, Any] | None:

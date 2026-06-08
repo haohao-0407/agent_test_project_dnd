@@ -154,6 +154,19 @@ export function startAdventure(input: {
   });
 }
 
+export function setAdventureReady(input: {
+  ready: boolean;
+  moduleName?: string;
+}): Promise<{ state: GameState }> {
+  return request<{ state: GameState }>("/api/adventure/ready", {
+    method: "POST",
+    body: JSON.stringify({
+      ready: input.ready,
+      moduleName: input.moduleName || "凡戴尔的失落矿坑"
+    })
+  });
+}
+
 export function getAdventureScenes(input: {
   moduleName?: string;
 } = {}): Promise<{ scenes: AdventureSceneCollection }> {

@@ -1,5 +1,6 @@
 from playscript_agent.api.schemas.dnd import (
     AdventureStartRequest,
+    AdventureReadyRequest,
     AdventureSceneJumpRequest,
     CharacterCreateRequest,
     CharacterUpdateRequest,
@@ -29,6 +30,7 @@ from playscript_agent.api.schemas.dnd import (
 
 __all__ = [
     "AdventureStartRequest",
+    "AdventureReadyRequest",
     "AdventureSceneJumpRequest",
     "CharacterCreateRequest",
     "CharacterUpdateRequest",

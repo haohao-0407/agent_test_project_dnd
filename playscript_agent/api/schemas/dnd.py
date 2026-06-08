@@ -111,6 +111,11 @@ class AdventureStartRequest(BaseModel):
     moduleName: str = "凡戴尔的失落矿坑"
 
 
+class AdventureReadyRequest(BaseModel):
+    ready: bool = True
+    moduleName: str = "凡戴尔的失落矿坑"
+
+
 class AdventureSceneJumpRequest(BaseModel):
     moduleName: str = "凡戴尔的失落矿坑"
     sceneId: str

@@ -95,6 +95,18 @@ DM_TOOL_SCHEMAS.extend(
             "parameters": {"type": "object", "properties": {}},
         },
         {
+            "name": "switch_exploration_scene",
+            "description": "Switch to another exploration scene from the current module without entering tactical combat. DM-only.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "scene_id": {"type": "string", "description": "Exploration scene id from the module scene collection."},
+                    "module_name": {"type": "string", "description": "Optional module name. Defaults to the active adventure module."},
+                },
+                "required": ["scene_id"],
+            },
+        },
+        {
             "name": "end_turn",
             "description": "End the current combat actor's turn and advance initiative.",
             "parameters": {
@@ -314,6 +326,7 @@ Do not reveal tool JSON, function names, or backend details in player-facing tex
 If no tool is needed, answer in concise Chinese as the DM.
 Exploration and combat are separate modes. In exploration mode, do not move tokens on the grid; narrate scenes, NPC dialogue, choices, and checks like a visual novel.
 Only call start_combat when the module scene, player choices, or failed checks make a fight begin. Once combat starts, the app switches to the tactical grid and combat tools.
+Call switch_exploration_scene when the party clearly moves to another module exploration scene, location, or chapter without entering combat.
 Call end_combat when the fight is resolved, enemies are defeated, surrender, flee, or the scene clearly returns to exploration.
 For map coordinates, every surface uses 0-based x/y: player text, tool arguments, tool results, current_state, events, and system messages.
 Never convert, add, or subtract coordinate values.
@@ -606,6 +619,18 @@ def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dic
     if name == "end_combat":
         combat = combat_service.end_combat(user_id=authority_user_id)
         return {"name": name, "result": {"combat": combat}}
+    if name == "switch_exploration_scene":
+        from playscript_agent.api.services import adventure_service
+
+        state = game_state.snapshot()
+        adventure = state.get("adventure", {})
+        module_name = str(arguments.get("module_name") or adventure.get("moduleName") or "凡戴尔的失落矿坑")
+        scene_state = adventure_service.switch_exploration_scene(
+            user_id=authority_user_id,
+            module_name=module_name,
+            scene_id=str(arguments["scene_id"]),
+        )
+        return {"name": name, "result": {"state": scene_state}}
     if name == "end_turn":
         combat = combat_service.end_turn(
             arguments.get("actor_id"),
@@ -745,6 +770,7 @@ def execute_tool_call(tool_call: ToolCall, *, user_id: str | None = None) -> dic
 DM_AUTHORITY_TOOLS = {
     "start_combat",
     "end_combat",
+    "switch_exploration_scene",
     "advance_turn",
     "apply_damage",
     "apply_healing",
@@ -848,6 +874,10 @@ def build_result_message(tool_results: list[dict[str, Any]]) -> str:
             parts.append(f"{result['expression']} 结果为 {result['total']}")
         elif tool_result["name"] == "end_combat":
             parts.append("战斗结束，场景回到探索")
+        elif tool_result["name"] == "switch_exploration_scene":
+            adventure = tool_result["result"]["state"].get("adventure", {})
+            scene_name = adventure.get("scene") or adventure.get("explorationSceneId") or "新场景"
+            parts.append(f"场景切换到 {scene_name}")
         elif tool_result["name"] == "end_turn":
             combat = tool_result["result"]["combat"]
             turn_state = next(iter(combat.get("turnState", {}).values()), {})
@@ -1051,6 +1081,7 @@ def _normalize_tool_call(raw_call: Any, *, user_id: str) -> ToolCall | None:
     if name in {
         "start_combat",
         "end_combat",
+        "switch_exploration_scene",
         "end_turn",
         "advance_turn",
         "apply_damage",
@@ -1332,5 +1363,6 @@ def _snake_case_arguments(arguments: dict[str, Any]) -> dict[str, Any]:
         "spellLevel": "level",
         "windowId": "window_id",
         "sceneId": "scene_id",
+        "moduleName": "module_name",
     }
     return {aliases.get(key, key): value for key, value in arguments.items()}

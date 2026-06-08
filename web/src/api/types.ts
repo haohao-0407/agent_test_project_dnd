@@ -53,6 +53,8 @@ export type Player = {
   displayName: string;
   characterId?: string | null;
   role: "player" | "dm" | string;
+  joined?: boolean;
+  ready?: boolean;
 };
 
 export type Terrain = {

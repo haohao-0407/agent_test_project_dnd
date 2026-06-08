@@ -6,6 +6,7 @@ import {
   declinePendingAction,
   endCombat,
   endTurn,
+  getState,
   logout,
   me,
   moveToken,
@@ -59,6 +60,35 @@ export function TabletopApp() {
       })
       .finally(() => setAuthChecked(true));
   }, []);
+
+  useEffect(() => {
+    if (!identity) return;
+    let stopped = false;
+
+    const refreshState = () => {
+      getState()
+        .then((nextState) => {
+          if (!stopped) {
+            setState(nextState);
+          }
+        })
+        .catch((apiError: Error) => {
+          if (stopped) return;
+          if (apiError instanceof ApiError && apiError.status === 401) {
+            setIdentity(null);
+            setState(null);
+            return;
+          }
+          setError(apiError.message);
+        });
+    };
+
+    const intervalId = window.setInterval(refreshState, 2000);
+    return () => {
+      stopped = true;
+      window.clearInterval(intervalId);
+    };
+  }, [identity]);
 
   useEffect(() => {
     if (!identity || !state || isAutoAdvancing || !state.combat.active) return;

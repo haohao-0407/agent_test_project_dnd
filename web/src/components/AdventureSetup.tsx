@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { startAdventure } from "../api/client";
+import { setAdventureReady } from "../api/client";
 import type { GameState, Player } from "../api/types";
 import { CharacterCardsPage } from "./CharacterCardsPage";
 
@@ -16,23 +16,29 @@ export function AdventureSetup({
   currentUserId,
   onStateChange
 }: AdventureSetupProps) {
-  const [starting, setStarting] = useState(false);
+  const [updatingReady, setUpdatingReady] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
-  const partyPlayers = state.players.filter((player) => player.role === "player" && player.characterId);
+  const joinedPlayers = state.players.filter((player) => player.role === "player" && player.joined);
+  const readyPlayers = joinedPlayers.filter((player) => player.ready && player.characterId);
   const isPlayer = currentUser.role !== "dm";
   const hasCharacter = !isPlayer || Boolean(currentUser.characterId);
-  const canStart = partyPlayers.length > 0 && hasCharacter;
+  const isReady = Boolean(currentUser.ready);
+  const canReady = isPlayer && hasCharacter;
 
-  async function handleStartAdventure() {
-    setStarting(true);
+  async function handleReadyToggle() {
+    if (!isPlayer) return;
+    setUpdatingReady(true);
     setNotice(null);
     try {
-      const response = await startAdventure({ moduleName: state.adventure?.moduleName });
+      const response = await setAdventureReady({
+        ready: !isReady,
+        moduleName: state.adventure?.moduleName
+      });
       onStateChange(response.state);
     } catch (error) {
-      setNotice(error instanceof Error ? error.message : "冒险启动失败");
+      setNotice(error instanceof Error ? error.message : "准备状态更新失败");
     } finally {
-      setStarting(false);
+      setUpdatingReady(false);
     }
   }
 
@@ -47,23 +53,32 @@ export function AdventureSetup({
         </div>
         <div className="setup-body">
           <div className="setup-status">
-            <span>角色</span>
-            <strong>{partyPlayers.length}</strong>
+            <span>已加入</span>
+            <strong>{joinedPlayers.length}</strong>
+          </div>
+          <div className="setup-status">
+            <span>已准备</span>
+            <strong>{readyPlayers.length}</strong>
           </div>
           <div className="setup-party">
-            {state.players.filter((player) => player.role === "player").map((player) => {
+            {joinedPlayers.length ? joinedPlayers.map((player) => {
               const character = state.characters.find((item) => item.id === player.characterId);
               return (
                 <div className="setup-party-row" key={player.id}>
                   <span>{player.displayName}</span>
                   <strong>{character ? character.name : "未创建"}</strong>
+                  <span>{player.ready ? "已准备" : "未准备"}</span>
                 </div>
               );
-            })}
+            }) : <p className="setup-empty">等待玩家加入</p>}
           </div>
-          <button type="button" disabled={!canStart || starting} onClick={() => void handleStartAdventure()}>
-            {starting ? "绘制地图中" : "开始冒险"}
-          </button>
+          {isPlayer ? (
+            <button type="button" disabled={!canReady || updatingReady} onClick={() => void handleReadyToggle()}>
+              {updatingReady ? "同步中" : isReady ? "取消准备" : hasCharacter ? "准备" : "创建角色后准备"}
+            </button>
+          ) : (
+            <p className="setup-empty">所有已加入玩家准备后自动开始冒险</p>
+          )}
           {notice ? <p className="join-error">{notice}</p> : null}
         </div>
       </aside>
@@ -83,13 +98,15 @@ export function AdventureSetup({
             </div>
           </div>
           <div className="setup-body">
-            {partyPlayers.length ? (
-              partyPlayers.map((player) => {
+            {joinedPlayers.length ? (
+              joinedPlayers.map((player) => {
                 const character = state.characters.find((item) => item.id === player.characterId);
                 return (
                   <div className="setup-character-card" key={player.id}>
                     <strong>{character?.name || player.displayName}</strong>
-                    <span>{character ? `${character.race} / ${character.class}` : "未创建"}</span>
+                    <span>
+                      {character ? `${character.race} / ${character.class}` : "未创建"} / {player.ready ? "已准备" : "未准备"}
+                    </span>
                   </div>
                 );
               })

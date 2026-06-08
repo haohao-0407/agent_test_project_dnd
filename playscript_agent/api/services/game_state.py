@@ -292,18 +292,24 @@ _DEFAULT_STATE: dict[str, Any] = {
             "displayName": "Kael Player",
             "characterId": "kael",
             "role": "player",
+            "joined": False,
+            "ready": False,
         },
         {
             "id": "player-mira",
             "displayName": "Mira Player",
             "characterId": "mira",
             "role": "player",
+            "joined": False,
+            "ready": False,
         },
         {
             "id": "dm",
             "displayName": "DM",
             "characterId": None,
             "role": "dm",
+            "joined": False,
+            "ready": False,
         },
     ],
     "map": map_repository.load_default_map(),
@@ -444,11 +450,43 @@ class GameStateStore:
         with self._lock:
             self._state = fresh_default_state()
 
+    def reset_to_adventure_start(self) -> None:
+        with self._lock:
+            self._state = fresh_adventure_start_state()
+
     def update_player_display_name(self, user_id: str, display_name: str) -> dict[str, Any]:
         with self._lock:
             player = self.find_player(user_id)
             player["displayName"] = display_name
             return deepcopy(player)
+
+    def update_player_presence(
+        self,
+        user_id: str,
+        *,
+        display_name: str | None = None,
+        joined: bool | None = None,
+        ready: bool | None = None,
+    ) -> dict[str, Any]:
+        with self._lock:
+            player = self.find_player(user_id)
+            if display_name is not None:
+                player["displayName"] = display_name
+            if joined is not None:
+                player["joined"] = joined
+            if ready is not None:
+                player["ready"] = ready
+            return deepcopy(player)
+
+    def set_player_ready(self, user_id: str, ready: bool) -> dict[str, Any]:
+        with self._lock:
+            player = self.find_player(user_id)
+            if player.get("role") == "dm":
+                raise PermissionError("DM does not need to ready up")
+            if ready and not player.get("characterId"):
+                raise PermissionError("create a character before readying up")
+            player["ready"] = ready
+            return self.snapshot()
 
     def append_event(self, event: dict[str, Any]) -> None:
         with self._lock:
@@ -503,6 +541,7 @@ class GameStateStore:
                 player = self.find_player(user_id)
                 if not player.get("characterId"):
                     player["characterId"] = next_character["id"]
+                player["ready"] = False
             return deepcopy(next_character)
 
     def start_adventure(
@@ -1355,9 +1394,16 @@ def fresh_adventure_start_state() -> dict[str, Any]:
             "startedAt": "",
         },
         "players": [
-            {"id": f"player-{index}", "displayName": f"Player {index}", "characterId": None, "role": "player"}
+            {
+                "id": f"player-{index}",
+                "displayName": f"Player {index}",
+                "characterId": None,
+                "role": "player",
+                "joined": False,
+                "ready": False,
+            }
             for index in range(1, 6)
-        ] + [{"id": "dm", "displayName": "DM", "characterId": None, "role": "dm"}],
+        ] + [{"id": "dm", "displayName": "DM", "characterId": None, "role": "dm", "joined": False, "ready": False}],
         "map": map_repository.validate_map(
             {
                 "id": "adventure-start",
@@ -1490,7 +1536,7 @@ class _SessionRegistry:
         self._forget_usernames_for_user_locked(usernames, user_id)
         claimed.add(user_id)
         usernames[username] = user_id
-        store.update_player_display_name(user_id, display_name)
+        store.update_player_presence(user_id, display_name=display_name, joined=True)
         token = secrets.token_urlsafe(32)
         session_token = SessionToken(
             token=token,
@@ -1512,6 +1558,8 @@ class _SessionRegistry:
         claimed = self._claimed.get(session_token.principal.session_id)
         if claimed is not None:
             claimed.discard(session_token.principal.user_id)
+        store = self.get(session_token.principal.session_id)
+        store.update_player_presence(session_token.principal.user_id, joined=False, ready=False)
 
     def _revoke_user_tokens_locked(self, session_id: str, user_id: str) -> None:
         for token, session_token in list(self._tokens.items()):

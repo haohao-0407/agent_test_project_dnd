@@ -278,6 +278,51 @@ def test_dm_can_jump_exploration_scene_and_sync_adventure_state():
     assert state["events"][-1]["text"] == "Scene changed to 沉睡的巨人."
 
 
+def test_ready_players_auto_start_adventure(monkeypatch):
+    game_state.reset_to_adventure_start()
+    game_state.update_player_presence("player-1", display_name="Alice", joined=True)
+    game_state.update_player_presence("player-2", display_name="Bob", joined=True)
+    game_state.create_character({"id": "alice-hero", "name": "Alice Hero"}, user_id="player-1")
+    game_state.create_character({"id": "bob-hero", "name": "Bob Hero"}, user_id="player-2")
+    monkeypatch.setattr(adventure_service, "load_module_text", lambda module_name: "module text")
+    monkeypatch.setattr(
+        adventure_service,
+        "load_opening_scene",
+        lambda module_name: {
+            "map": {
+                "id": "opening",
+                "name": "Opening",
+                "width": 8,
+                "height": 8,
+                "gridSize": 48,
+                "terrain": [],
+                "annotations": [],
+            },
+            "monsters": [],
+            "openingText": "",
+            "source": "test",
+            "explorationSceneId": "opening-scene",
+            "explorationSceneName": "Opening Scene",
+            "backgroundUrl": "",
+            "combatSceneId": "",
+            "combatSceneName": "",
+        },
+    )
+    monkeypatch.setattr(
+        adventure_service,
+        "generate_opening_narration",
+        lambda module_text, *, scene, party, module_name: "The adventure begins.",
+    )
+
+    waiting = adventure_service.set_player_ready(user_id="player-1", ready=True)
+    started = adventure_service.set_player_ready(user_id="player-2", ready=True)
+
+    assert waiting["session"]["mode"] == "character_creation"
+    assert started["session"]["mode"] == "exploration"
+    assert started["adventure"]["scene"] == "Opening Scene"
+    assert [token["id"] for token in started["tokens"]] == ["alice-hero", "bob-hero"]
+
+
 def test_only_dm_can_prepare_combat_scene():
     with pytest.raises(PermissionError):
         adventure_service.prepare_combat_scene(scene_id="triboar-trail-ambush", user_id="player-kael")
@@ -532,6 +577,43 @@ def test_chat_llm_can_start_combat_with_dm_authority(monkeypatch):
     assert response["state"]["combat"]["active"] is True
     assert response["state"]["session"]["mode"] == "combat"
     assert response["state"]["events"][-1]["text"] == "战斗开始，先攻顺序已经建立。"
+
+
+def test_chat_llm_can_switch_exploration_scene_with_dm_authority(monkeypatch):
+    fake_dm = FakeDmModel(
+        [
+            FakeMessage(
+                tool_calls=[
+                    {
+                        "name": "switch_exploration_scene",
+                        "args": {"sceneId": "sleeping-giant"},
+                    }
+                ]
+            ),
+            FakeMessage(content="你们来到沉睡的巨人，门外的红标帮目光不善。"),
+        ]
+    )
+    monkeypatch.setattr(chat_service, "get_llm", lambda role: fake_dm)
+    monkeypatch.setattr(chat_service, "_build_rule_context", lambda message, *, user_id: "")
+
+    response = chat_service.handle_chat(
+        "我们去沉睡的巨人看看",
+        speaker="Kael Player",
+        user_id="player-kael",
+    )
+
+    assert response["toolCalls"] == [
+        {
+            "name": "switch_exploration_scene",
+            "arguments": {"scene_id": "sleeping-giant"},
+        }
+    ]
+    assert response["state"]["session"]["mode"] == "exploration"
+    assert response["state"]["adventure"]["scene"] == "沉睡的巨人"
+    assert response["state"]["adventure"]["explorationSceneId"] == "sleeping-giant"
+    assert response["state"]["adventure"]["backgroundUrl"].endswith("/pictures/Player/exploration/sleeping-giant.png")
+    assert response["state"]["adventure"]["combatSceneId"] == "phandalin-redbrand-street"
+    assert response["state"]["events"][-1]["text"] == "你们来到沉睡的巨人，门外的红标帮目光不善。"
 
 
 def test_chat_rejects_llm_tool_call_for_unowned_token(monkeypatch):
