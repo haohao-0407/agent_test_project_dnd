@@ -75,12 +75,12 @@ async function request<T>(path: string, init?: RequestInit, options?: { auth?: b
   return payload as T;
 }
 
-export async function joinSession(role: JoinRole): Promise<AuthSession> {
+export async function joinSession(role: JoinRole, username: string): Promise<AuthSession> {
   const session = await request<AuthSession>(
     "/api/auth/join",
     {
       method: "POST",
-      body: JSON.stringify({ role })
+      body: JSON.stringify({ role, username })
     },
     { auth: false }
   );

@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from playscript_agent.api.services import adventure_service, character_repository, chat_service, dice_service, map_service, monster_repository
-from playscript_agent.api.services.game_state import game_state
+from playscript_agent.api.services.game_state import GameStateStore, game_state
 
 
 TEST_CHARACTER_ROOT = Path(__file__).resolve().parents[1] / "document" / "characters" / ".test-permanent-repository"
@@ -101,6 +101,20 @@ def test_player_can_only_update_owned_character_card():
             {"hp": {"current": 10, "max": 18, "temp": 0}},
             user_id="player-kael",
         )
+
+
+def test_imported_character_player_name_does_not_override_logged_in_username():
+    store = GameStateStore()
+    store.update_player_display_name("player-1", "Alice")
+
+    character = store.create_character(
+        {"id": "imported-hero", "name": "Imported Hero", "playerName": "Old Owner"},
+        user_id="player-1",
+    )
+    player = next(item for item in store.snapshot()["players"] if item["id"] == "player-1")
+
+    assert player["characterId"] == "imported-hero"
+    assert player["displayName"] == "Alice"
 
 
 def test_permanent_character_repository_stores_each_character_in_own_file(monkeypatch):

@@ -196,6 +196,19 @@ button:disabled {
   line-height: 1.15;
 }
 
+.join-field {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.join-field span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
 .join-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;

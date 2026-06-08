@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 
 class JoinRequest(BaseModel):
     role: str = "player"
+    username: str = Field(min_length=1, max_length=40)
 
 
 class DiceRequest(BaseModel):

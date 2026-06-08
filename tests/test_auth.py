@@ -14,18 +14,42 @@ def setup_function() -> None:
 def test_join_claims_existing_seats_and_exhausts_players() -> None:
     client = TestClient(create_app())
 
-    first = client.post("/api/auth/join", json={"role": "player"})
-    second = client.post("/api/auth/join", json={"role": "player"})
-    third = client.post("/api/auth/join", json={"role": "player"})
-    dm = client.post("/api/auth/join", json={"role": "dm"})
+    first = client.post("/api/auth/join", json={"role": "player", "username": "Alice"})
+    second = client.post("/api/auth/join", json={"role": "player", "username": "Bob"})
+    third = client.post("/api/auth/join", json={"role": "player", "username": "Cora"})
+    dm = client.post("/api/auth/join", json={"role": "dm", "username": "Morgan"})
 
     assert first.status_code == 200
     assert first.json()["userId"] == "player-kael"
+    assert first.json()["player"]["displayName"] == "Alice"
     assert second.status_code == 200
     assert second.json()["userId"] == "player-mira"
+    assert second.json()["player"]["displayName"] == "Bob"
     assert third.status_code == 409
     assert dm.status_code == 200
     assert dm.json()["userId"] == "dm"
+    assert dm.json()["player"]["displayName"] == "Morgan"
+
+
+def test_join_reclaims_same_seat_by_username_when_token_is_missing() -> None:
+    client = TestClient(create_app())
+
+    first = client.post("/api/auth/join", json={"role": "player", "username": "Alice"}).json()
+    second = client.post("/api/auth/join", json={"role": "player", "username": "Alice"}).json()
+
+    assert first["userId"] == "player-kael"
+    assert second["userId"] == "player-kael"
+    assert second["token"] != first["token"]
+
+
+def test_username_cannot_switch_roles() -> None:
+    client = TestClient(create_app())
+
+    player = client.post("/api/auth/join", json={"role": "player", "username": "Alice"})
+    dm = client.post("/api/auth/join", json={"role": "dm", "username": "Alice"})
+
+    assert player.status_code == 200
+    assert dm.status_code == 409
 
 
 def test_protected_endpoint_requires_token() -> None:
@@ -38,7 +62,7 @@ def test_protected_endpoint_requires_token() -> None:
 
 def test_me_resolves_token_to_seat_principal() -> None:
     client = TestClient(create_app())
-    joined = client.post("/api/auth/join", json={"role": "dm"}).json()
+    joined = client.post("/api/auth/join", json={"role": "dm", "username": "Morgan"}).json()
 
     response = client.get(
         "/api/auth/me",
@@ -52,7 +76,7 @@ def test_me_resolves_token_to_seat_principal() -> None:
 
 def test_body_user_id_cannot_override_token_principal() -> None:
     client = TestClient(create_app())
-    joined = client.post("/api/auth/join", json={"role": "player"}).json()
+    joined = client.post("/api/auth/join", json={"role": "player", "username": "Alice"}).json()
 
     response = client.patch(
         "/api/map",
@@ -66,13 +90,13 @@ def test_body_user_id_cannot_override_token_principal() -> None:
 
 def test_logout_releases_claimed_seat() -> None:
     client = TestClient(create_app())
-    joined = client.post("/api/auth/join", json={"role": "dm"}).json()
+    joined = client.post("/api/auth/join", json={"role": "dm", "username": "Morgan"}).json()
 
     logout = client.post(
         "/api/auth/logout",
         headers={"Authorization": f"Bearer {joined['token']}"},
     )
-    rejoined = client.post("/api/auth/join", json={"role": "dm"})
+    rejoined = client.post("/api/auth/join", json={"role": "dm", "username": "Morgan"})
 
     assert logout.status_code == 200
     assert rejoined.status_code == 200

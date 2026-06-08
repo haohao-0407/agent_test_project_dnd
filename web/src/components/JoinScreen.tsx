@@ -7,14 +7,20 @@ type JoinScreenProps = {
 };
 
 export function JoinScreen({ title = "Join table", onJoined }: JoinScreenProps) {
+  const [username, setUsername] = useState("");
   const [joiningRole, setJoiningRole] = useState<JoinRole | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function handleJoin(role: JoinRole) {
+    const nextUsername = username.trim();
+    if (!nextUsername) {
+      setError("Enter your username.");
+      return;
+    }
     setJoiningRole(role);
     setError(null);
     try {
-      const session = await joinSession(role);
+      const session = await joinSession(role, nextUsername);
       onJoined(session);
     } catch (apiError) {
       setError(apiError instanceof Error ? apiError.message : "Could not join the table.");
@@ -28,11 +34,25 @@ export function JoinScreen({ title = "Join table", onJoined }: JoinScreenProps) 
       <section className="join-panel">
         <p className="eyebrow">DND Agent</p>
         <h1>{title}</h1>
+        <label className="join-field">
+          <span>Username</span>
+          <input
+            value={username}
+            maxLength={40}
+            autoComplete="username"
+            onChange={(event) => setUsername(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                void handleJoin("player");
+              }
+            }}
+          />
+        </label>
         <div className="join-actions">
-          <button type="button" disabled={joiningRole !== null} onClick={() => void handleJoin("player")}>
+          <button type="button" disabled={joiningRole !== null || !username.trim()} onClick={() => void handleJoin("player")}>
             {joiningRole === "player" ? "Joining..." : "Join as player"}
           </button>
-          <button type="button" disabled={joiningRole !== null} onClick={() => void handleJoin("dm")}>
+          <button type="button" disabled={joiningRole !== null || !username.trim()} onClick={() => void handleJoin("dm")}>
             {joiningRole === "dm" ? "Joining..." : "Join as DM"}
           </button>
         </div>

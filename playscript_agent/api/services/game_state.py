@@ -444,6 +444,12 @@ class GameStateStore:
         with self._lock:
             self._state = fresh_default_state()
 
+    def update_player_display_name(self, user_id: str, display_name: str) -> dict[str, Any]:
+        with self._lock:
+            player = self.find_player(user_id)
+            player["displayName"] = display_name
+            return deepcopy(player)
+
     def append_event(self, event: dict[str, Any]) -> None:
         with self._lock:
             event.setdefault("time", current_time())
@@ -497,7 +503,6 @@ class GameStateStore:
                 player = self.find_player(user_id)
                 if not player.get("characterId"):
                     player["characterId"] = next_character["id"]
-                    player["displayName"] = next_character.get("playerName") or player["displayName"]
             return deepcopy(next_character)
 
     def start_adventure(
@@ -1310,6 +1315,10 @@ def normalize_token_name(value: str) -> str:
     return value.strip().lower()
 
 
+def normalize_login_username(value: str) -> str:
+    return " ".join(value.strip().lower().split())
+
+
 def ability_modifier(character: dict[str, Any], ability: str) -> int:
     key = ability.upper()
     ability_detail = character.get("abilities", {}).get(key)
@@ -1382,37 +1391,64 @@ class _SessionRegistry:
         self._stores: dict[str, GameStateStore] = {DEFAULT_SESSION_ID: GameStateStore()}
         self._tokens: dict[str, SessionToken] = {}
         self._claimed: dict[str, set[str]] = {}
+        self._usernames: dict[str, dict[str, str]] = {}
 
     def get(self, session_id: str = DEFAULT_SESSION_ID) -> GameStateStore:
         with self._lock:
             return self._stores[DEFAULT_SESSION_ID]
 
-    def join(self, *, role: str = "player", session_id: str = DEFAULT_SESSION_ID) -> SessionToken:
+    def join(self, *, role: str = "player", username: str, session_id: str = DEFAULT_SESSION_ID) -> SessionToken:
         normalized_role = role.strip().lower()
         if normalized_role not in {"player", "dm"}:
             raise ValueError("role must be player or dm")
+        display_name = username.strip()
+        normalized_username = normalize_login_username(display_name)
+        if not normalized_username:
+            raise ValueError("username is required")
 
         now = datetime.now(timezone.utc)
         with self._lock:
             self._reap_expired_locked(now)
             store = self.get(session_id)
             claimed = self._claimed.setdefault(session_id, set())
-            for player in store.snapshot()["players"]:
-                if player.get("role") != normalized_role or player["id"] in claimed:
-                    continue
-                claimed.add(player["id"])
-                token = secrets.token_urlsafe(32)
-                session_token = SessionToken(
-                    token=token,
-                    principal=Principal(
+            usernames = self._usernames.setdefault(session_id, {})
+            players = store.snapshot()["players"]
+
+            user_id = usernames.get(normalized_username)
+            if user_id is not None:
+                player = self._player_for_user_id(players, user_id)
+                if player is None:
+                    usernames.pop(normalized_username, None)
+                elif player.get("role") != normalized_role:
+                    raise PermissionError(f"username is already joined as {player.get('role')}")
+                else:
+                    return self._issue_token_locked(
                         session_id=session_id,
-                        user_id=str(player["id"]),
+                        user_id=user_id,
                         role=str(player.get("role", normalized_role)),
-                    ),
-                    expires_at=now + SESSION_TOKEN_TTL,
+                        display_name=display_name,
+                        username=normalized_username,
+                        claimed=claimed,
+                        usernames=usernames,
+                        store=store,
+                        now=now,
+                    )
+
+            for player in players:
+                user_id = str(player["id"])
+                if player.get("role") != normalized_role or user_id in claimed:
+                    continue
+                return self._issue_token_locked(
+                    session_id=session_id,
+                    user_id=user_id,
+                    role=str(player.get("role", normalized_role)),
+                    display_name=display_name,
+                    username=normalized_username,
+                    claimed=claimed,
+                    usernames=usernames,
+                    store=store,
+                    now=now,
                 )
-                self._tokens[token] = session_token
-                return session_token
         raise PermissionError(f"no available {normalized_role} seats")
 
     def resolve(self, token: str) -> Principal:
@@ -1435,6 +1471,34 @@ class _SessionRegistry:
         with self._lock:
             self._tokens.clear()
             self._claimed.clear()
+            self._usernames.clear()
+
+    def _issue_token_locked(
+        self,
+        *,
+        session_id: str,
+        user_id: str,
+        role: str,
+        display_name: str,
+        username: str,
+        claimed: set[str],
+        usernames: dict[str, str],
+        store: GameStateStore,
+        now: datetime,
+    ) -> SessionToken:
+        self._revoke_user_tokens_locked(session_id, user_id)
+        self._forget_usernames_for_user_locked(usernames, user_id)
+        claimed.add(user_id)
+        usernames[username] = user_id
+        store.update_player_display_name(user_id, display_name)
+        token = secrets.token_urlsafe(32)
+        session_token = SessionToken(
+            token=token,
+            principal=Principal(session_id=session_id, user_id=user_id, role=role),
+            expires_at=now + SESSION_TOKEN_TTL,
+        )
+        self._tokens[token] = session_token
+        return session_token
 
     def _reap_expired_locked(self, now: datetime) -> None:
         for token, session_token in list(self._tokens.items()):
@@ -1449,6 +1513,24 @@ class _SessionRegistry:
         if claimed is not None:
             claimed.discard(session_token.principal.user_id)
 
+    def _revoke_user_tokens_locked(self, session_id: str, user_id: str) -> None:
+        for token, session_token in list(self._tokens.items()):
+            principal = session_token.principal
+            if principal.session_id == session_id and principal.user_id == user_id:
+                self._tokens.pop(token, None)
+
+    def _forget_usernames_for_user_locked(self, usernames: dict[str, str], user_id: str) -> None:
+        for username, mapped_user_id in list(usernames.items()):
+            if mapped_user_id == user_id:
+                usernames.pop(username, None)
+
+    def _player_for_user_id(self, players: list[dict[str, Any]], user_id: str) -> dict[str, Any] | None:
+        normalized = normalize_token_name(user_id)
+        for player in players:
+            if str(player["id"]).lower() == normalized:
+                return player
+        return None
+
 
 _registry = _SessionRegistry()
 
@@ -1457,8 +1539,8 @@ def get_store(session_id: str = DEFAULT_SESSION_ID) -> GameStateStore:
     return _registry.get(session_id)
 
 
-def join_session(*, role: str = "player", session_id: str = DEFAULT_SESSION_ID) -> SessionToken:
-    return _registry.join(role=role, session_id=session_id)
+def join_session(*, role: str = "player", username: str, session_id: str = DEFAULT_SESSION_ID) -> SessionToken:
+    return _registry.join(role=role, username=username, session_id=session_id)
 
 
 def resolve_session_token(token: str) -> Principal:

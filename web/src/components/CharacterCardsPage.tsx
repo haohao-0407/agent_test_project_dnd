@@ -316,6 +316,7 @@ export function CharacterCardsPage({
     const imported = cloneCharacter(source);
     imported.id = uniqueCharacterId(imported.id, state.characters);
     imported.ownerUserId = currentUserId;
+    delete imported.playerName;
     const payload = await createCharacter({ character: imported });
     onStateChange?.(payload.state);
     setSelectedId(payload.character.id);
