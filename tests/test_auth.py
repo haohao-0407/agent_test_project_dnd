@@ -101,3 +101,25 @@ def test_logout_releases_claimed_seat() -> None:
     assert logout.status_code == 200
     assert rejoined.status_code == 200
     assert rejoined.json()["userId"] == "dm"
+
+
+def test_state_websocket_sends_initial_state_and_broadcasts_updates() -> None:
+    client = TestClient(create_app())
+    joined = client.post("/api/auth/join", json={"role": "player", "username": "Alice"}).json()
+    headers = {"Authorization": f"Bearer {joined['token']}"}
+
+    with client.websocket_connect(f"/ws/state?token={joined['token']}") as websocket:
+        initial = websocket.receive_json()
+        assert initial["type"] == "state"
+        assert initial["state"]["players"][0]["displayName"] == "Alice"
+
+        response = client.post(
+            "/api/dice",
+            headers=headers,
+            json={"expression": "1d20", "reason": "sync test", "rollerId": "kael"},
+        )
+
+        assert response.status_code == 200
+        update = websocket.receive_json()
+        assert update["type"] == "state"
+        assert update["state"]["events"][-1]["type"] == "dice"

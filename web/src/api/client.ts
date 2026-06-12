@@ -107,6 +107,14 @@ export function getState(): Promise<GameState> {
   return request<GameState>("/api/state");
 }
 
+export function stateSocketUrl(token: string | null = getAuthToken()): string | null {
+  if (!token) return null;
+  const url = new URL("/ws/state", window.location.origin);
+  url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
+  url.searchParams.set("token", token);
+  return url.toString();
+}
+
 export function moveToken(
   tokenId: string,
   x: number,

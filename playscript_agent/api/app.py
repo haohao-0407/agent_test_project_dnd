@@ -7,9 +7,10 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from playscript_agent.api.routers import adventures, characters, chat, combat, dice, maps, monsters, pending_actions, rag, sessions
+from playscript_agent.api.routers import adventures, characters, chat, combat, dice, maps, monsters, pending_actions, rag, realtime, sessions
 from playscript_agent.api.services.character_repository import PERMANENT_CHARACTER_DIR
 from playscript_agent.api.services.adventure_service import MODULE_ROOT
+from playscript_agent.api.services.realtime import notify_state_changed
 
 
 DEFAULT_HOST = "127.0.0.1"
@@ -19,7 +20,21 @@ STATIC_ROOT = Path(__file__).resolve().parents[1] / "web" / "static"
 
 def create_app() -> FastAPI:
     app = FastAPI(title="DND Agent Tabletop API", version="0.1.0")
+
+    @app.middleware("http")
+    async def broadcast_state_changes(request, call_next):
+        response = await call_next(request)
+        principal = getattr(request.state, "principal", None)
+        if (
+            principal is not None
+            and request.method in {"POST", "PUT", "PATCH", "DELETE"}
+            and response.status_code < 400
+        ):
+            notify_state_changed(principal.session_id)
+        return response
+
     app.include_router(sessions.router)
+    app.include_router(realtime.router)
     app.include_router(adventures.router)
     app.include_router(characters.router)
     app.include_router(monsters.router)

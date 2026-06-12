@@ -6,12 +6,12 @@ import {
   declinePendingAction,
   endCombat,
   endTurn,
-  getState,
   logout,
   me,
   moveToken,
   sendChat,
   startCombat,
+  stateSocketUrl,
   updateMap
 } from "../api/client";
 import type { AuthSession } from "../api/client";
@@ -64,31 +64,47 @@ export function TabletopApp() {
   useEffect(() => {
     if (!identity) return;
     let stopped = false;
+    let retryId: number | null = null;
+    let socket: WebSocket | null = null;
 
-    const refreshState = () => {
-      getState()
-        .then((nextState) => {
-          if (!stopped) {
-            setState(nextState);
+    const connect = () => {
+      const url = stateSocketUrl();
+      if (!url) return;
+      socket = new WebSocket(url);
+      socket.onmessage = (event) => {
+        if (stopped) return;
+        try {
+          const payload = JSON.parse(String(event.data)) as { type?: string; state?: GameState };
+          if (payload.type === "state" && payload.state) {
+            setState(payload.state);
           }
-        })
-        .catch((apiError: Error) => {
-          if (stopped) return;
-          if (apiError instanceof ApiError && apiError.status === 401) {
-            setIdentity(null);
-            setState(null);
-            return;
-          }
-          setError(apiError.message);
-        });
+        } catch {
+          // Ignore malformed socket payloads; the next state message will recover the UI.
+        }
+      };
+      socket.onclose = (event) => {
+        if (stopped) return;
+        if (event.code === 1008) {
+          setIdentity(null);
+          setState(null);
+          return;
+        }
+        retryId = window.setTimeout(connect, 1500);
+      };
+      socket.onerror = () => {
+        socket?.close();
+      };
     };
 
-    const intervalId = window.setInterval(refreshState, 2000);
+    connect();
     return () => {
       stopped = true;
-      window.clearInterval(intervalId);
+      if (retryId !== null) {
+        window.clearTimeout(retryId);
+      }
+      socket?.close();
     };
-  }, [identity]);
+  }, [identity?.userId]);
 
   useEffect(() => {
     if (!identity || !state || isAutoAdvancing || !state.combat.active) return;

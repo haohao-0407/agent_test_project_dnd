@@ -11,8 +11,10 @@ from playscript_agent.api.services.game_state import (
     SESSION_TOKEN_TTL,
     get_store,
     join_session,
+    resolve_session_token,
     revoke_session_token,
 )
+from playscript_agent.api.services.realtime import notify_state_changed
 
 
 router = APIRouter()
@@ -36,6 +38,7 @@ def join(
         raise HTTPException(status_code=400, detail=str(error)) from error
 
     _set_session_cookie(response, session_token.token)
+    notify_state_changed(session_token.principal.session_id)
     return _auth_payload(session_token.token, session_token.principal)
 
 
@@ -51,7 +54,13 @@ def logout(
     session_cookie: Annotated[str | None, Cookie(alias=SESSION_TOKEN_COOKIE)] = None,
 ) -> dict:
     token = session_token_from_auth(authorization, session_cookie)
+    try:
+        principal = resolve_session_token(token)
+    except KeyError:
+        principal = None
     revoke_session_token(token)
+    if principal is not None:
+        notify_state_changed(principal.session_id)
     response.delete_cookie(SESSION_TOKEN_COOKIE, path="/")
     return {"ok": True}
 
